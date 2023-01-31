@@ -22,9 +22,10 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      home: const MyHomePage(title: 'Serve to be Free'),
     );
   }
 }
@@ -90,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
           //
           // Column has various properties to control how it sizes itself and
           // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
+          // center the children vertically; the main axifs here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
