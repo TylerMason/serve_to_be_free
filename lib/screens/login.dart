@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () => {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const App()),
+            MaterialPageRoute(builder: (context) => const AppPage()),
           )
         },
         // padding: EdgeInsets.all(15.0),
