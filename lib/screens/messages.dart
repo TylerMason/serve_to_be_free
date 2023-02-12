@@ -12,7 +12,7 @@ class _MessagesPageState extends State<MessagesPage> {
   Widget build(BuildContext context) {
     return Container(
       child:
-          const Text("Hello! i am Projects!", style: TextStyle(fontSize: 20)),
+          const Text("Hello! i am Messages!", style: TextStyle(fontSize: 20)),
     );
   }
 }

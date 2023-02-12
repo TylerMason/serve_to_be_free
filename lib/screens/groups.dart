@@ -10,8 +10,6 @@ class GroupsPage extends StatefulWidget {
 class _GroupsPageState extends State<GroupsPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Text("Hello! i am Groups!", style: TextStyle(fontSize: 20)),
-    );
+    return Container(child: (Text('I am groups')));
   }
 }

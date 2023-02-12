@@ -133,6 +133,9 @@ class _LoginScreenState extends State<LoginScreen> {
             context,
             MaterialPageRoute(builder: (context) => const AppPage()),
           )
+          // setState(() {
+          //   AppPage();
+          // })
         },
         // padding: EdgeInsets.all(15.0),
         // shape: RoundedRectangleBorder(
