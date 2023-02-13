@@ -11,7 +11,8 @@ class ProjectsPage extends StatefulWidget {
 }
 
 class _ProjectsPageState extends State<ProjectsPage> {
-  void findAPojectButton(/*int index*/) async {
+  void findAPojectButton(
+      /*int index or redirect to other page that grabs projects in area*/) async {
     showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -94,7 +95,10 @@ class _ProjectsPageState extends State<ProjectsPage> {
               ),
             ]),
           ),
-          Container(child: Row(projectCr))
+          Container(
+              child: Row(
+            children: [ProjectCard(), ProjectCard()],
+          ))
         ],
       ),
     );
