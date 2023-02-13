@@ -7,13 +7,19 @@ class ProjectCard extends StatelessWidget {
 
   /*
   This shouldnt change at all. Just displays... but it should be clickable? If
-  we need to add clickability to a container then we should use Inkwell.
+  we need to add clickability to a container then we should use Inkwell?
   */
 
-  // going to take an image
+  /*
+  So far this is only being used at the bottom of projects to display a small amount
+  of projects that the user is currently part of. Possible WAS part of as well...
+  or can display nothing if they are not part of any projects... (Conditional Rendering?)
+  */
+
+  // going to take an image?
   // going to take a sponsor logo image as well?
-  // going to take a title
-  // should be pointing at the main project page?
+  // going to take a title?
+  // should be pointing at the main project page... (ID?)?
 
   @override
   Widget build(BuildContext context) {
