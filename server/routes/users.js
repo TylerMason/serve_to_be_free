@@ -5,6 +5,7 @@ const User = require('../models/user.js')
 //Getting all
 router.get('/', async (req, res) => {
     try {
+        console.log('in')
         const users = await User.find()
         res.json(users)
     } catch (err) {
@@ -19,7 +20,6 @@ router.post('/', async (req, res) => {
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
-        id: req.body.id
     })
     try {
         const newUser = await user.save()

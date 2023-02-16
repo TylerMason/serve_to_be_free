@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:serve_to_be_free/utilities/constants.dart';
 import 'package:serve_to_be_free/screens/app.dart';
-import 'package:serve_to_be_free/screens/createAccount.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class LoginScreen extends StatefulWidget {
+class CreateAccountScreen extends StatefulWidget {
+  const CreateAccountScreen({Key? key}) : super(key: key);
+
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _CreateAccountState createState() => _CreateAccountState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _CreateAccountState extends State<CreateAccountScreen> {
   bool? _rememberMe = false;
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -88,19 +89,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildForgotPasswordBtn() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: TextButton(
-        onPressed: () => print('Forgot Password Button Pressed'),
-        child: Text(
-          'Forgot Password?',
-          style: kLabelStyle,
-        ),
-      ),
-    );
-  }
-
   Widget _buildRememberMeCheckbox() {
     return Container(
       height: 20.0,
@@ -128,12 +116,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildLoginBtn() {
+  Widget _buildCreateAccBtn() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () => {tryLogin()},
+        onPressed: () => {},
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.all(15.0),
           shape: RoundedRectangleBorder(
@@ -142,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
           backgroundColor: Color.fromARGB(255, 68, 97, 228),
         ),
         child: Text(
-          'LOGIN',
+          'Create Account',
           style: TextStyle(
             color: Color.fromARGB(255, 255, 255, 255),
             letterSpacing: 1.5,
@@ -150,42 +138,6 @@ class _LoginScreenState extends State<LoginScreen> {
             fontWeight: FontWeight.bold,
             fontFamily: 'OpenSans',
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSignupBtn() {
-    return GestureDetector(
-      onTap: () => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const CreateAccountScreen()),
-        ),
-        setState(() {
-          CreateAccountScreen();
-        })
-      },
-      child: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: 'Don\'t have an Account? ',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            TextSpan(
-              text: 'Sign Up',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
         ),
       ),
     );
@@ -243,10 +195,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 30.0,
                       ),
                       _buildPasswordTF(),
-                      _buildForgotPasswordBtn(),
                       _buildRememberMeCheckbox(),
-                      _buildLoginBtn(),
-                      _buildSignupBtn(),
+                      _buildCreateAccBtn(),
                     ],
                   ),
                 ),
