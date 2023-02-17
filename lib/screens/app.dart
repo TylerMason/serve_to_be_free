@@ -4,6 +4,8 @@ import 'package:serve_to_be_free/screens/groups.dart';
 import 'package:serve_to_be_free/screens/messages.dart';
 import 'package:serve_to_be_free/screens/projects.dart';
 import 'package:serve_to_be_free/screens/tasks.dart';
+// This is the way to properly route to different pages on the body of our scaffold.
+import 'package:go_router/go_router.dart';
 
 class AppPage extends StatefulWidget {
   const AppPage({Key? key}) : super(key: key);
@@ -21,6 +23,10 @@ class _AppPageState extends State<AppPage> {
       _selectedIndex = index;
     });
   }
+
+  /* 
+  I can have a mock list right here to pass into our messages page because 
+  */
 
   /* 
   This object is my attempt in creating a dynamic appbar header but we will
@@ -98,6 +104,8 @@ class _AppPageState extends State<AppPage> {
           on th eline below because the SliverAppBar widget is looking like the closest possibility 
           to making our profile page look more like the invision profile page layout.
         */
+
+        // this should actually be a drawer.
         appBar: _appBarHeaderOptions[0],
 
         /*

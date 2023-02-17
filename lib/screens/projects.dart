@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import './widgets/wideBorderButton.dart';
-import './widgets/sponsorCard.dart';
-import './widgets/projectCard.dart';
+import 'package:serve_to_be_free/screens/direct_messages.dart';
+import '../widgets/wide_border_button.dart';
+import '../widgets/sponsor_Card.dart';
+import '../widgets/project_card.dart';
 
 class ProjectsPage extends StatefulWidget {
   const ProjectsPage({Key? key}) : super(key: key);
@@ -63,14 +64,6 @@ class _ProjectsPageState extends State<ProjectsPage> {
               ),
               findAPojectButton),
           wideBorderButton(
-              "Adopt a Project",
-              Icon(
-                Icons.favorite_border_rounded,
-                color: Colors.pinkAccent[400],
-                size: 28.0,
-              ),
-              findAPojectButton),
-          wideBorderButton(
               "Lead a Project",
               Icon(
                 Icons.star_border_rounded,
@@ -78,9 +71,17 @@ class _ProjectsPageState extends State<ProjectsPage> {
                 size: 28.0,
               ),
               findAPojectButton),
-          sponsorCard(),
+          wideBorderButton(
+              "Sponsor a Project",
+              Icon(
+                Icons.favorite_border_rounded,
+                color: Colors.pinkAccent[400],
+                size: 28.0,
+              ),
+              findAPojectButton),
+          SponsorCard(),
           Container(
-            margin: EdgeInsets.only(left: 20, right: 20, top: 15),
+            margin: EdgeInsets.only(left: 25, right: 25, top: 30),
             child: Row(children: [
               Text("My Projects",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
@@ -90,15 +91,25 @@ class _ProjectsPageState extends State<ProjectsPage> {
                   textStyle: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DirectMessages()),
+                  );
+                },
                 child: const Text('See all'),
               ),
             ]),
           ),
           Container(
+              margin: EdgeInsets.only(left: 20, right: 20),
               child: Row(
-            children: [ProjectCard(), ProjectCard()],
-          ))
+                children: [
+                  Expanded(child: ProjectCard()),
+                  Expanded(child: ProjectCard())
+                ],
+              ))
         ],
       ),
     );

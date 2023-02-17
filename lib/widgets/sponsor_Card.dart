@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-class sponsorCard extends StatelessWidget {
-  const sponsorCard({super.key});
+class SponsorCard extends StatelessWidget {
+  const SponsorCard({super.key});
+
+  // this is going to need to take an image
+  // going to need text as well "Featured sponsor, POINTS, if sponsored by Chickfila"
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +40,6 @@ class sponsorCard extends StatelessWidget {
         ));
   }
 }
-
-
-
 
 // Column(
 //               mainAxisSize: MainAxisSize.min,

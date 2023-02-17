@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
+
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
@@ -31,3 +32,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+/*
+Could possible make a file with metadata that standardizes aspects of the project
+  - the margin/padding lengths,
+  - the colors that we want to use over the entirety of the project 
+  - fontsizes and fontstyles (Header text, Body text, Title text?)
+  - 
+*/
+ 
