@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
+import 'package:serve_to_be_free/config/routes/app_routes.dart';
 import 'package:serve_to_be_free/utilities/constants.dart';
-import 'package:serve_to_be_free/screens/app.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -129,10 +130,11 @@ class _LoginScreenState extends State<LoginScreen> {
       child: ElevatedButton(
         // elevation: 5.0,
         onPressed: () => {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AppPage()),
-          )
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => const AppPage()),
+          // )
+          //context.push(AppRouter.root)
           // setState(() {
           //   AppPage();
           // })
