@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:serve_to_be_free/screens/direct_messages.dart';
-import '../widgets/wide_border_button.dart';
+import 'package:go_router/go_router.dart';
+import '../widgets/buttons/wide_border_button.dart';
 import '../widgets/sponsor_Card.dart';
 import '../widgets/project_card.dart';
 
 class ProjectsPage extends StatefulWidget {
-  const ProjectsPage({Key? key}) : super(key: key);
+  final findProjectsPath;
+  final createProjectsPath;
+  final leadProjectsPath;
+  final sponsorProjectsPath;
+  final myProjectsPath;
+  const ProjectsPage({
+    Key? key,
+    this.createProjectsPath,
+    this.findProjectsPath,
+    this.leadProjectsPath,
+    this.sponsorProjectsPath,
+    this.myProjectsPath,
+  }) : super(key: key);
 
   @override
   _ProjectsPageState createState() => _ProjectsPageState();
@@ -43,75 +55,76 @@ class _ProjectsPageState extends State<ProjectsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20.0),
-      child: Column(
-        children: [
-          wideBorderButton(
-              "Find a Project",
-              Icon(
-                Icons.search,
-                color: Colors.indigo[900],
-                size: 28.0,
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('AppBar Demo'),
+        ),
+        body: Container(
+          margin: const EdgeInsets.only(top: 20.0),
+          child: Column(
+            children: [
+              wideBorderButton(
+                  "Find a Project",
+                  Icon(
+                    Icons.search,
+                    color: Colors.indigo[900],
+                    size: 28.0,
+                  ),
+                  widget.findProjectsPath),
+              wideBorderButton(
+                  "Create a Project",
+                  Icon(
+                    Icons.add_outlined,
+                    color: Colors.blue[600],
+                    size: 28.0,
+                  ),
+                  widget.createProjectsPath),
+              wideBorderButton(
+                  "Lead a Project",
+                  Icon(
+                    Icons.star_border_rounded,
+                    color: Colors.amberAccent[400],
+                    size: 28.0,
+                  ),
+                  widget.leadProjectsPath),
+              wideBorderButton(
+                  "Sponsor a Project",
+                  Icon(
+                    Icons.favorite_border_rounded,
+                    color: Colors.pinkAccent[400],
+                    size: 28.0,
+                  ),
+                  widget.sponsorProjectsPath),
+              SponsorCard(),
+              Container(
+                margin: EdgeInsets.only(left: 25, right: 25, top: 30),
+                child: Row(children: [
+                  Text("My Projects",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                  Spacer(),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {
+                      context.go(widget.myProjectsPath);
+                    },
+                    child: const Text('See all'),
+                  ),
+                ]),
               ),
-              findAPojectButton),
-          wideBorderButton(
-              "Create a Project",
-              Icon(
-                Icons.add_outlined,
-                color: Colors.blue[600],
-                size: 28.0,
-              ),
-              findAPojectButton),
-          wideBorderButton(
-              "Lead a Project",
-              Icon(
-                Icons.star_border_rounded,
-                color: Colors.amberAccent[400],
-                size: 28.0,
-              ),
-              findAPojectButton),
-          wideBorderButton(
-              "Sponsor a Project",
-              Icon(
-                Icons.favorite_border_rounded,
-                color: Colors.pinkAccent[400],
-                size: 28.0,
-              ),
-              findAPojectButton),
-          SponsorCard(),
-          Container(
-            margin: EdgeInsets.only(left: 25, right: 25, top: 30),
-            child: Row(children: [
-              Text("My Projects",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-              Spacer(),
-              TextButton(
-                style: TextButton.styleFrom(
-                  textStyle: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const DirectMessages()),
-                  );
-                },
-                child: const Text('See all'),
-              ),
-            ]),
+              Container(
+                  margin: EdgeInsets.only(left: 20, right: 20),
+                  child: Row(
+                    children: [
+                      Expanded(child: ProjectCard()),
+                      Expanded(child: ProjectCard())
+                    ],
+                  ))
+            ],
           ),
-          Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
-              child: Row(
-                children: [
-                  Expanded(child: ProjectCard()),
-                  Expanded(child: ProjectCard())
-                ],
-              ))
-        ],
-      ),
-    );
+        ));
   }
 }
