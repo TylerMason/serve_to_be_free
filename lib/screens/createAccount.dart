@@ -14,10 +14,13 @@ class CreateAccountScreen extends StatefulWidget {
 
 class _CreateAccountState extends State<CreateAccountScreen> {
   bool? _rememberMe = false;
-  final userNameController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
-  Widget _buildTF(field) {
+  Widget _buildTF(String field, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -29,116 +32,23 @@ class _CreateAccountState extends State<CreateAccountScreen> {
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            controller: userNameController,
-            keyboardType: TextInputType.text,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              // contentPadding: EdgeInsets.only(top: 14.0),
-              hintText: ' Enter $field',
-              hintStyle: kHintTextStyle,
-              // helperText: '$field',
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildLastNameTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Last Name',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            controller: userNameController,
-            keyboardType: TextInputType.text,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              hintText: 'Last Name',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildEmailTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Email',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            controller: userNameController,
-            keyboardType: TextInputType.text,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              hintText: 'Email',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildPasswordTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Password',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            controller: passwordController,
-            obscureText: true,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              hintText: 'Enter your Password',
-              hintStyle: kHintTextStyle,
+          height: 50.0,
+          child: Padding(
+            padding: EdgeInsets.all(5.0),
+            child: TextField(
+              controller: controller,
+              keyboardType: TextInputType.text,
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'OpenSans',
+              ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                // contentPadding: EdgeInsets.only(top: 14.0),
+                hintText: ' Enter $field',
+                hintStyle: kHintTextStyle,
+                // helperText: '$field',
+              ),
             ),
           ),
         ),
@@ -157,7 +67,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12), // <-- Radius
           ),
-          backgroundColor: Color.fromARGB(255, 68, 97, 228),
+          backgroundColor: Color(0xff256C8D),
         ),
         child: Text(
           'Create Account',
@@ -185,27 +95,15 @@ class _CreateAccountState extends State<CreateAccountScreen> {
               Container(
                 height: double.infinity,
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF73AEF5),
-                      Color(0xFF61A4F1),
-                      Color(0xFF478DE0),
-                      Color(0xFF398AE5),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
-                ),
+                decoration: BoxDecoration(color: Color(0xff001B48)),
               ),
               Container(
                 height: double.infinity,
                 child: SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 120.0,
+                    horizontal: 20.0,
+                    vertical: 60.0,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -225,28 +123,30 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                           ),
                         ),
                       ),
-                      Text(
-                        'There\'s just a few things we need from you',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 20.0,
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'There\'s just a few things we need from you',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'OpenSans',
+                            fontSize: 15.0,
+                          ),
                         ),
                       ),
                       SizedBox(height: 30.0),
-                      _buildTF('First Name'),
+                      _buildTF('First Name', firstNameController),
+                      SizedBox(height: 20.0),
+                      _buildTF('Last Name', lastNameController),
+                      SizedBox(height: 20.0),
+                      _buildTF('Email', emailController),
+                      SizedBox(height: 20.0),
+                      _buildTF('Password', passwordController),
+                      SizedBox(height: 20.0),
+                      _buildTF('Confirm Password', confirmPasswordController),
                       SizedBox(
                         height: 20.0,
                       ),
-                      _buildLastNameTF(),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      _buildEmailTF(),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      _buildPasswordTF(),
                       _buildCreateAccBtn(),
                     ],
                   ),
