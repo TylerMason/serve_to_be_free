@@ -61,7 +61,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () => {},
+        onPressed: () => {tryCreate()},
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.all(15.0),
           shape: RoundedRectangleBorder(
@@ -186,34 +186,75 @@ class _CreateAccountState extends State<CreateAccountScreen> {
     );
   }
 
-  Future<void> tryLogin() async {
-    final url = Uri.parse(
-        'http://10.0.2.2:3000/users/username/${userNameController.text}');
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      // API call successful\
-
-      final res = json.decode(response.body);
-      print(response.body);
-      print(passwordController.text);
-
-      if (passwordController.text == res['password']) {
-        print('iloveyou');
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const AppPage()),
-        );
-        setState(() {
-          AppPage();
-        });
-      } else {
-        showAlertDialog(context);
+  Future<void> tryCreate() async {
+    final email = emailController.text;
+    final password = passwordController.text;
+    final confirmPass = confirmPasswordController.text;
+    final firstName = firstNameController.text;
+    final lastName = lastNameController.text;
+    print(password.isNotEmpty);
+    try {
+      if (password != confirmPass) {
+        throw (Exception('Passwords must match'));
       }
-    } else {
-      // API call unsuccessful
-      showAlertDialog(context);
-      print('Failed to fetch data');
+      if (email == null || email.isEmpty) {
+        throw (Exception('Please enter a valid email'));
+      }
+      if (password == null || password.isEmpty) {
+        throw (Exception('Please enter a valid password'));
+      }
+      if (firstName == null ||
+          firstName.isEmpty ||
+          lastName == null ||
+          lastName.isEmpty) {
+        throw (Exception('Please enter a valid name'));
+      }
+    } catch (err) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text(err.toString()),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
+    // final url = Uri.parse(
+    //     'http://10.0.2.2:3000/users/username/${userNameController.text}');
+    // final response = await http.get(url);
+
+    // if (response.statusCode == 200) {
+    //   // API call successful\
+
+    //   final res = json.decode(response.body);
+    //   print(response.body);
+    //   print(passwordController.text);
+
+    //   if (passwordController.text == res['password']) {
+    //     print('iloveyou');
+    //     Navigator.push(
+    //       context,
+    //       MaterialPageRoute(builder: (context) => const AppPage()),
+    //     );
+    //     setState(() {
+    //       AppPage();
+    //     });
+    //   } else {
+    //     showAlertDialog(context);
+    //   }
+    // } else {
+    //   // API call unsuccessful
+    //   showAlertDialog(context);
+    //   print('Failed to fetch data');
+    // }
   }
 }
