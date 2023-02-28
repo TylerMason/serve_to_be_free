@@ -17,12 +17,45 @@ class _CreateAccountState extends State<CreateAccountScreen> {
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  Widget _buildUserNameTF() {
+  Widget _buildTF(field) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Username',
+          '$field',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            controller: userNameController,
+            keyboardType: TextInputType.text,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              // contentPadding: EdgeInsets.only(top: 14.0),
+              hintText: ' Enter $field',
+              hintStyle: kHintTextStyle,
+              // helperText: '$field',
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLastNameTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Last Name',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -40,11 +73,39 @@ class _CreateAccountState extends State<CreateAccountScreen> {
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.arrow_right_alt,
-                color: Colors.white,
-              ),
-              hintText: 'Enter your Username',
+              hintText: 'Last Name',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildEmailTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Email',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            controller: userNameController,
+            keyboardType: TextInputType.text,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              hintText: 'Email',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -76,43 +137,12 @@ class _CreateAccountState extends State<CreateAccountScreen> {
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Colors.white,
-              ),
               hintText: 'Enter your Password',
               hintStyle: kHintTextStyle,
             ),
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildRememberMeCheckbox() {
-    return Container(
-      height: 20.0,
-      child: Row(
-        children: <Widget>[
-          Theme(
-            data: ThemeData(unselectedWidgetColor: Colors.white),
-            child: Checkbox(
-              value: _rememberMe,
-              checkColor: Colors.green,
-              activeColor: Colors.white,
-              onChanged: (value) {
-                setState(() {
-                  _rememberMe = value;
-                });
-              },
-            ),
-          ),
-          Text(
-            'Remember me',
-            style: kLabelStyle,
-          ),
-        ],
-      ),
     );
   }
 
@@ -180,22 +210,43 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 16.0),
+                          child: Text(
+                            'Welcome',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'OpenSans',
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
                       Text(
-                        'Sign In',
+                        'There\'s just a few things we need from you',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'OpenSans',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
                         ),
                       ),
                       SizedBox(height: 30.0),
-                      _buildUserNameTF(),
+                      _buildTF('First Name'),
                       SizedBox(
-                        height: 30.0,
+                        height: 20.0,
+                      ),
+                      _buildLastNameTF(),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      _buildEmailTF(),
+                      SizedBox(
+                        height: 20.0,
                       ),
                       _buildPasswordTF(),
-                      _buildRememberMeCheckbox(),
                       _buildCreateAccBtn(),
                     ],
                   ),
