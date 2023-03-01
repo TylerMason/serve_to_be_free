@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 
-class GroupsPage extends StatefulWidget {
-  const GroupsPage({Key? key}) : super(key: key);
+class MenuPage extends StatelessWidget {
+  const MenuPage({super.key});
 
-  @override
-  _GroupsPageState createState() => _GroupsPageState();
-}
-
-class _GroupsPageState extends State<GroupsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -10,9 +10,10 @@ class TasksPage extends StatefulWidget {
 class _TasksPageState extends State<TasksPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child:
-          const Text("Hello! i am Projects!", style: TextStyle(fontSize: 20)),
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Tasks Demo'),
+        ),
+        body: Container(child: Text("I am Tasks")));
   }
 }

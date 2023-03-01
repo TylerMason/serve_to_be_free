@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class wideBorderButton extends StatelessWidget {
   /* This is going to be a pointer to whatever function we pass in
   */
-  final VoidCallback selectHandler;
+  final String path;
   final Widget _icon;
   final String _label;
 
-  wideBorderButton(this._label, this._icon, this.selectHandler);
+  wideBorderButton(this._label, this._icon, this.path);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,9 @@ class wideBorderButton extends StatelessWidget {
           ],
         ),
         // inherited functionality
-        onPressed: selectHandler,
+        onPressed: () {
+          context.go(path);
+        },
       ),
     );
   }
