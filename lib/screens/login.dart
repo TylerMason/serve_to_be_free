@@ -13,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool? _rememberMe = false;
-  final userNameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   Widget _buildUserNameTF() {
@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Username',
+          'Email',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
-            controller: userNameController,
+            controller: emailController,
             keyboardType: TextInputType.text,
             style: TextStyle(
               color: Colors.white,
@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Icons.arrow_right_alt,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Username',
+              hintText: 'Enter your Email',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -276,8 +276,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> tryLogin() async {
-    final url = Uri.parse(
-        'http://10.0.2.2:3000/users/username/${userNameController.text}');
+    final url =
+        Uri.parse('http://10.0.2.2:3000/users/email/${emailController.text}');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {

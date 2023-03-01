@@ -21,6 +21,18 @@ class _CreateAccountState extends State<CreateAccountScreen> {
   final confirmPasswordController = TextEditingController();
 
   Widget _buildTF(String field, TextEditingController controller) {
+    InputDecoration decoration = InputDecoration(
+      border: InputBorder.none,
+      hintText: ' Enter $field',
+      hintStyle: kHintTextStyle,
+    );
+
+    if (field == 'Confirm Password') {
+      decoration = decoration.copyWith(
+        hintText: ' $field',
+        hintStyle: kHintTextStyle,
+      );
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -42,13 +54,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                 color: Colors.white,
                 fontFamily: 'OpenSans',
               ),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                // contentPadding: EdgeInsets.only(top: 14.0),
-                hintText: ' Enter $field',
-                hintStyle: kHintTextStyle,
-                // helperText: '$field',
-              ),
+              decoration: decoration,
             ),
           ),
         ),
@@ -192,7 +198,6 @@ class _CreateAccountState extends State<CreateAccountScreen> {
     final confirmPass = confirmPasswordController.text;
     final firstName = firstNameController.text;
     final lastName = lastNameController.text;
-    print(password.isNotEmpty);
     try {
       if (password != confirmPass) {
         throw (Exception('Passwords must match'));
@@ -208,6 +213,30 @@ class _CreateAccountState extends State<CreateAccountScreen> {
           lastName == null ||
           lastName.isEmpty) {
         throw (Exception('Please enter a valid name'));
+      }
+
+      // If all inputs are valid, make the HTTP request
+      final url = Uri.parse('http://10.0.2.2:3000/users');
+      final headers = <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      };
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: jsonEncode(<String, String>{
+          'email': email,
+          'password': password,
+          'firstName': firstName,
+          'lastName': lastName,
+        }),
+      );
+      // Check the response status code
+      if (response.statusCode == 201) {
+        // Success
+        print('User created successfully');
+      } else {
+        // Failure
+        throw Exception('Failed to create user: ${response.reasonPhrase}');
       }
     } catch (err) {
       showDialog(
@@ -228,33 +257,5 @@ class _CreateAccountState extends State<CreateAccountScreen> {
         },
       );
     }
-    // final url = Uri.parse(
-    //     'http://10.0.2.2:3000/users/username/${userNameController.text}');
-    // final response = await http.get(url);
-
-    // if (response.statusCode == 200) {
-    //   // API call successful\
-
-    //   final res = json.decode(response.body);
-    //   print(response.body);
-    //   print(passwordController.text);
-
-    //   if (passwordController.text == res['password']) {
-    //     print('iloveyou');
-    //     Navigator.push(
-    //       context,
-    //       MaterialPageRoute(builder: (context) => const AppPage()),
-    //     );
-    //     setState(() {
-    //       AppPage();
-    //     });
-    //   } else {
-    //     showAlertDialog(context);
-    //   }
-    // } else {
-    //   // API call unsuccessful
-    //   showAlertDialog(context);
-    //   print('Failed to fetch data');
-    // }
   }
 }
