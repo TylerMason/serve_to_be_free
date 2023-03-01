@@ -5,6 +5,7 @@ const User = require('../models/user.js')
 //Getting all
 router.get('/', async (req, res) => {
     try {
+        console.log('in')
         const users = await User.find()
         res.json(users)
     } catch (err) {
@@ -16,10 +17,10 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     console.log(req.body)
     const user = new User({
-        username: req.body.username,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         password: req.body.password,
         email: req.body.email,
-        id: req.body.id
     })
     try {
         const newUser = await user.save()
@@ -50,6 +51,20 @@ router.get('/username/:username', async (req, res) => {
     }
 })
 
+//get one by email
+router.get('/email/:email', async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.params.email })
+        if (user == null) {
+            return res.status(404).json({ message: 'cannot find user' })
+
+        }
+        res.json(user)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+
+    }
+})
 //updating one
 router.patch('/:id', getUser, async (req, res) => {
     if (req.body.username != null) {
