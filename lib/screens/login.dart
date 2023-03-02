@@ -4,6 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/config/routes/app_routes.dart';
 import 'package:serve_to_be_free/utilities/constants.dart';
 
+import 'package:serve_to_be_free/screens/createAccount.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -11,13 +15,15 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool? _rememberMe = false;
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
-  Widget _buildEmailTF() {
+  Widget _buildUserNameTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Username',
+          'Email',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -26,7 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
-            keyboardType: TextInputType.emailAddress,
+            controller: emailController,
+            keyboardType: TextInputType.text,
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -38,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Icons.arrow_right_alt,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Username',
+              hintText: 'Enter your Email',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -61,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: passwordController,
             obscureText: true,
             style: TextStyle(
               color: Colors.white,
@@ -87,7 +95,6 @@ class _LoginScreenState extends State<LoginScreen> {
       alignment: Alignment.centerRight,
       child: TextButton(
         onPressed: () => print('Forgot Password Button Pressed'),
-        // padding: EdgeInsets.only(right: 0.0),
         child: Text(
           'Forgot Password?',
           style: kLabelStyle,
@@ -128,31 +135,13 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: ElevatedButton(
-        // elevation: 5.0,
-        onPressed: () => {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => const AppPage()),
-          // )
-          //context.push(AppRouter.root)
-          // setState(() {
-          //   AppPage();
-          // })
-        },
-        // padding: EdgeInsets.all(15.0),
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.circular(30.0),
-        // ),
-        // color: Colors.white,
+        onPressed: () => {tryLogin()},
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.all(15.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12), // <-- Radius
           ),
-
-          backgroundColor: Color.fromARGB(255, 68, 97, 228),
-          // textStyle: const TextStyle(
-          //     color: Colors.white, fontSize: 10, fontStyle: FontStyle.normal),
+          backgroundColor: Color(0xff256C8D),
         ),
         child: Text(
           'LOGIN',
@@ -170,7 +159,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildSignupBtn() {
     return GestureDetector(
-      onTap: () => print('Sign Up Button Pressed'),
+      onTap: () => {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CreateAccountScreen()),
+        ),
+        setState(() {
+          CreateAccountScreen();
+        })
+      },
       child: RichText(
         text: TextSpan(
           children: [
@@ -209,17 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: double.infinity,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF73AEF5),
-                      Color(0xFF61A4F1),
-                      Color(0xFF478DE0),
-                      Color(0xFF398AE5),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
+                  color: Color(0xff001B48),
                 ),
               ),
               Container(
@@ -243,7 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       SizedBox(height: 30.0),
-                      _buildEmailTF(),
+                      _buildUserNameTF(),
                       SizedBox(
                         height: 30.0,
                       ),
@@ -261,5 +248,63 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Account not found"),
+      content: Text("Username and Password did not match any results"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  Future<void> tryLogin() async {
+    final url =
+        Uri.parse('http://10.0.2.2:3000/users/email/${emailController.text}');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      // API call successful\
+
+      final res = json.decode(response.body);
+      print(response.body);
+      print(passwordController.text);
+
+      if (passwordController.text == res['password']) {
+        // print('iloveyou');
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const AppPage()),
+        // );
+        // setState(() {
+        //   AppPage();
+        // });
+      } else {
+        showAlertDialog(context);
+      }
+    } else {
+      // API call unsuccessful
+      showAlertDialog(context);
+      print('Failed to fetch data');
+    }
   }
 }
