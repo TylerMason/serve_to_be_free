@@ -4,11 +4,11 @@ import 'package:go_router/go_router.dart';
 class wideBorderButton extends StatelessWidget {
   /* This is going to be a pointer to whatever function we pass in
   */
-  final String path;
+  final String _path;
   final Widget _icon;
   final String _label;
 
-  wideBorderButton(this._label, this._icon, this.path);
+  wideBorderButton(this._label, this._icon, this._path);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class wideBorderButton extends StatelessWidget {
         ),
         // inherited functionality
         onPressed: () {
-          context.go(path);
+          context.go(_path);
         },
       ),
     );

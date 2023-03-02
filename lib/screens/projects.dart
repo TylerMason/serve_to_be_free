@@ -55,6 +55,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(AssetImage("assets/images/19219.jpg"), context);
     return Scaffold(
         appBar: AppBar(
           title: const Text('AppBar Demo'),

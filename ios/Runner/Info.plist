@@ -47,5 +47,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Use Images in the Serve to be Free Application</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Use Images in the Serve to be Free Application</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Use Images in the Serve to be Free Application</string>
 </dict>
 </plist>
