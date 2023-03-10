@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
+import 'dart:core';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:serve_to_be_free/widgets/buttons/solid_rounded_button.dart';
 
-class ProjectDetailsForm extends StatelessWidget {
-  final _formKey = GlobalKey<FormBuilderState>();
+class ProjectDetailsForm extends StatefulWidget {
+  ProjectDetailsForm({Key? key}) : super(key: key);
+
+  @override
+  _ProjectDetailsFormState createState() => _ProjectDetailsFormState();
+}
+
+class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   final List<String> privacyOptions = ['Friends', 'Public'];
-  ProjectDetailsForm({super.key});
+
+  void _submitForm() {
+    // a null check on here?
+    if (_formKey.currentState!.validate()) {
+      // Save form data with an api call?
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Creat a Project Demo'),
+          title: const Text('Create a Project Demo'),
         ),
         body: SingleChildScrollView(
             child: Container(
@@ -40,6 +54,11 @@ class ProjectDetailsForm extends StatelessWidget {
                       ),
                       child: FormBuilderTextField(
                         name: 'text_field',
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                          FormBuilderValidators.minLength(3),
+                          FormBuilderValidators.maxLength(50),
+                        ]),
                         decoration: InputDecoration(
                           hintText: 'Project Name',
                           border: InputBorder.none,
@@ -179,10 +198,12 @@ class ProjectDetailsForm extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                padding: EdgeInsets.only(bottom: 50),
-                child: SolidRoundedButton("Next", "path"),
-              )
+              InkWell(
+                  onTap: () => {print("AYYYYYYYYOOOOOO")},
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 50),
+                    child: SolidRoundedButton("Next", "path"),
+                  ))
             ],
           ),
         ))));

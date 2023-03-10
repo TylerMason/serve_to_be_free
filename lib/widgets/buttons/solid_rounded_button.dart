@@ -4,10 +4,15 @@ import 'package:go_router/go_router.dart';
 class SolidRoundedButton extends StatelessWidget {
   /* This is going to be a pointer to whatever function we pass in
   */
+  //final VoidCallback onFormSubmitted;
   final String _path;
   final String _label;
 
-  SolidRoundedButton(this._label, this._path);
+  SolidRoundedButton(
+    this._label,
+    this._path,
+    /*this.onFormSubmitted*/
+  );
 
   @override
   Widget build(BuildContext context) {
