@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/utilities/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -233,6 +234,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
       if (response.statusCode == 201) {
         // Success
         print('User created successfully');
+        context.go('/dashboard');
       } else {
         // Failure
         throw Exception('Failed to create user: ${response.reasonPhrase}');

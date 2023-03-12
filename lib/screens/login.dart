@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -286,10 +288,10 @@ class _LoginScreenState extends State<LoginScreen> {
       // API call successful\
 
       final res = json.decode(response.body);
-      print(response.body);
-      print(passwordController.text);
 
       if (passwordController.text == res['password']) {
+        print(response.statusCode);
+        print(passwordController.text);
         // print('iloveyou');
         // Navigator.push(
         //   context,
@@ -298,6 +300,7 @@ class _LoginScreenState extends State<LoginScreen> {
         // setState(() {
         //   AppPage();
         // });
+        context.go('/dashboard');
       } else {
         showAlertDialog(context);
       }
