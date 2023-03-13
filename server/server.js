@@ -24,6 +24,9 @@ db.on('open', () => console.log('Connected to database'))
 app.use(express.json())
 
 const usersRouter = require('./routes/users.js')
+const projectsRouter = require('./routes/projects.js')
 app.use('/users', usersRouter)
+app.use('/projects', projectsRouter)
+
 
 app.listen(3000, () => console.log('Server Started'))

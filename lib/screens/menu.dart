@@ -35,7 +35,8 @@ class MenuPage extends StatelessWidget {
                     ProfilePicture(Colors.amberAccent, 40,
                         "assets/images/curious_lemur.jpeg",
                         borderRadius: 2),
-                    "My Profile"),
+                    "My Profile",
+                    ''),
                 // I really only added this container so I could add padding to the other icons and not the profile picture
 
                 MenuButton(
@@ -44,28 +45,32 @@ class MenuPage extends StatelessWidget {
                       size: 30,
                       color: Colors.lightBlue[900],
                     ),
-                    "My Account"),
+                    "My Account",
+                    ''),
                 MenuButton(
                     Icon(
                       Icons.favorite_border_rounded,
                       size: 25,
                       color: Colors.lightBlue[900],
                     ),
-                    "Favorites"),
+                    "Favorites",
+                    ''),
                 MenuButton(
                     Icon(
                       Icons.favorite,
                       size: 25,
                       color: Colors.lightBlue[900],
                     ),
-                    "How It Works"),
+                    "How It Works",
+                    ''),
                 MenuButton(
                     Icon(
                       Icons.favorite,
                       size: 25,
                       color: Colors.lightBlue[900],
                     ),
-                    "About Server To Be Free"),
+                    "About Server To Be Free",
+                    ''),
               ],
             )));
   }
