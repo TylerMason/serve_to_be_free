@@ -55,10 +55,10 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
 
   // callback used to navigate to the desired tab
   void _onItemTapped(BuildContext context, int tabIndex) {
-    if (tabIndex != _currentIndex) {
-      // go to the initial location of the selected tab (by index)
-      context.go(tabs[tabIndex].initialLocation);
-    }
+    //if (tabIndex != _currentIndex) {
+    // go to the initial location of the selected tab (by index)
+    context.go(tabs[tabIndex].initialLocation);
+    //}
   }
 
   @override
@@ -68,7 +68,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         unselectedFontSize: 12,
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
-        selectedItemColor: Colors.red[800],
+        selectedItemColor: Colors.blue[900],
         onTap: (index) => _onItemTapped(context, index),
         items: tabs);
   }

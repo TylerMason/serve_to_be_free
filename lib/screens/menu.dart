@@ -5,7 +5,20 @@ import 'package:serve_to_be_free/widgets/buttons/menu_button.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
 
 class MenuPage extends StatelessWidget {
-  const MenuPage({super.key});
+  final myProfilePath;
+  final myAccountPath;
+  //final String favoritesPath;
+  final howItWorksPath;
+  final aboutPath;
+
+  // Is having the const here necessary? I feel it improves performance since we are not changing it after instantiation.
+  const MenuPage({
+    this.myProfilePath,
+    this.myAccountPath,
+    //required this.favoritesPath,
+    this.howItWorksPath,
+    this.aboutPath,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +45,11 @@ class MenuPage extends StatelessWidget {
             child: Column(
               children: [
                 MenuButton(
-                    ProfilePicture(Colors.amberAccent, 40,
+                    ProfilePicture(Colors.amberAccent, 45,
                         "assets/images/curious_lemur.jpeg",
-                        borderRadius: 2),
-                    "My Profile"),
-                // I really only added this container so I could add padding to the other icons and not the profile picture
+                        borderRadius: 7),
+                    "My Profile",
+                    myProfilePath),
 
                 MenuButton(
                     Icon(
@@ -44,28 +57,32 @@ class MenuPage extends StatelessWidget {
                       size: 30,
                       color: Colors.lightBlue[900],
                     ),
-                    "My Account"),
+                    "My Account",
+                    myAccountPath),
+                // MenuButton(
+                //     Icon(
+                //       Icons.favorite_border_rounded,
+                //       size: 25,
+                //       color: Colors.lightBlue[900],
+                //     ),
+                //     "Favorites",
+                //     "Path"),
                 MenuButton(
                     Icon(
-                      Icons.favorite_border_rounded,
+                      Icons.lightbulb_outline_rounded,
                       size: 25,
                       color: Colors.lightBlue[900],
                     ),
-                    "Favorites"),
+                    "How It Works",
+                    howItWorksPath),
                 MenuButton(
                     Icon(
-                      Icons.favorite,
+                      Icons.info_outline_rounded,
                       size: 25,
                       color: Colors.lightBlue[900],
                     ),
-                    "How It Works"),
-                MenuButton(
-                    Icon(
-                      Icons.favorite,
-                      size: 25,
-                      color: Colors.lightBlue[900],
-                    ),
-                    "About Server To Be Free"),
+                    "About Serve To Be Free",
+                    aboutPath),
               ],
             )));
   }
