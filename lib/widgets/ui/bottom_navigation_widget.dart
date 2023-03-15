@@ -20,21 +20,21 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
       icon: Icon(Icons.business),
       label: 'Projects',
     ),
-    ScaffoldWithNavBarTabItem(
-      initialLocation: '/groups',
-      icon: Icon(Icons.groups_2_outlined),
-      label: 'Groups',
-    ),
-    ScaffoldWithNavBarTabItem(
-      initialLocation: '/mytasks',
-      icon: Icon(Icons.task_outlined),
-      label: 'My Tasks',
-    ),
-    ScaffoldWithNavBarTabItem(
-      initialLocation: '/mymessages',
-      icon: Icon(Icons.email_outlined),
-      label: 'Messages',
-    ),
+    // ScaffoldWithNavBarTabItem(
+    //   initialLocation: '/groups',
+    //   icon: Icon(Icons.groups_2_outlined),
+    //   label: 'Groups',
+    // ),
+    // ScaffoldWithNavBarTabItem(
+    //   initialLocation: '/mytasks',
+    //   icon: Icon(Icons.task_outlined),
+    //   label: 'My Tasks',
+    // ),
+    // ScaffoldWithNavBarTabItem(
+    //   initialLocation: '/mymessages',
+    //   icon: Icon(Icons.email_outlined),
+    //   label: 'Messages',
+    // ),
     ScaffoldWithNavBarTabItem(
       initialLocation: '/menu',
       icon: Icon(Icons.menu),
