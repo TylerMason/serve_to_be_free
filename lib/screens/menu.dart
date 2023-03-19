@@ -47,9 +47,11 @@ class MenuPage extends StatelessWidget {
                 MenuButton(
                     ProfilePicture(Colors.amberAccent, 45,
                         "assets/images/curious_lemur.jpeg",
+
                         borderRadius: 7),
                     "My Profile",
                     myProfilePath),
+
 
                 MenuButton(
                     Icon(
@@ -58,6 +60,7 @@ class MenuPage extends StatelessWidget {
                       color: Colors.lightBlue[900],
                     ),
                     "My Account",
+
                     myAccountPath),
                 // MenuButton(
                 //     Icon(
@@ -67,6 +70,7 @@ class MenuPage extends StatelessWidget {
                 //     ),
                 //     "Favorites",
                 //     "Path"),
+
                 MenuButton(
                     Icon(
                       Icons.lightbulb_outline_rounded,
@@ -74,15 +78,19 @@ class MenuPage extends StatelessWidget {
                       color: Colors.lightBlue[900],
                     ),
                     "How It Works",
+
                     howItWorksPath),
+
                 MenuButton(
                     Icon(
                       Icons.info_outline_rounded,
                       size: 25,
                       color: Colors.lightBlue[900],
                     ),
+
                     "About Serve To Be Free",
                     aboutPath),
+
               ],
             )));
   }
