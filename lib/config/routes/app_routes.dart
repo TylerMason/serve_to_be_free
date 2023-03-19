@@ -4,8 +4,13 @@ import 'package:serve_to_be_free/screens/dashboard.dart';
 import 'package:serve_to_be_free/screens/groups.dart';
 import 'package:serve_to_be_free/screens/menu.dart';
 import 'package:serve_to_be_free/screens/messages.dart';
+import 'package:serve_to_be_free/screens/profile.dart';
 import 'package:serve_to_be_free/screens/projects.dart';
+import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/how_it_works.dart';
 import 'package:serve_to_be_free/screens/tasks.dart';
+import '../../screens/sub_screens/menu_subpages/about_page.dart';
+import '../../screens/sub_screens/menu_subpages/account_details.dart';
+import '../../screens/sub_screens/menu_subpages/my_account.dart';
 import '../../screens/sub_screens/projects_subpages/create_a_project/project_details_form.dart';
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/create_a_project/create_a_project.dart';
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/lead_a_project.dart';
@@ -128,14 +133,37 @@ final goRouter = GoRouter(
         GoRoute(
           path: '/menu',
           pageBuilder: (context, state) => NoTransitionPage(
-            child: const MenuPage(/*label: 'B', detailsPath: '/b/details'*/),
+            child: const MenuPage(
+              myProfilePath: '/menu/myprofile',
+              myAccountPath: '/menu/myaccount',
+              //favoritesPath: '/menu/createprojects',
+              howItWorksPath: '/menu/howitworks',
+              aboutPath: '/menu/aboutservetobefree',
+            ),
           ),
-          // routes: [
-          //   GoRoute(
-          //     path: 'details',
-          //     builder: (context, state) => const DetailsScreen(label: 'B'),
-          //   ),
-          // ],
+          routes: [
+            GoRoute(
+              path: 'myprofile',
+              builder: (context, state) => Profile(/*label: 'B'*/),
+            ),
+            GoRoute(
+              path: 'myaccount',
+              builder: (context, state) => const MyAccount(),
+              // routes: [
+              //   GoRoute(
+              //       path: 'accountdetails',
+              //       builder: (context, state) => AccountDetailsPage())
+              // ]
+            ),
+            GoRoute(
+              path: 'howitworks',
+              builder: (context, state) => const HowItWorksPage(/*label: 'B'*/),
+            ),
+            GoRoute(
+              path: 'aboutservetobefree',
+              builder: (context, state) => const AboutPage(/*label: 'B'*/),
+            ),
+          ],
         ),
       ],
     ),

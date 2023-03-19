@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
+import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/widgets/buttons/solid_rounded_button.dart';
 
 class ProjectDetailsForm extends StatefulWidget {
@@ -19,9 +21,45 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
 
   void _submitForm() {
     // a null check on here?
-    if (_formKey.currentState!.validate()) {
-      // Save form data with an api call?
+    if (_formKey.currentState?.saveAndValidate() ?? false) {
+      // Get the value of each form field and add it to the _formData map
+      _formKey.currentState!.save();
+      debugPrint(_formKey.currentState!.value.toString());
+      // Do something with the form data
+      print(_formKey.currentState!.value);
     }
+  }
+
+  InputDecoration _fieldDecoration(_hintText) {
+    return InputDecoration(
+      hintText: _hintText,
+      // For some reason this does not work if I am only styling one or two borders. So I specified all 4 down below.
+      // border: OutlineInputBorder(
+      //     borderRadius: BorderRadius.circular(10),
+      //     borderSide: BorderSide.none),
+      contentPadding: EdgeInsets.all(16),
+      fillColor: Colors.grey[200],
+      filled: true,
+      // Many other way to customize this to make it feel interactive, otherwise the enabledBorder and the focusedBorder can just be deleted.
+      enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
+      errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.red,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(10)),
+      focusedErrorBorder: new OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(
+          color: Colors.red,
+          width: 2,
+        ),
+      ),
+      errorStyle: TextStyle(fontSize: 12, color: Colors.red),
+    );
   }
 
   @override
@@ -48,23 +86,19 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 12),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
                       child: FormBuilderTextField(
-                        name: 'text_field',
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                          FormBuilderValidators.minLength(3),
-                          FormBuilderValidators.maxLength(50),
-                        ]),
-                        decoration: InputDecoration(
-                          hintText: 'Project Name',
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(16),
-                        ),
-                      ),
+                          name: 'projectName',
+                          validator: FormBuilderValidators.compose([
+                            FormBuilderValidators.required(),
+                            FormBuilderValidators.minLength(3),
+                            FormBuilderValidators.maxLength(50),
+                            FormBuilderValidators.match(
+                              r'^[a-zA-Z0-9]+$',
+                              errorText:
+                                  'Only alphanumeric characters are allowed',
+                            ),
+                          ]),
+                          decoration: _fieldDecoration("Project Name")),
                     )
                   ],
                 ),
@@ -86,27 +120,25 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 12),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                      // decoration: BoxDecoration(
+                      //   color: Colors.grey[200],
+                      //   borderRadius: BorderRadius.circular(10),
+                      // ),
                       child: FormBuilderDropdown<String>(
                         name: 'privacy',
-                        decoration: InputDecoration(
-                          hintText: 'Choose Privacy Level',
-                          border: InputBorder.none,
-                          // border: OutlineInputBorder(
-                          //   border:
-                          //   borderRadius: BorderRadius.circular(10.0),
-                          // ),
-                          contentPadding: EdgeInsets.all(16),
-                        ),
+                        decoration: _fieldDecoration("Project Privacy"),
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ]),
+                        elevation: 2,
+                        iconSize: 30,
+                        isExpanded: true,
                         //Right here we just have to map it to make them DropdownMenuItems instead of strings
                         items: privacyOptions
-                            .map((gender) => DropdownMenuItem(
+                            .map((option) => DropdownMenuItem(
                                   alignment: AlignmentDirectional.center,
-                                  value: gender,
-                                  child: Text(gender),
+                                  value: option,
+                                  child: Text(option),
                                 ))
                             .toList(),
                       ),
@@ -132,22 +164,36 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
                     Container(
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: SizedBox(
-                          width: 100,
-                          child: FormBuilderImagePicker(
-                            name: "Project Image",
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
+                        // child: Container(
+                        //   width: 100,
+                        child: FormBuilderImagePicker(
+                          name: "projectImage",
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
                             ),
-                            previewHeight: 100,
-                            previewWidth: 100,
-                            maxImages: 1,
-                            onChanged: (value) => print(value),
-                            onSaved: (value) => print(value),
+                            //errorText: 'Please select an image',
+                            // errorBorder: OutlineInputBorder(
+                            //   borderRadius: BorderRadius.circular(10),
+                            //   borderSide:
+                            //       BorderSide(color: Colors.red, width: 2),
+                            // ),
                           ),
+                          validator: FormBuilderValidators.compose([
+                            FormBuilderValidators.required(
+                              errorText: 'Please select an Image',
+                            ),
+                          ]),
+
+                          // previewHeight: 100,
+                          // previewWidth: 100,
+                          //previewAutoSizeWidth: true,
+                          fit: BoxFit.cover,
+                          maxImages: 1,
                         ),
                       ),
                     ),
+                    //),
                   ],
                 ),
               ),
@@ -171,26 +217,17 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Container(
-                          width: 350,
-                          height: 200,
+                          // width: 350,
+                          // height: 200,
                           child: FormBuilderTextField(
                             maxLines: null,
-                            name: "Project Description",
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(16.0),
-                                focusedBorder: InputBorder.none,
-                                border: InputBorder.none,
-                                hintText: "About your project..."
-                                // border: OutlineInputBorder(
-                                //   borderRadius: BorderRadius.circular(8.0),
-                                // ),
-                                ),
-                            //onChanged: (value) => print(value),
-                            //onSaved: (value) => print(value),
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(8.0),
+                            minLines: 10,
+                            name: "projectDescription",
+                            decoration:
+                                _fieldDecoration("About your project..."),
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                            ]),
                           ),
                         ),
                       ),
@@ -198,12 +235,28 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
                   ],
                 ),
               ),
-              InkWell(
-                  onTap: () => {print("AYYYYYYYYOOOOOO")},
-                  child: Container(
-                    padding: EdgeInsets.only(bottom: 50),
-                    child: SolidRoundedButton("Next", "path"),
-                  ))
+              Container(
+                width: 150,
+                padding: EdgeInsets.only(bottom: 50),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.lightBlue[900],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+
+                    //side: BorderSide(width: 2.5, color: Colors.black),
+                  ),
+                  onPressed: _submitForm,
+                  child: Text(
+                    "Next",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                  ),
+                ),
+              )
             ],
           ),
         ))));

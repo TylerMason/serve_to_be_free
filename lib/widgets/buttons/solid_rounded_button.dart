@@ -4,14 +4,14 @@ import 'package:go_router/go_router.dart';
 class SolidRoundedButton extends StatelessWidget {
   /* This is going to be a pointer to whatever function we pass in
   */
-  //final VoidCallback onFormSubmitted;
   final String _path;
   final String _label;
+  //final VoidCallback? passedFunction;
 
   SolidRoundedButton(
     this._label,
     this._path,
-    /*this.onFormSubmitted*/
+    /*{this.passedFunction}*/
   );
 
   @override
@@ -36,7 +36,11 @@ class SolidRoundedButton extends StatelessWidget {
               style: TextStyle(fontSize: 18, color: Colors.white),
             )),
         onPressed: () {
+          // if (passedFunction == null) {
           context.go(_path);
+          // } else {
+          //   var passed = passedFunction!();
+          // }
         },
       ),
     );

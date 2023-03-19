@@ -8,6 +8,7 @@ class ProfilePicture extends StatelessWidget {
   // final VoidCallback selectHandler; redirect or null?
   // and an overlay icon for the person like the "M" title thing for project leaders?
 
+  // possible passed in value here for making sure the border thickness is different dependent on size
   final MaterialAccentColor borderColor;
   final double dimension; // ?
   final String imageString;
@@ -24,14 +25,14 @@ class ProfilePicture extends StatelessWidget {
       height: dimension,
       clipBehavior: Clip.hardEdge,
       // This could be dynamic just in case because we dont want hard margins on this.
-      //margin: EdgeInsets.all(10),
+      // margin: EdgeInsets.all(10),
       // not sure why it was throwing an error but it works now.
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       foregroundDecoration: BoxDecoration(
-        border: Border.all(color: borderColor, width: 3),
-        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: borderColor, width: 4),
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Container(
         child: FittedBox(

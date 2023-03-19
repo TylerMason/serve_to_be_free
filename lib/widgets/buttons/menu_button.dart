@@ -21,7 +21,9 @@ class MenuButton extends StatelessWidget {
             child: Container(
                 child: Row(children: [
           Container(
-              width: 85,
+
+              // This keeps stretching the profile photo for some reason. Gonna figure out what may cause that.
+              width: 80,
               padding: EdgeInsets.all(20),
               child: Container(
                 child: _icon,

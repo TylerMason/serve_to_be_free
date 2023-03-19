@@ -20,21 +20,21 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
       icon: Icon(Icons.business),
       label: 'Projects',
     ),
-    ScaffoldWithNavBarTabItem(
-      initialLocation: '/groups',
-      icon: Icon(Icons.groups_2_outlined),
-      label: 'Groups',
-    ),
-    ScaffoldWithNavBarTabItem(
-      initialLocation: '/mytasks',
-      icon: Icon(Icons.task_outlined),
-      label: 'My Tasks',
-    ),
-    ScaffoldWithNavBarTabItem(
-      initialLocation: '/mymessages',
-      icon: Icon(Icons.email_outlined),
-      label: 'Messages',
-    ),
+    // ScaffoldWithNavBarTabItem(
+    //   initialLocation: '/groups',
+    //   icon: Icon(Icons.groups_2_outlined),
+    //   label: 'Groups',
+    // ),
+    // ScaffoldWithNavBarTabItem(
+    //   initialLocation: '/mytasks',
+    //   icon: Icon(Icons.task_outlined),
+    //   label: 'My Tasks',
+    // ),
+    // ScaffoldWithNavBarTabItem(
+    //   initialLocation: '/mymessages',
+    //   icon: Icon(Icons.email_outlined),
+    //   label: 'Messages',
+    // ),
     ScaffoldWithNavBarTabItem(
       initialLocation: '/menu',
       icon: Icon(Icons.menu),
@@ -55,10 +55,10 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
 
   // callback used to navigate to the desired tab
   void _onItemTapped(BuildContext context, int tabIndex) {
-    if (tabIndex != _currentIndex) {
-      // go to the initial location of the selected tab (by index)
-      context.go(tabs[tabIndex].initialLocation);
-    }
+    //if (tabIndex != _currentIndex) {
+    // go to the initial location of the selected tab (by index)
+    context.go(tabs[tabIndex].initialLocation);
+    //}
   }
 
   @override
@@ -68,7 +68,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         unselectedFontSize: 12,
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
-        selectedItemColor: Colors.red[800],
+        selectedItemColor: Colors.blue[900],
         onTap: (index) => _onItemTapped(context, index),
         items: tabs);
   }
