@@ -35,10 +35,10 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                 ),
               ),
               width: double.infinity,
-              height: 220,
+              height: 180,
             ),
             Positioned(
-              top: 150,
+              top: 110,
               right: null,
               left: null,
               child: Container(
@@ -47,14 +47,35 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                 child: ProfilePicture(
                   Colors.pinkAccent,
                   120,
-                  "assets/images/girl_fake.jpg",
+                  "assets/images/dude_fake.jpeg",
                   borderRadius: 10,
                 ),
               ),
             )
           ]),
       Container(
-        child: Text("Placeholder"),
+        padding: EdgeInsets.only(top: 10),
+        child: Text(
+          "Placeholder",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            fontFamily: 'Open Sans',
+          ),
+        ),
+      ),
+      Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.location_on_outlined, size: 16, color: Colors.grey),
+            // Not sure if this is the best way to do it but we will see.
+            SizedBox(
+              width: 10,
+            ),
+            Text("Salt Lake City, UT", style: TextStyle(color: Colors.grey))
+          ],
+        ),
       ),
       Container(
         // decoration: BoxDecoration(
