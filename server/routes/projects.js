@@ -5,7 +5,7 @@ const Project = require('../models/project.js');
 // Get all projects
 router.get('/', async (req, res) => {
   try {
-    console.log('in')
+    console.log('in projects')
     const projects = await Project.find();
     res.json(projects);
   } catch (err) {
