@@ -68,6 +68,7 @@ class MenuPage extends StatelessWidget {
                 //     ),
                 //     "Favorites",
                 //     "Path"),
+
                 MenuButton(
                     Icon(
                       Icons.lightbulb_outline_rounded,
@@ -76,6 +77,7 @@ class MenuPage extends StatelessWidget {
                     ),
                     "How It Works",
                     howItWorksPath),
+
                 MenuButton(
                     Icon(
                       Icons.info_outline_rounded,
