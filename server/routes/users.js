@@ -5,7 +5,7 @@ const User = require('../models/user.js')
 //Getting all
 router.get('/', async (req, res) => {
     try {
-        console.log('in')
+        console.log('in users')
         const users = await User.find()
         res.json(users)
     } catch (err) {
