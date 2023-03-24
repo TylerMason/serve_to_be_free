@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:serve_to_be_free/widgets/buttons/menu_button.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
 
@@ -46,7 +47,7 @@ class MenuPage extends StatelessWidget {
               children: [
                 MenuButton(
                     ProfilePicture(Colors.amberAccent, 45,
-                        "assets/images/curious_lemur.jpeg",
+                        XFile("assets/images/curious_lemur.jpeg"),
                         borderRadius: 7),
                     "My Profile",
                     myProfilePath),

@@ -7,9 +7,10 @@ import 'package:serve_to_be_free/screens/messages.dart';
 import 'package:serve_to_be_free/screens/profile.dart';
 import 'package:serve_to_be_free/screens/projects.dart';
 import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/how_it_works.dart';
+import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/my_account_subpages/my_account_general_info.dart';
+import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/create_a_project/invite_a_leader.dart';
 import 'package:serve_to_be_free/screens/tasks.dart';
 import '../../screens/sub_screens/menu_subpages/about_page.dart';
-import '../../screens/sub_screens/menu_subpages/account_details.dart';
 import '../../screens/sub_screens/menu_subpages/my_account.dart';
 import '../../screens/sub_screens/projects_subpages/create_a_project/project_details_form.dart';
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/create_a_project/create_a_project.dart';
@@ -76,7 +77,16 @@ final goRouter = GoRouter(
                 routes: [
                   GoRoute(
                       path: 'projectdetailsform',
-                      builder: (context, state) => ProjectDetailsForm())
+                      builder: (context, state) => ProjectDetailsForm(
+                          path:
+                              '/projects/createprojects/projectdetailsform/invitealeader'),
+                      routes: [
+                        GoRoute(
+                            path: 'invitealeader',
+                            builder: (context, state) => InviteALeader(
+                                path:
+                                    '/projects/createprojects/projectdetailsform/invitealeader/projectroles'))
+                      ])
                 ]),
             GoRoute(
               path: 'leadprojects',
@@ -147,14 +157,18 @@ final goRouter = GoRouter(
               builder: (context, state) => Profile(/*label: 'B'*/),
             ),
             GoRoute(
-              path: 'myaccount',
-              builder: (context, state) => const MyAccount(),
-              // routes: [
-              //   GoRoute(
-              //       path: 'accountdetails',
-              //       builder: (context, state) => AccountDetailsPage())
-              // ]
-            ),
+                path: 'myaccount',
+                builder: (context, state) => const MyAccount(
+                      generalInfoPath: '/menu/myaccount/generalinfo',
+                      contactInfoPath: '/menu/myaccount/contactinfo',
+                      emergencyInfoPath: '/menu/myaccount/emergencyinfo',
+                      loginInfoPath: '/menu/myaccount/logininfo',
+                    ),
+                routes: [
+                  GoRoute(
+                      path: 'generalinfo',
+                      builder: (context, state) => MyAccountGeneralInfo())
+                ]),
             GoRoute(
               path: 'howitworks',
               builder: (context, state) => const HowItWorksPage(/*label: 'B'*/),
