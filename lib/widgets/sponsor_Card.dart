@@ -7,6 +7,7 @@ class SponsorCard extends StatelessWidget {
 
   // this is going to need to take an image
   // going to need text as well "Featured sponsor, POINTS, if sponsored by Chickfila"
+  // Can take
 
   @override
   Widget build(BuildContext context) {
@@ -20,50 +21,67 @@ class SponsorCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Center(
+        child: Container(
+          height: 150,
           child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    margin: EdgeInsets.all(50),
-                    child: Text("picture"),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(50),
-                    child: Text("data"),
-                  )
+                      height: 120,
+                      width: 120,
+                      margin: EdgeInsets.all(15),
+                      child: Container(
+                          decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                              'assets/images/chick-fil-a-logo-2.jpg'),
+                          //fit: BoxFit.cover,
+                        ),
+                      ))),
+                  Expanded(
+                      child: Container(
+                          child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(
+                          top: 15,
+                        ),
+                        child: Text(
+                          "FEATURED SPONSOR BONUS",
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.redAccent,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: -1),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 10, bottom: 10),
+                        child: Text(
+                          "75 Bonus Points",
+                          style: TextStyle(
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: -1),
+                        ),
+                      ),
+                      Container(
+                          child: Text(
+                        "when you join any project sponsored by Chick-Fil-A",
+                        softWrap: true,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ))
+                    ],
+                  )))
                 ],
               )),
         ));
   }
 }
-
-// Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: <Widget>[
-//                 const ListTile(
-//                   leading: Icon(Icons.album),
-//                   title: Text('The Enchanted Nightingale'),
-//                   subtitle:
-//                       Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.end,
-//                   children: <Widget>[
-//                     TextButton(
-//                       child: const Text('BUY TICKETS'),
-//                       onPressed: () {/* ... */},
-//                     ),
-//                     const SizedBox(width: 8),
-//                     TextButton(
-//                       child: const Text('LISTEN'),
-//                       onPressed: () {/* ... */},
-//                     ),
-//                     const SizedBox(width: 8),
-//                   ],
-//                 ),
-//               ],
-//             ),

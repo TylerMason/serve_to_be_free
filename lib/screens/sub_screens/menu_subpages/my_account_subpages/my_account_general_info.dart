@@ -15,6 +15,8 @@ class _MyAccountGeneralInfoState extends State<MyAccountGeneralInfo> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   final List<String> privacyOptions = ['Friends', 'Public'];
 
+  final String placeholder = "Shannon";
+
   void _submitForm() {
     // a null check on here?
     if (_formKey.currentState?.saveAndValidate() ?? false) {
@@ -63,7 +65,7 @@ class _MyAccountGeneralInfoState extends State<MyAccountGeneralInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Create a Project Demo'),
+          title: const Text('General Info'),
         ),
         body: SingleChildScrollView(
             child: Container(
@@ -77,29 +79,108 @@ class _MyAccountGeneralInfoState extends State<MyAccountGeneralInfo> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Project Name",
+                      "First Name",
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 12),
+                      margin: EdgeInsets.only(top: 5),
                       child: FormBuilderTextField(
-                          name: 'projectName',
+                          // This is going to be the key in the saved object
+                          name: 'firstName',
+                          initialValue: placeholder,
                           validator: FormBuilderValidators.compose([
                             FormBuilderValidators.required(),
+                            // FormBuilderValidators.minLength(3),
+                            // FormBuilderValidators.maxLength(50),
+                            // FormBuilderValidators.match(
+                            //   r'^[a-zA-Z0-9]+$',
+                            //   errorText:
+                            //       'Only alphanumeric characters are allowed',
+                            // ),
+                          ]),
+                          decoration: _fieldDecoration("First Name")),
+                    ),
+                    Container(height: 20),
+                    Text(
+                      "Last Name",
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 5),
+                      child: FormBuilderTextField(
+                          name: 'lastName',
+                          initialValue: "Brown",
+                          validator: FormBuilderValidators.compose([
+                            FormBuilderValidators.required(),
+                          ]),
+                          decoration: _fieldDecoration("Last Name")),
+                    ),
+                    Container(height: 20),
+                    Text(
+                      "Birth Date",
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 5),
+                      child: FormBuilderTextField(
+                          name: 'birthDate',
+                          initialValue: "October 12, 1998",
+                          validator: FormBuilderValidators.compose([
+                            FormBuilderValidators.required(),
+                          ]),
+                          decoration: _fieldDecoration("Birth Date")),
+                    ),
+                    Container(height: 20),
+                    Text(
+                      "Gender",
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 5),
+                      child: FormBuilderTextField(
+                          name: 'gender',
+                          //initialValue: "October 12, 1998",
+                          validator: FormBuilderValidators.compose([
                             FormBuilderValidators.minLength(3),
                             FormBuilderValidators.maxLength(50),
                             FormBuilderValidators.match(
-                              r'^[a-zA-Z0-9]+$',
+                              r'^[a-zA-Z]+$',
                               errorText:
                                   'Only alphanumeric characters are allowed',
                             ),
                           ]),
-                          decoration: _fieldDecoration("Project Name")),
-                    )
+                          decoration: _fieldDecoration("Gender")),
+                    ),
                   ],
                 ),
               ),
+              // This container is outside the seconde column for middle alignment
+              Container(
+                width: 150,
+                padding: EdgeInsets.only(bottom: 50),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.lightBlue[900],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+
+                    //side: BorderSide(width: 2.5, color: Colors.black),
+                  ),
+                  onPressed: _submitForm,
+                  child: Text(
+                    "Save",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                  ),
+                ),
+              )
             ],
           ),
         ))));

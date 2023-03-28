@@ -7,7 +7,10 @@ import 'package:serve_to_be_free/screens/messages.dart';
 import 'package:serve_to_be_free/screens/profile.dart';
 import 'package:serve_to_be_free/screens/projects.dart';
 import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/how_it_works.dart';
+import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/my_account_subpages/my_account_contact_info.dart';
+import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/my_account_subpages/my_account_emergency_info.dart';
 import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/my_account_subpages/my_account_general_info.dart';
+import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/my_account_subpages/my_account_login_info.dart';
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/create_a_project/invite_a_leader.dart';
 import 'package:serve_to_be_free/screens/tasks.dart';
 import '../../screens/sub_screens/menu_subpages/about_page.dart';
@@ -167,7 +170,16 @@ final goRouter = GoRouter(
                 routes: [
                   GoRoute(
                       path: 'generalinfo',
-                      builder: (context, state) => MyAccountGeneralInfo())
+                      builder: (context, state) => MyAccountGeneralInfo()),
+                  GoRoute(
+                      path: 'emergencyinfo',
+                      builder: (context, state) => MyAccountEmergencyInfo()),
+                  GoRoute(
+                      path: 'logininfo',
+                      builder: (context, state) => MyAccountLoginInfo()),
+                  GoRoute(
+                      path: 'contactinfo',
+                      builder: (context, state) => MyAccountContactInfo())
                 ]),
             GoRoute(
               path: 'howitworks',

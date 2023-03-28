@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:serve_to_be_free/widgets/projecs_appbar_display.dart';
 import '../widgets/buttons/wide_border_button.dart';
-import '../widgets/sponsor_Card.dart';
-import '../widgets/project_card.dart';
+import '../widgets/sponsor_card.dart';
+import '../widgets/my_project_card.dart';
 
 class ProjectsPage extends StatefulWidget {
   final findProjectsPath;
@@ -53,14 +54,74 @@ class _ProjectsPageState extends State<ProjectsPage> {
     );
   }
 
+  // decoration: BoxDecoration(
+  //               image: DecorationImage(
+  //                 image:
+  //                     AssetImage('assets/images/STBF_logo_horizontal_navy.jpg'),
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             ),
+
+  // decoration: BoxDecoration(
+  //               gradient: LinearGradient(
+  //                   begin: Alignment.topCenter,
+  //                   end: Alignment.bottomCenter,
+  //                   colors: <Color>[
+  //                     Color.fromARGB(255, 54, 87, 197),
+  //                     Color.fromARGB(255, 1, 64, 112)
+  //                   ]),
+  //             ),
+
   @override
   Widget build(BuildContext context) {
     precacheImage(AssetImage("assets/images/19219.jpg"), context);
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('AppBar Demo'),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(150.0),
+          child: AppBar(
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromRGBO(0, 28, 72, 1.0),
+                    Color.fromRGBO(35, 107, 140, 1.0),
+                  ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                ),
+              ),
+              padding: EdgeInsets.only(top: 60),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 280,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                            'assets/images/STBF_logo_horizontal_navy.jpg'),
+                        //fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Container(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ProjectAppbarDisplay(subject: "Members", value: "9,812"),
+                      ProjectAppbarDisplay(subject: "Projects", value: "287"),
+                      ProjectAppbarDisplay(subject: "Hours", value: "10,400")
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
-        body: Container(
+        body: SingleChildScrollView(
+            child: Container(
           margin: const EdgeInsets.only(top: 20.0),
           child: Column(
             children: [
@@ -119,13 +180,23 @@ class _ProjectsPageState extends State<ProjectsPage> {
               Container(
                   margin: EdgeInsets.only(left: 20, right: 20),
                   child: Row(
-                    children: [
-                      Expanded(child: ProjectCard()),
-                      Expanded(child: ProjectCard())
-                    ],
-                  ))
+                    children: [MyProjectCard(), MyProjectCard()],
+                  )),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('path/to/image.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
-        ));
+        )));
   }
 }
