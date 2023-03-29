@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-class ProjectCard extends StatelessWidget {
-  const ProjectCard({super.key});
+class MyProjectCard extends StatelessWidget {
+  const MyProjectCard({super.key});
 
   /*
   This shouldnt change at all. Just displays... but it should be clickable? If
@@ -23,25 +23,33 @@ class ProjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          height: 100,
+          child: Card(
+              child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.all(20),
-                child: Text("picture"),
-              ),
+                  //margin: EdgeInsets.all(20),
+                  height: 100,
+                  width: 70,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image:
+                            AssetImage('assets/images/project_example_1.jpeg'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )),
               Container(
                 margin: EdgeInsets.all(20),
                 child: Text("data"),
               )
             ],
           )),
-    );
+        ));
   }
 }

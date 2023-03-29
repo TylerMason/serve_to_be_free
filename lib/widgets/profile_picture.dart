@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfilePicture extends StatelessWidget {
   // possible function to be clicked and redirect to profile, but if not can maybe just pass "null"?
@@ -11,11 +14,21 @@ class ProfilePicture extends StatelessWidget {
   // possible passed in value here for making sure the border thickness is different dependent on size
   final MaterialAccentColor borderColor;
   final double dimension; // ?
-  final String imageString;
+
+  // This needs to be change
+  final File image;
   final double borderRadius;
 
+  // File displayImage(XFile inputImage) {
+  //   if (image != null) {
+  //     var newImage = File(inputImage.path);
+  //     return newImage;
+  //   }
+  //   return File('assets/images/shark_fake.jpeg');
+  // }
+
   // constructor
-  const ProfilePicture(this.borderColor, this.dimension, this.imageString,
+  const ProfilePicture(this.borderColor, this.dimension, this.image,
       {this.borderRadius = 10});
 
   @override
@@ -31,15 +44,27 @@ class ProfilePicture extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       foregroundDecoration: BoxDecoration(
-        border: Border.all(color: borderColor, width: 4),
+        border: Border.all(color: borderColor, width: 3),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Container(
-        child: FittedBox(
-          child: Image.asset(imageString),
-          fit: BoxFit.cover,
-        ),
-      ),
+          child: FittedBox(
+        child: Image.file(image),
+        fit: BoxFit.cover,
+      )
+
+          // child: image != null
+          //     ? Image.file(
+          //         displayImage(image),
+          //         fit: BoxFit.cover,
+          //       )
+          //     : Icon(
+          //         Icons.image,
+          //         size: 50,
+          //         color: Colors.grey[500],
+          //       ),
+
+          ),
     );
   }
 }

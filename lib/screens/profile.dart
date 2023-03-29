@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
 
 class Profile extends StatefulWidget {
@@ -47,7 +50,7 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                 child: ProfilePicture(
                   Colors.pinkAccent,
                   120,
-                  "assets/images/dude_fake.jpeg",
+                  File('/Users/tymason/Desktop/curious_lemur.jpeg'),
                   borderRadius: 10,
                 ),
               ),

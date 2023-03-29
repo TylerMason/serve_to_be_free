@@ -9,7 +9,10 @@ import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/widgets/buttons/solid_rounded_button.dart';
 
 class ProjectDetailsForm extends StatefulWidget {
-  ProjectDetailsForm({Key? key}) : super(key: key);
+  final String _path; // private variable
+  ProjectDetailsForm({Key? key, required String path})
+      : _path = path, // initialize the private variable
+        super(key: key);
 
   @override
   _ProjectDetailsFormState createState() => _ProjectDetailsFormState();
@@ -27,6 +30,7 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
       debugPrint(_formKey.currentState!.value.toString());
       // Do something with the form data
       print(_formKey.currentState!.value);
+      context.go(widget._path);
     }
   }
 

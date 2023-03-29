@@ -1,11 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/screens/login.dart';
 import './config/routes/app_routes.dart';
+import 'package:device_preview/device_preview.dart';
 
 void main() {
   //GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   runApp(const MyApp());
+  // runApp(DevicePreview(
+  //   enabled: !kReleaseMode,
+  //   builder: (context) => MyApp(),
+  // ));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,6 +21,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      //////////////////////////
+      // useInheritedMediaQuery: true,
+      // locale: DevicePreview.locale(context),
+      // builder: DevicePreview.appBuilder,
+      //////////////////////////
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
