@@ -16,16 +16,16 @@ class ProfilePicture extends StatelessWidget {
   final double dimension; // ?
 
   // This needs to be change
-  final XFile image;
+  final File image;
   final double borderRadius;
 
-  File displayImage(XFile inputImage) {
-    if (image != null) {
-      var newImage = File(inputImage.path);
-      return newImage;
-    }
-    return File('assets/images/shark_fake.jpeg');
-  }
+  // File displayImage(XFile inputImage) {
+  //   if (image != null) {
+  //     var newImage = File(inputImage.path);
+  //     return newImage;
+  //   }
+  //   return File('assets/images/shark_fake.jpeg');
+  // }
 
   // constructor
   const ProfilePicture(this.borderColor, this.dimension, this.image,
@@ -44,24 +44,27 @@ class ProfilePicture extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       foregroundDecoration: BoxDecoration(
-        border: Border.all(color: borderColor, width: 4),
+        border: Border.all(color: borderColor, width: 3),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Container(
-        child: FittedBox(
-          child: image != null
-              ? Image.file(
-                  displayImage(image),
-                  fit: BoxFit.cover,
-                )
-              : Icon(
-                  Icons.image,
-                  size: 50,
-                  color: Colors.grey[500],
-                ),
-          fit: BoxFit.cover,
-        ),
-      ),
+          child: FittedBox(
+        child: Image.file(image),
+        fit: BoxFit.cover,
+      )
+
+          // child: image != null
+          //     ? Image.file(
+          //         displayImage(image),
+          //         fit: BoxFit.cover,
+          //       )
+          //     : Icon(
+          //         Icons.image,
+          //         size: 50,
+          //         color: Colors.grey[500],
+          //       ),
+
+          ),
     );
   }
 }

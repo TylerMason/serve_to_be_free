@@ -13,12 +13,12 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     ScaffoldWithNavBarTabItem(
       initialLocation: '/dashboard',
       icon: Icon(Icons.home),
-      label: 'Home',
+      label: 'DASHBOARD',
     ),
     ScaffoldWithNavBarTabItem(
       initialLocation: '/projects',
       icon: Icon(Icons.business),
-      label: 'Projects',
+      label: 'PROJECTS',
     ),
     // ScaffoldWithNavBarTabItem(
     //   initialLocation: '/groups',
@@ -28,7 +28,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     ScaffoldWithNavBarTabItem(
       initialLocation: '/mytasks',
       icon: Icon(Icons.task_outlined),
-      label: 'My Tasks',
+      label: 'MY TASKS',
     ),
     // ScaffoldWithNavBarTabItem(
     //   initialLocation: '/mymessages',
@@ -38,7 +38,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     ScaffoldWithNavBarTabItem(
       initialLocation: '/menu',
       icon: Icon(Icons.menu),
-      label: 'Menu',
+      label: 'MENU',
     ),
   ];
 
@@ -64,8 +64,8 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-        selectedFontSize: 12,
-        unselectedFontSize: 12,
+        selectedFontSize: 10,
+        unselectedFontSize: 10,
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         selectedItemColor: Colors.blue[900],

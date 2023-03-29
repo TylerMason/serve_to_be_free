@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -21,8 +23,8 @@ class UserInviteDisplay extends StatelessWidget {
         */
 
           Row(children: [
-        ProfilePicture(
-            Colors.pinkAccent, 10, XFile("assets/images/curious_lemur.jpeg"))
+        ProfilePicture(Colors.pinkAccent, 10,
+            File('/Users/tymason/Desktop/curious_lemur.jpeg'))
       ]),
     );
   }

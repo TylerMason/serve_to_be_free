@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:serve_to_be_free/widgets/message_preview.dart';
@@ -65,19 +67,19 @@ class _MessagesPageState extends State<MessagesPage> {
           // going to have to map this.
           MessagePreview(
               profilePicture: ProfilePicture(Colors.amberAccent, 55,
-                  XFile("assets/images/curious_lemur.jpeg"))),
+                  File('/Users/tymason/Desktop/curious_lemur.jpeg'))),
           MessagePreview(
-              profilePicture: ProfilePicture(Colors.pinkAccent, 55,
-                  XFile("assets/images/dude_fake.jpeg"))),
+              profilePicture: ProfilePicture(
+                  Colors.pinkAccent, 55, File("assets/images/dude_fake.jpeg"))),
           MessagePreview(
               profilePicture: ProfilePicture(Colors.blueAccent, 55,
-                  XFile("assets/images/rock_racoon.jpeg"))),
+                  File('/Users/tymason/Desktop/curious_lemur.jpeg'))),
           MessagePreview(
               profilePicture: ProfilePicture(Colors.greenAccent, 55,
-                  XFile("assets/images/girl_fake.jpg"))),
+                  File('/Users/tymason/Desktop/curious_lemur.jpeg'))),
           MessagePreview(
               profilePicture: ProfilePicture(Colors.orangeAccent, 55,
-                  XFile("assets/images/shark_fake.jpeg")))
+                  File('/Users/tymason/Desktop/curious_lemur.jpeg')))
         ]));
   }
 }
