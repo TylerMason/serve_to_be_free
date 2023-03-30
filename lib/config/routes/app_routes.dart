@@ -1,3 +1,5 @@
+// import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/screens/dashboard.dart';
@@ -14,6 +16,7 @@ import '../../screens/sub_screens/menu_subpages/my_account.dart';
 import '../../screens/sub_screens/projects_subpages/create_a_project/project_details_form.dart';
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/create_a_project/create_a_project.dart';
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/lead_a_project.dart';
+import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/project_scr.dart';
 
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/sponsor_a_project.dart';
 import 'package:serve_to_be_free/widgets/ui/my_scaffold.dart';
@@ -91,6 +94,10 @@ final goRouter = GoRouter(
               path: 'myprojects',
               builder: (context, state) => const MyProjects(/*label: 'B'*/),
             ),
+            GoRoute(
+                path: 'projectDetails',
+                builder: (context, state) => ProjectDetailsPage(
+                    projectName: 'projectName', numOfMembers: 9))
           ],
         ),
         GoRoute(

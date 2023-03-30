@@ -37,6 +37,7 @@ class _FindAProjectState extends State<FindAProject> {
             return ListView.builder(
               itemCount: projects!.length,
               itemBuilder: (context, index) {
+                print(projects[index]);
                 return ProjectCard.fromJson(projects[index]);
                 // print(projects[index]['members'].length.toString());
                 // return ProjectCard(
@@ -47,7 +48,7 @@ class _FindAProjectState extends State<FindAProject> {
             );
           } else if (snapshot.hasError) {
             return Center(
-              child: Text("Failed to load projects."),
+              child: Text("No projects found."),
             );
           } else {
             return Center(
