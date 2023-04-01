@@ -19,7 +19,7 @@ class DashboardUserDisplay extends StatelessWidget {
       ProfilePicture(
         Colors.blueAccent,
         dimension,
-        File('/Users/tymason/Desktop/curious_lemur.jpeg'),
+        File(''),
         borderRadius: 7,
       ),
       Container(

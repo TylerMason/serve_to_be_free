@@ -50,7 +50,7 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                 child: ProfilePicture(
                   Colors.pinkAccent,
                   120,
-                  File('/Users/tymason/Desktop/curious_lemur.jpeg'),
+                  File(''),
                   borderRadius: 10,
                 ),
               ),

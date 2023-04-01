@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:serve_to_be_free/widgets/dashboard_user_display.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
+import 'package:serve_to_be_free/widgets/ui/dashboard_post.dart';
 
 import '../widgets/ui/my_scaffold.dart';
 
@@ -12,6 +13,15 @@ class DashboardPage extends StatefulWidget {
   @override
   _DashboardPageState createState() => _DashboardPageState();
 }
+
+final List<Widget> myWidgets = [
+  DashboardPost(),
+  DashboardPost(),
+  DashboardPost(),
+  DashboardPost(),
+  DashboardPost(),
+  DashboardPost(),
+];
 
 class _DashboardPageState extends State<DashboardPage> {
   @override
@@ -31,8 +41,9 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
           )),
+      extendBody: false,
       body: Container(
-        child: Column(children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
             padding: EdgeInsets.only(top: 20, bottom: 10),
             child: Row(
@@ -69,7 +80,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         // LIST OF USERS
                         DashboardUserDisplay(
                           dimension: 60.0,
-                          name: "Stephanieson",
+                          name: "Stephanie",
                         ),
                         DashboardUserDisplay(
                             dimension: 60.0, name: "Stephanie"),
@@ -79,15 +90,27 @@ class _DashboardPageState extends State<DashboardPage> {
                             dimension: 60.0, name: "Stephanie"),
                       ],
                     ),
-                  )))
+                  ))),
                 ]),
           ),
           Container(
+            margin: EdgeInsets.only(bottom: 15),
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(0, 28, 72, 1.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 4), // changes position of shadow
+                ),
+              ],
+            ),
             height: 50,
-            color: Color.fromRGBO(0, 28, 72, 1.0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  //Inkwell
                   Container(
                     padding: EdgeInsets.all(10),
                     child: Row(
@@ -107,6 +130,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       ],
                     ),
                   ),
+                  //Inkewell
                   Container(
                     padding: EdgeInsets.all(12),
                     color: Color.fromRGBO(35, 107, 140, 1.0),
@@ -132,7 +156,26 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                   ),
                 ]),
-          )
+          ),
+          Container(
+              child: Expanded(
+            child: ListView.builder(
+              itemCount: 6,
+              itemBuilder: (context, index) {
+                return myWidgets[index];
+              },
+            ),
+          )),
+          // Column(
+          //   children: [
+          //     DashboardPost(),
+          //     DashboardPost(),
+          //     DashboardPost(),
+          //     DashboardPost(),
+          //     DashboardPost(),
+          //     DashboardPost(),
+          //   ],
+          // ),
         ]),
       ),
     );

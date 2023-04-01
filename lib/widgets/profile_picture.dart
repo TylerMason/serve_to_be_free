@@ -49,7 +49,8 @@ class ProfilePicture extends StatelessWidget {
       ),
       child: Container(
           child: FittedBox(
-        child: Image.file(image),
+        //child: Image.file(image),
+        child: Image.asset('assets/images/curious_lemur.jpeg'),
         fit: BoxFit.cover,
       )
 

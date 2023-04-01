@@ -66,20 +66,16 @@ class _MessagesPageState extends State<MessagesPage> {
           ),
           // going to have to map this.
           MessagePreview(
-              profilePicture: ProfilePicture(Colors.amberAccent, 55,
-                  File('/Users/tymason/Desktop/curious_lemur.jpeg'))),
+              profilePicture: ProfilePicture(Colors.amberAccent, 55, File(''))),
           MessagePreview(
               profilePicture: ProfilePicture(
                   Colors.pinkAccent, 55, File("assets/images/dude_fake.jpeg"))),
           MessagePreview(
-              profilePicture: ProfilePicture(Colors.blueAccent, 55,
-                  File('/Users/tymason/Desktop/curious_lemur.jpeg'))),
+              profilePicture: ProfilePicture(Colors.blueAccent, 55, File(''))),
           MessagePreview(
-              profilePicture: ProfilePicture(Colors.greenAccent, 55,
-                  File('/Users/tymason/Desktop/curious_lemur.jpeg'))),
+              profilePicture: ProfilePicture(Colors.greenAccent, 55, File(''))),
           MessagePreview(
-              profilePicture: ProfilePicture(Colors.orangeAccent, 55,
-                  File('/Users/tymason/Desktop/curious_lemur.jpeg')))
+              profilePicture: ProfilePicture(Colors.orangeAccent, 55, File('')))
         ]));
   }
 }

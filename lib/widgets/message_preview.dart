@@ -74,15 +74,3 @@ class _MessagePreviewState extends State<MessagePreview> {
     ]));
   }
 }
-
-/*
-            ProfilePicture(
-                Colors.pinkAccent, 55, "assets/images/curious_lemur.jpeg"),
-            ProfilePicture(
-                Colors.pinkAccent, 35, "assets/images/shark_fake.jpeg"),
-            ProfilePicture(
-                Colors.pinkAccent, 45, "assets/images/rock_racoon.jpeg"),
-            ProfilePicture(
-                Colors.pinkAccent, 85, "assets/images/dude_fake.jpeg"),
-            ProfilePicture(Colors.pinkAccent, 65, "assets/images/girl_fake.jpg")
-*/
