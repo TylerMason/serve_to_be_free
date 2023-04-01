@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:serve_to_be_free/widgets/projecs_appbar_display.dart';
+import 'package:serve_to_be_free/widgets/projects_appbar_display.dart';
 import '../widgets/buttons/wide_border_button.dart';
 import '../widgets/sponsor_card.dart';
 import '../widgets/my_project_card.dart';
@@ -180,21 +180,22 @@ class _ProjectsPageState extends State<ProjectsPage> {
               Container(
                   margin: EdgeInsets.only(left: 20, right: 20),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [MyProjectCard(), MyProjectCard()],
                   )),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('path/to/image.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
+              // ClipRRect(
+              //   borderRadius: BorderRadius.circular(10),
+              //   child: Container(
+              //     width: 200,
+              //     height: 200,
+              //     decoration: BoxDecoration(
+              //       image: DecorationImage(
+              //         image: AssetImage('path/to/image.png'),
+              //         fit: BoxFit.cover,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         )));

@@ -25,11 +25,11 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     //   icon: Icon(Icons.groups_2_outlined),
     //   label: 'Groups',
     // ),
-    ScaffoldWithNavBarTabItem(
-      initialLocation: '/mytasks',
-      icon: Icon(Icons.task_outlined),
-      label: 'MY TASKS',
-    ),
+    // ScaffoldWithNavBarTabItem(
+    //   initialLocation: '/mytasks',
+    //   icon: Icon(Icons.task_outlined),
+    //   label: 'MY TASKS',
+    // ),
     // ScaffoldWithNavBarTabItem(
     //   initialLocation: '/mymessages',
     //   icon: Icon(Icons.email_outlined),

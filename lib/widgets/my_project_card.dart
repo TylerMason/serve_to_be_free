@@ -24,26 +24,43 @@ class MyProjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(10.0),
+            bottomRight: Radius.circular(10.0)),
         child: Container(
           height: 100,
           child: Card(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                  //margin: EdgeInsets.all(20),
-                  height: 100,
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    bottomLeft: Radius.circular(10.0)),
+                child: Container(
                   width: 70,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage('assets/images/project_example_1.jpeg'),
-                        fit: BoxFit.cover,
-                      ),
+                  height: 100,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/project_example_1.jpeg'),
+                      fit: BoxFit.cover,
                     ),
-                  )),
+                  ),
+                ),
+              ),
+              // Container(
+              //     //margin: EdgeInsets.all(20),
+              //     height: 100,
+              //     width: 70,
+              //     child: Container(
+              //       decoration: BoxDecoration(
+              //         image: DecorationImage(
+              //           image:
+              //               AssetImage('assets/images/project_example_1.jpeg'),
+              //           fit: BoxFit.cover,
+              //         ),
+              //       ),
+              //     )),
               Container(
                 margin: EdgeInsets.all(20),
                 child: Text("data"),

@@ -13,27 +13,37 @@ class DashboardPost extends StatefulWidget {
 }
 
 class _DashboardPostState extends State<DashboardPost> {
+  // How are we going to tie this to different users?
+  bool isLiked = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(10),
-        margin: EdgeInsets.only(bottom: 10),
+        margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
         decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black,
-            width: 1,
-          ),
+          borderRadius: BorderRadius.circular(5),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 2,
+              offset: Offset(0, 2),
+            ),
+          ],
         ),
         child: Container(
-          height: 100,
+          //height: 100,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  padding: EdgeInsets.all(5),
-                  child: ProfilePicture(Colors.deepOrangeAccent, 60,
-                      File('/Users/tymason/Desktop/curious_lemur.jpeg'))),
-              Container(
+                  margin: EdgeInsets.only(right: 15),
+                  padding: EdgeInsets.only(),
+                  child: ProfilePicture(Colors.deepOrangeAccent, 60, File(''))),
+              Expanded(
+                  child: Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -43,30 +53,52 @@ class _DashboardPostState extends State<DashboardPost> {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     )),
-                    Container(child: Text("date")),
+                    // FINISH
                     Container(
-                      color: Colors.blue,
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: Text(
+                          "date/time",
+                          style: TextStyle(color: Colors.grey),
+                        )),
+                    Container(
+                      padding: EdgeInsets.only(bottom: 10),
                       child: Text(
-                        'aljhfalsjdhf',
-                        style: TextStyle(color: Colors.white),
+                        softWrap: true,
+                        'aljhfalsjdhf aljhfalsjdhfaljhfalsjdhfaljhfalsjdhfaljhfalsjdhfaljhfalsjdhfaljhfalsjdhfaljhfalsjdhfaljhfalsjdhfaljhfalsjdhfaljhfalsjdhfaljhfalsjdhfaljhfalsjdhfaljhfalsjdhfaljhfalsjdhf ',
+                        style: TextStyle(),
                       ),
                     ),
                     Container(
                       child: Row(
                         children: [
-                          Icon(
-                            Icons.thumb_up_rounded,
-                            color: Colors.grey,
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                isLiked = !isLiked;
+                              });
+                            },
+                            child: Icon(
+                              Icons.thumb_up_rounded,
+                              color: isLiked ? Colors.amberAccent : Colors.grey,
+                              size: 20,
+                            ),
+                          ),
+                          Container(
+                            width: 20,
                           ),
                           Icon(
                             Icons.chat_bubble_rounded,
                             color: Colors.grey,
+                            size: 20,
                           )
                         ],
                       ),
                     )
                   ],
                 ),
+              )),
+              Container(
+                child: Icon(Icons.more_horiz),
               )
             ],
           ),

@@ -22,10 +22,7 @@ class UserInviteDisplay extends StatelessWidget {
         user.profileImage
         */
 
-          Row(children: [
-        ProfilePicture(Colors.pinkAccent, 10,
-            File('/Users/tymason/Desktop/curious_lemur.jpeg'))
-      ]),
+          Row(children: [ProfilePicture(Colors.pinkAccent, 10, File(''))]),
     );
   }
 }
