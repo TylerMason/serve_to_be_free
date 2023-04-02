@@ -14,6 +14,9 @@ class _MyScaffoldState extends State<MyScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: widget.child, bottomNavigationBar: BottomNavigationWidget());
+        extendBody: false,
+        body: widget.child,
+        resizeToAvoidBottomInset: false,
+        bottomNavigationBar: BottomNavigationWidget());
   }
 }

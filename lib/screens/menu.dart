@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:serve_to_be_free/widgets/buttons/menu_button.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
 
@@ -33,8 +36,8 @@ class MenuPage extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: <Color>[
-                      Color.fromARGB(255, 54, 87, 197),
-                      Color.fromARGB(255, 1, 64, 112)
+                      Color.fromRGBO(35, 107, 140, 1.0),
+                      Color.fromRGBO(0, 28, 72, 1.0),
                     ]),
               ),
             ),
@@ -45,13 +48,10 @@ class MenuPage extends StatelessWidget {
             child: Column(
               children: [
                 MenuButton(
-                    ProfilePicture(Colors.amberAccent, 45,
-                        "assets/images/curious_lemur.jpeg",
-
+                    ProfilePicture(Colors.amberAccent, 45, File(''),
                         borderRadius: 7),
                     "My Profile",
                     myProfilePath),
-
 
                 MenuButton(
                     Icon(
@@ -60,7 +60,6 @@ class MenuPage extends StatelessWidget {
                       color: Colors.lightBlue[900],
                     ),
                     "My Account",
-
                     myAccountPath),
                 // MenuButton(
                 //     Icon(
@@ -78,7 +77,6 @@ class MenuPage extends StatelessWidget {
                       color: Colors.lightBlue[900],
                     ),
                     "How It Works",
-
                     howItWorksPath),
 
                 MenuButton(
@@ -87,10 +85,8 @@ class MenuPage extends StatelessWidget {
                       size: 25,
                       color: Colors.lightBlue[900],
                     ),
-
                     "About Serve To Be Free",
                     aboutPath),
-
               ],
             )));
   }
