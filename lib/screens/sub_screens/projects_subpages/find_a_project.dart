@@ -60,7 +60,7 @@ class _FindAProjectState extends State<FindAProject> {
   }
 
   Future<List<dynamic>> getProjects() async {
-    var url = Uri.parse('http://10.0.2.2:3000/projects');
+    var url = Uri.parse('http://44.203.120.103:3000/projects');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);

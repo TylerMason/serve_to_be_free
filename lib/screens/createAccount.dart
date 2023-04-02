@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/utilities/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -215,7 +216,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
       }
 
       // If all inputs are valid, make the HTTP request
-      final url = Uri.parse('http://10.0.2.2:3000/users');
+      final url = Uri.parse('http://44.203.120.103:3000/users');
       final headers = <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       };
@@ -233,6 +234,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
       if (response.statusCode == 201) {
         // Success
         print('User created successfully');
+        context.go('/dashboard');
       } else {
         // Failure
         throw Exception('Failed to create user: ${response.reasonPhrase}');
