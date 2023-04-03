@@ -13,6 +13,7 @@ import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/my_account_su
 import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/my_account_subpages/my_account_login_info.dart';
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/create_a_project/invite_a_leader.dart';
 import 'package:serve_to_be_free/screens/tasks.dart';
+import '../../screens/sub_screens/create_a_post.dart';
 import '../../screens/sub_screens/menu_subpages/about_page.dart';
 import '../../screens/sub_screens/menu_subpages/my_account.dart';
 import '../../screens/sub_screens/projects_subpages/create_a_project/project_details_form.dart';
@@ -50,12 +51,12 @@ final goRouter = GoRouter(
             child:
                 const DashboardPage(/*label: 'A', detailsPath: '/a/details'*/),
           ),
-          // routes: [
-          //   GoRoute(
-          //     path: 'details',
-          //     builder: (context, state) => const DetailsScreen(label: 'A'),
-          //   ),
-          // ],
+          routes: [
+            GoRoute(
+              path: 'createapost',
+              builder: (context, state) => const CreateAPost(),
+            ),
+          ],
         ),
         GoRoute(
           path: '/projects',

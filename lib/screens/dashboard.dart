@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/widgets/dashboard_user_display.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
 import 'package:serve_to_be_free/widgets/ui/dashboard_post.dart';
@@ -144,14 +145,19 @@ class _DashboardPageState extends State<DashboardPage> {
                         Container(
                           width: 5,
                         ),
-                        Text(
-                          "Create a Post",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              letterSpacing: -.5),
-                        ),
+                        InkWell(
+                            onTap: () {
+                              context.go('/dashboard/createapost');
+                            },
+                            child: Container(
+                                child: Text(
+                              "Create a Post",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  letterSpacing: -.5),
+                            ))),
                       ],
                     ),
                   ),
