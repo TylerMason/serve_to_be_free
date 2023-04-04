@@ -278,8 +278,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> tryLogin() async {
-    final url =
-        Uri.parse('http://10.0.2.2:3000/users/email/${emailController.text}');
+    final url = Uri.parse(
+        'http://44.203.120.103:3000/users/email/${emailController.text}');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -290,6 +290,7 @@ class _LoginScreenState extends State<LoginScreen> {
       print(passwordController.text);
 
       if (passwordController.text == res['password']) {
+        context.go('/dashboard');
         // print('iloveyou');
         // Navigator.push(
         //   context,

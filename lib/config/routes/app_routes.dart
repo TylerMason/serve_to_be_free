@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/screens/dashboard.dart';
 import 'package:serve_to_be_free/screens/groups.dart';
+import 'package:serve_to_be_free/screens/login.dart';
 import 'package:serve_to_be_free/screens/menu.dart';
 import 'package:serve_to_be_free/screens/messages.dart';
 import 'package:serve_to_be_free/screens/profile.dart';
@@ -32,9 +33,13 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 // the one and only GoRouter instance
 final goRouter = GoRouter(
-  initialLocation: '/dashboard',
+  initialLocation: '/login',
   navigatorKey: _rootNavigatorKey,
   routes: [
+    GoRoute(
+        path: '/login',
+        pageBuilder: (context, state) =>
+            NoTransitionPage(child: LoginScreen())),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
