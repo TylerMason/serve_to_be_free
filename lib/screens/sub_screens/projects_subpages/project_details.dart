@@ -82,9 +82,9 @@ class _ProjectDetailsState extends State<ProjectDetails> {
             ElevatedButton(
               onPressed: () {
                 // join project functionality
-                // if (!projectData['members'].contains(currentUserID)) {
-                addMember();
-                // }
+                if (!projectData['members'].contains(currentUserID)) {
+                  addMember();
+                }
               },
               child: Text(joinButtonText),
             ),
