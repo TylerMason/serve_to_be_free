@@ -71,6 +71,19 @@ router.delete('/:id', getProject, async (req, res) => {
   }
 });
 
+router.put('/:id/member', getProject, async (req, res) => {
+  const memberId = req.body.memberId;
+
+  try {
+    res.project.members.push(memberId);
+    const updatedProject = await res.project.save();
+    res.json(updatedProject);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
 async function getProject(req, res, next) {
   let project;
 
