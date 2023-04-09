@@ -107,7 +107,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
 
   Future<void> addMember() async {
     final url = Uri.parse(
-        'http://44.203.120.103/projects/${projectData['_id']}/member');
+        'http://44.203.120.103:3000/projects/${projectData['_id']}/member');
     final Map<String, dynamic> data = {
       'memberId': Provider.of<User>(context, listen: false).id
     };
@@ -118,6 +118,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
       },
       body: jsonEncode(data),
     );
+    print(response.toString());
 
     if (response.statusCode == 200) {
       // API call successful\
