@@ -4,10 +4,17 @@ import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/screens/login.dart';
 import './config/routes/app_routes.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:provider/provider.dart';
+import 'package:serve_to_be_free/utilities/user_model.dart';
 
 void main() {
   //GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => User(),
+      child: const MyApp(),
+    ),
+  );
   // runApp(DevicePreview(
   //   enabled: !kReleaseMode,
   //   builder: (context) => MyApp(),
