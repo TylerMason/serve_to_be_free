@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/utilities/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:provider/provider.dart';
+
+import '../utilities/user_model.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
@@ -198,6 +201,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
     final confirmPass = confirmPasswordController.text;
     final firstName = firstNameController.text;
     final lastName = lastNameController.text;
+
     try {
       if (password != confirmPass) {
         throw (Exception('Passwords must match'));
@@ -233,6 +237,12 @@ class _CreateAccountState extends State<CreateAccountScreen> {
       // Check the response status code
       if (response.statusCode == 201) {
         // Success
+        final res = json.decode(response.body);
+        print(res);
+        Provider.of<User>(context, listen: false).email = res['email'];
+        Provider.of<User>(context, listen: false).id = res['_id'];
+        Provider.of<User>(context, listen: false).firstName = res['firstName'];
+        Provider.of<User>(context, listen: false).lastName = res['lastName'];
         print('User created successfully');
         context.go('/dashboard');
       } else {

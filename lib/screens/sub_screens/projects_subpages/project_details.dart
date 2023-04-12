@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:serve_to_be_free/utilities/user_model.dart';
 import 'package:serve_to_be_free/widgets/dashboard_user_display.dart';
+
 import 'package:serve_to_be_free/widgets/ui/dashboard_post.dart';
+import 'package:serve_to_be_free/widgets/ui/project_post.dart';
+import 'package:serve_to_be_free/widgets/post_dialogue.dart';
 
 class ProjectDetails extends StatefulWidget {
   final String? id;
@@ -44,7 +47,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   Widget build(BuildContext context) {
     final currentUserID = Provider.of<User>(context, listen: false).id;
     final members = projectData['members'] ?? [];
-
+    print(currentUserID);
+    print(members.toString());
     final hasJoined = members.contains(currentUserID);
 
     final joinButtonText = hasJoined ? 'Post' : 'Join';
@@ -80,11 +84,11 @@ class _ProjectDetailsState extends State<ProjectDetails> {
               child: Text('About'),
             ),
             ElevatedButton(
-              onPressed: () {
-                // join project functionality
-                if (!projectData['members'].contains(currentUserID)) {
-                  addMember();
-                }
+              onPressed: () => {
+                if (!projectData['members'].contains(currentUserID))
+                  {addMember()}
+                else
+                  {onPostClick(currentUserID)}
               },
               child: Text(joinButtonText),
             ),
@@ -92,7 +96,13 @@ class _ProjectDetailsState extends State<ProjectDetails> {
               child: ListView.builder(
                 itemCount: projectData['posts']?.length ?? 0,
                 itemBuilder: (context, index) {
-                  return DashboardPost();
+                  final reversedIndex = projectData['posts'].length -
+                      index -
+                      1; // compute the index of the reversed list
+                  return ProjectPost(
+                    name: projectData['posts'][reversedIndex]['name'],
+                    postText: projectData['posts'][reversedIndex]['text'],
+                  );
                   // return DashboardUserDisplay(
                   //     dimension: 60.0,
                   //     name: projectData['posts']?[index]['text']);
@@ -103,6 +113,44 @@ class _ProjectDetailsState extends State<ProjectDetails> {
         ),
       ),
     );
+  }
+
+  void updatePosts(List<dynamic> newPosts) {}
+
+  void onPostClick(currentUserID) async {
+    // join project functionality
+    if (!projectData['members'].contains(currentUserID)) {
+      addMember();
+    } else {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return JoinProjectDialog(
+            projectId: projectData['_id'],
+          );
+        },
+      );
+      print('x');
+      getProjects().then((data) {
+        setState(() {
+          projectData = data;
+        });
+      });
+    }
+  }
+
+  Future<String> getName(id) async {
+    final url = Uri.parse('http://44.203.120.103:3000/users/$id');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      // API call successful\
+
+      final res = json.decode(response.body);
+      var name = res['firstName'] + '' + res['lastName'];
+      return name;
+    }
+    return '';
   }
 
   Future<void> addMember() async {
