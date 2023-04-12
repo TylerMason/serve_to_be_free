@@ -84,7 +84,12 @@ class _ProjectDetailsState extends State<ProjectDetails> {
               child: Text('About'),
             ),
             ElevatedButton(
-              onPressed: () => onPostClick(currentUserID),
+              onPressed: () => {
+                if (!projectData['members'].contains(currentUserID))
+                  {addMember()}
+                else
+                  {onPostClick(currentUserID)}
+              },
               child: Text(joinButtonText),
             ),
             Expanded(
