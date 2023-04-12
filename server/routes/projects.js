@@ -83,6 +83,18 @@ router.put('/:id/member', getProject, async (req, res) => {
   }
 });
 
+router.put('/:id/post', getProject, async (req, res) => {
+  const post = req.body;
+
+  try {
+    res.project.posts.push(post);
+    const updatedProject = await res.project.save();
+    res.json(updatedProject);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 
 async function getProject(req, res, next) {
   let project;
