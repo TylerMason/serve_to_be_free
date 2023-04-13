@@ -1,8 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import '../widgets/classes/User.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -14,6 +16,17 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   void initState() {
     _tabController = new TabController(length: 2, vsync: this);
     super.initState();
+  }
+
+  Future<User> fetchUser(String userId) async {
+    final response =
+        await http.get(Uri.parse('<YOUR_MONGODB_API_URL>/users/$userId'));
+
+    if (response.statusCode == 200) {
+      return User.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load user data from MongoDB');
+    }
   }
 
   late TabController _tabController;
@@ -41,20 +54,22 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
               height: 180,
             ),
             Positioned(
-              top: 110,
-              right: null,
-              left: null,
-              child: Container(
-                //transform: Matrix4.translationValues(0.0, -70.0, 0.0),
-                //margin: EdgeInsets.only(bottom: 50),
-                child: ProfilePicture(
-                  Colors.pinkAccent,
-                  120,
-                  File(''),
-                  borderRadius: 10,
-                ),
-              ),
-            )
+                top: 110,
+                right: null,
+                left: null,
+                child: InkWell(
+                  onTap: () => {print("Profilel pic tapped")},
+                  child: Container(
+                    //transform: Matrix4.translationValues(0.0, -70.0, 0.0),
+                    //margin: EdgeInsets.only(bottom: 50),
+                    child: ProfilePicture(
+                      Colors.pinkAccent,
+                      120,
+                      File(''),
+                      borderRadius: 10,
+                    ),
+                  ),
+                ))
           ]),
       Container(
         padding: EdgeInsets.only(top: 10),

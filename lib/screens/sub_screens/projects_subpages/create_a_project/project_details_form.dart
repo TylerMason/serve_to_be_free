@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
@@ -22,15 +24,43 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   final List<String> privacyOptions = ['Friends', 'Public'];
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     // a null check on here?
     if (_formKey.currentState?.saveAndValidate() ?? false) {
-      // Get the value of each form field and add it to the _formData map
       _formKey.currentState!.save();
-      debugPrint(_formKey.currentState!.value.toString());
-      // Do something with the form data
+
+      final bucketName = 'servetobefree-images';
+      final region = 'us-east-1';
+      final url = 'https://$bucketName.s3.$region.amazonaws.com';
+
+      debugPrint(url);
+
+      final response = await http.head(Uri.parse(url));
+
       print(_formKey.currentState!.value);
-      context.go(widget._path);
+      final formData = _formKey.currentState!.value;
+      final selectedFile = formData['projectImage'][0];
+      if (selectedFile != null) {
+        final file = File(selectedFile.path);
+        //print(file);
+        uploadImageToS3(file, 'servetobefree-images', '1', 'testProfileImgae');
+      }
+      // Make it so the context only goes if the s3 upload is successful
+      // context.go(widget._path);
+    }
+  }
+
+  Future<void> uploadImageToS3(
+      File imageFile, String bucketName, String userId, String imageFileName,
+      {String region = 'us-east-1'}) async {
+    final key = 'ServeToBeFree/ProfilePictures/$userId/$imageFileName';
+    final url =
+        'https://$bucketName.s3.amazonaws.com/$key'.replaceAll('+', '%20');
+    final response = await http.put(Uri.parse(url),
+        headers: {'Content-Type': 'image/jpeg'},
+        body: await imageFile.readAsBytes());
+    if (response.statusCode != 200) {
+      throw Exception('Failed to upload image to S3');
     }
   }
 
@@ -239,28 +269,29 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
                   ],
                 ),
               ),
-              Container(
-                width: 150,
-                padding: EdgeInsets.only(bottom: 50),
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.lightBlue[900],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
+              // Container(
+              //   width: 150,
+              //   padding: EdgeInsets.only(bottom: 50),
+              //   child: OutlinedButton(
+              //     style: OutlinedButton.styleFrom(
+              //       backgroundColor: Colors.lightBlue[900],
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(30.0),
+              //       ),
 
-                    //side: BorderSide(width: 2.5, color: Colors.black),
-                  ),
-                  onPressed: _submitForm,
-                  child: Text(
-                    "Next",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                  ),
-                ),
-              )
+              //       //side: BorderSide(width: 2.5, color: Colors.black),
+              //     ),
+              //     onPressed: _submitForm,
+              //     child: Text(
+              //       "Next",
+              //       style: TextStyle(
+              //           color: Colors.white,
+              //           fontWeight: FontWeight.bold,
+              //           fontSize: 18),
+              //     ),
+              //   ),
+              // )
+              SolidRoundedButton("Next", passedFunction: _submitForm)
             ],
           ),
         ))));

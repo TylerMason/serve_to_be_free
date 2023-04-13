@@ -9,24 +9,23 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  members: {
-    type: [String],
+  members: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }],
+  postIds: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post',
+    required: false
+  }],
+  profileImage: {
+    type: String,
     required: true
   },
-  posts: {
-    type: [
-      {
-        member: {
-          type: String,
-          required: true
-        },
-        text: {
-          type: String,
-          required: true
-        }
-      }
-    ],
-    required: false
+  coverPhoto: {
+    type: String,
+    required: true
   }
 });
 

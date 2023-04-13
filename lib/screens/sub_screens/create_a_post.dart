@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:serve_to_be_free/widgets/buttons/solid_rounded_button.dart';
 
 class CreateAPost extends StatefulWidget {
   const CreateAPost({Key? key}) : super(key: key);
@@ -106,19 +107,19 @@ class _CreateAPostState extends State<CreateAPost> {
                 ),
               ),
               Divider(),
-              Expanded(
-                  child: Container(
-                      margin: EdgeInsets.only(left: 10, right: 10),
-                      child: TextField(
-                        maxLines:
-                            null, // This will allow the text area to expand to fit the content.
-                        decoration: InputDecoration(
-                            hintText:
-                                'Enter your text here', // Placeholder text for the text area
-                            border:
-                                InputBorder.none // Border around the text area
-                            ),
-                      )))
+              Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  child: TextField(
+                    maxLines:
+                        null, // This will allow the text area to expand to fit the content.
+                    decoration: InputDecoration(
+                        hintText:
+                            'Enter your text here', // Placeholder text for the text area
+                        border: InputBorder.none // Border around the text area
+                        ),
+                  )),
+              //Spacer(),
+              SolidRoundedButton("Post")
             ],
           ),
         ));
