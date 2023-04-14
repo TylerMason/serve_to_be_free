@@ -44,27 +44,33 @@ import 'package:bson/bson.dart';
 
 class User {
   ObjectId id;
-  String name;
-  List<ObjectId> projectIds;
+  String email;
+  String firstName;
+  String lastName;
+  List<ObjectId> projects;
   String bio;
   String profilePictureUrl;
+  String coverPictureUrl;
   bool isLeader;
-  List<ObjectId> postIds;
+  List<ObjectId> posts;
 
   User({
     required this.id,
-    required this.name,
-    required this.projectIds,
+    required this.email,
+    required this.firstName,
+    required this.lastName,
+    required this.projects,
     required this.bio,
     required this.profilePictureUrl,
+    required this.coverPictureUrl,
     required this.isLeader,
-    required this.postIds,
+    required this.posts,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
-    List<ObjectId> projectIds = [];
-    for (var projectId in json['projectIds']) {
-      projectIds.add(ObjectId.parse(projectId));
+    List<ObjectId> projects = [];
+    for (var projectId in json['projects']) {
+      projects.add(ObjectId.parse(projectId));
     }
 
     List<ObjectId> postIds = [];
@@ -74,23 +80,33 @@ class User {
 
     return User(
       id: ObjectId.parse(json['_id']),
-      name: json['name'],
-      projectIds: projectIds,
+      email: json['email'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      projects: projects,
       bio: json['bio'],
       profilePictureUrl: json['profilePictureUrl'],
+      coverPictureUrl: json['coverPictureUrl'],
       isLeader: json['isLeader'],
-      postIds: postIds,
+      posts: postIds,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'projectIds': projectIds.map((id) => id.toHexString()).toList(),
+      'email': email,
+      'projects': projects.map((id) => id.toHexString()).toList(),
       'bio': bio,
       'profilePictureUrl': profilePictureUrl,
       'isLeader': isLeader,
-      'postIds': postIds.map((id) => id.toHexString()).toList(),
+      'postIds': posts.map((id) => id.toHexString()).toList(),
     };
   }
 }
+
+// password: { type: String, required: true },
+//     email: { type: String, required: true },
+//     firstName: { type: String, required: true },
+//     lastName: { type: String, required: true },
+//     projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
+//     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],

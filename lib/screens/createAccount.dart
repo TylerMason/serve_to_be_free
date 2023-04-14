@@ -94,6 +94,11 @@ class _CreateAccountState extends State<CreateAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Create an Account'),
+        flexibleSpace: Container(),
+        backgroundColor: Color.fromRGBO(0, 28, 72, 1.0),
+      ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: GestureDetector(
@@ -232,11 +237,11 @@ class _CreateAccountState extends State<CreateAccountScreen> {
           'lastName': lastName,
         }),
       );
-      // Check the response status code
+      //Check the response status code
       if (response.statusCode == 201) {
         // Success
         print('User created successfully');
-        context.go('/dashboard');
+        // context.go('/dashboard');
       } else {
         // Failure
         throw Exception('Failed to create user: ${response.reasonPhrase}');

@@ -15,7 +15,7 @@ const postSchema = new mongoose.Schema({
     required: true,
     default: Date.now
   },
-  projectId: {
+  project: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project',
     required: false

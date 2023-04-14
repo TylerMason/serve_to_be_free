@@ -100,8 +100,19 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Create a Project Demo'),
-        ),
+            title: const Text('Project Details'),
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromRGBO(0, 28, 72, 1.0),
+                    Color.fromRGBO(35, 107, 140, 1.0),
+                  ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                ),
+              ),
+            )),
         body: SingleChildScrollView(
             child: Container(
                 child: FormBuilder(
@@ -291,7 +302,10 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
               //     ),
               //   ),
               // )
-              SolidRoundedButton("Next", passedFunction: _submitForm)
+              Container(
+                  margin: EdgeInsets.only(bottom: 20),
+                  child:
+                      SolidRoundedButton("Next", passedFunction: _submitForm))
             ],
           ),
         ))));

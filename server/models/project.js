@@ -5,6 +5,10 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  privacy: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true
@@ -14,19 +18,15 @@ const projectSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   }],
-  postIds: [{
+  posts: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Post',
     required: false
   }],
-  profileImage: {
+  projectPicture: {
     type: String,
     required: true
   },
-  coverPhoto: {
-    type: String,
-    required: true
-  }
 });
 
 module.exports = mongoose.model('Project', projectSchema);

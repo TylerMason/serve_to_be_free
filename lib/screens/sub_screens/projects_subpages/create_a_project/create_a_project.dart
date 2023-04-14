@@ -13,8 +13,19 @@ class CreateAProject extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Creat a Project Demo'),
-        ),
+            title: const Text('Create a Project'),
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromRGBO(0, 28, 72, 1.0),
+                    Color.fromRGBO(35, 107, 140, 1.0),
+                  ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                ),
+              ),
+            )),
         body: Container(
             child: Column(children: [
           Container(
