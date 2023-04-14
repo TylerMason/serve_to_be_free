@@ -76,24 +76,22 @@ class _ProjectsPageState extends State<ProjectsPage> {
   Widget build(BuildContext context) {
     precacheImage(AssetImage("assets/images/19219.jpg"), context);
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(192.0),
-          child: AppBar(
-            flexibleSpace: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromRGBO(0, 28, 72, 1.0),
-                    Color.fromRGBO(35, 107, 140, 1.0),
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
+      resizeToAvoidBottomInset: false,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(192.0),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(0, 28, 72, 1.0),
+                  Color.fromRGBO(35, 107, 140, 1.0),
+                ],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
               ),
               padding: EdgeInsets.only(top: 60),
               // padding: EdgeInsets.only(bottom: 10)
-
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -123,8 +121,9 @@ class _ProjectsPageState extends State<ProjectsPage> {
             ),
           ),
         ),
-        body: SingleChildScrollView(
-            child: Container(
+
+      body: SingleChildScrollView(
+        child: Container(
           margin: const EdgeInsets.only(top: 20.0),
           child: Column(
             children: [
@@ -204,5 +203,6 @@ class _ProjectsPageState extends State<ProjectsPage> {
         )));
 
     //);
+
   }
 }

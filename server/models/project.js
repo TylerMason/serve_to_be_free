@@ -13,14 +13,23 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  members: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  }],
-  posts: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Post',
+  posts: {
+    type: [
+      {
+        member: {
+          type: String,
+          required: true
+        },
+        name: {
+          type: String,
+          required: true
+        },
+        text: {
+          type: String,
+          required: true
+        }
+      }
+    ],
     required: false
   }],
   projectPicture: {
