@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/utilities/constants.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:provider/provider.dart';
@@ -95,6 +97,11 @@ class _CreateAccountState extends State<CreateAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Create an Account'),
+        flexibleSpace: Container(),
+        backgroundColor: Color.fromRGBO(0, 28, 72, 1.0),
+      ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: GestureDetector(
@@ -234,7 +241,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
           'lastName': lastName,
         }),
       );
-      // Check the response status code
+      //Check the response status code
       if (response.statusCode == 201) {
         // Success
         final res = json.decode(response.body);
@@ -244,7 +251,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
         Provider.of<User>(context, listen: false).firstName = res['firstName'];
         Provider.of<User>(context, listen: false).lastName = res['lastName'];
         print('User created successfully');
-        context.go('/dashboard');
+        // context.go('/dashboard');
       } else {
         // Failure
         throw Exception('Failed to create user: ${response.reasonPhrase}');

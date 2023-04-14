@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:serve_to_be_free/screens/createAccount.dart';
 import 'package:serve_to_be_free/screens/dashboard.dart';
 import 'package:serve_to_be_free/screens/groups.dart';
 import 'package:serve_to_be_free/screens/login.dart';
@@ -40,9 +41,21 @@ final goRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   routes: [
     GoRoute(
-        path: '/login',
-        pageBuilder: (context, state) =>
-            NoTransitionPage(child: LoginScreen())),
+      path: '/login',
+      pageBuilder: (context, state) => NoTransitionPage(child: LoginScreen()),
+      routes: [
+        GoRoute(
+          path: 'createaccountscreen',
+          builder: (context, state) => const CreateAccountScreen(),
+          routes: [
+            GoRoute(
+              path: 'chooseprofilepicture',
+              builder: (context, state) => const CreateAccountScreen(),
+            ),
+          ],
+        ),
+      ],
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {

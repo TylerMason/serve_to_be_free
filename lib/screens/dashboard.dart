@@ -171,6 +171,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 return myWidgets[index];
               },
             ),
+            // )
           )),
           // Column(
           //   children: [

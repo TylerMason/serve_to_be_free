@@ -164,13 +164,14 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildSignupBtn() {
     return GestureDetector(
       onTap: () => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const CreateAccountScreen()),
-        ),
-        setState(() {
-          CreateAccountScreen();
-        })
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const CreateAccountScreen()),
+        // ),
+        // setState(() {
+        //   CreateAccountScreen();
+        // })
+        context.go('/login/createaccountscreen')
       },
       child: RichText(
         text: TextSpan(

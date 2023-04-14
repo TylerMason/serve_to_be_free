@@ -5,12 +5,12 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  description: {
+  privacy: {
     type: String,
     required: true
   },
-  members: {
-    type: [String],
+  description: {
+    type: String,
     required: true
   },
   posts: {
@@ -31,7 +31,11 @@ const projectSchema = new mongoose.Schema({
       }
     ],
     required: false
-  }
+  }],
+  projectPicture: {
+    type: String,
+    required: true
+  },
 });
 
 module.exports = mongoose.model('Project', projectSchema);

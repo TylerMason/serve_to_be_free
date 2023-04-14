@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Project = require('../models/project.js');
 
-// Get all projects
+// Get all posts
 router.get('/', async (req, res) => {
   try {
-    console.log('in projects')
-    const projects = await Project.find();
-    res.json(projects);
+    console.log('in posts')
+    const posts = await Post.find();
+    res.json(posts);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -22,10 +22,8 @@ router.get('/:id', getProject, (req, res) => {
 router.post('/', async (req, res) => {
   const project = new Project({
     name: req.body.name,
-    privacy: req.body.privacy,
     description: req.body.description,
     members: req.body.members,
-    projectPicture: req.body.projectPhoto,
     posts: req.body.posts
   });
 
@@ -72,31 +70,6 @@ router.delete('/:id', getProject, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
-router.put('/:id/member', getProject, async (req, res) => {
-  const memberId = req.body.memberId;
-
-  try {
-    res.project.members.push(memberId);
-    const updatedProject = await res.project.save();
-    res.json(updatedProject);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-
-router.put('/:id/post', getProject, async (req, res) => {
-  const post = req.body;
-
-  try {
-    res.project.posts.push(post);
-    const updatedProject = await res.project.save();
-    res.json(updatedProject);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-
 
 async function getProject(req, res, next) {
   let project;

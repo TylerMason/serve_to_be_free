@@ -40,7 +40,8 @@ class CustomSearchDelegate extends SearchDelegate {
     // Need to display the User with all the info
     List<User> matchQuery = [];
     for (var user in potentialUsers) {
-      if ((user.name).toLowerCase().contains(query.toLowerCase())) {
+      var fullName = user.firstName + user.lastName;
+      if ((fullName).toLowerCase().contains(query.toLowerCase())) {
         matchQuery.add(user);
       }
     }
@@ -58,7 +59,9 @@ class CustomSearchDelegate extends SearchDelegate {
     // Need to display the User with all the info
     List<User> matchQuery = [];
     for (var user in potentialUsers) {
-      if ((user.name).toLowerCase().contains(query.toLowerCase())) {
+      var fullName = user.firstName + user.lastName;
+      //if ((user.name).toLowerCase().contains(query.toLowerCase())) {
+      if ((fullName).toLowerCase().contains(query.toLowerCase())) {
         matchQuery.add(user);
       }
     }
