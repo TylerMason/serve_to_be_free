@@ -1,13 +1,15 @@
+import 'package:bson/bson.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:serve_to_be_free/screens/sub_screens/login_subpages/choose_profile_picture.dart';
 import 'package:serve_to_be_free/utilities/constants.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:provider/provider.dart';
-
+import '../widgets/classes/UserClass.dart';
 import '../utilities/user_model.dart';
 
 class CreateAccountScreen extends StatefulWidget {
@@ -226,36 +228,48 @@ class _CreateAccountState extends State<CreateAccountScreen> {
         throw (Exception('Please enter a valid name'));
       }
 
-      // If all inputs are valid, make the HTTP request
-      final url = Uri.parse('http://44.203.120.103:3000/users');
-      final headers = <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      };
-      final response = await http.post(
-        url,
-        headers: headers,
-        body: jsonEncode(<String, String>{
-          'email': email,
-          'password': password,
-          'firstName': firstName,
-          'lastName': lastName,
-        }),
+      UserClass user = UserClass(
+        email: 'test@example.com',
+        firstName: 'John',
+        lastName: 'Doe',
+        projects: [ObjectId()],
+        bio: 'Some bio text',
+        profilePictureUrl: 'https://example.com/profile.jpg',
+        isLeader: true,
       );
-      //Check the response status code
-      if (response.statusCode == 201) {
-        // Success
-        final res = json.decode(response.body);
-        print(res);
-        Provider.of<User>(context, listen: false).email = res['email'];
-        Provider.of<User>(context, listen: false).id = res['_id'];
-        Provider.of<User>(context, listen: false).firstName = res['firstName'];
-        Provider.of<User>(context, listen: false).lastName = res['lastName'];
-        print('User created successfully');
-        // context.go('/dashboard');
-      } else {
-        // Failure
-        throw Exception('Failed to create user: ${response.reasonPhrase}');
-      }
+      //ChooseProfilePicture(user: User())
+
+      context.go('/login/createaccountscreen/chooseprofilepicture');
+      // // If all inputs are valid, make the HTTP request
+      // final url = Uri.parse('http://44.203.120.103:3000/users');
+      // final headers = <String, String>{
+      //   'Content-Type': 'application/json; charset=UTF-8',
+      // };
+      // final response = await http.post(
+      //   url,
+      //   headers: headers,
+      //   body: jsonEncode(<String, String>{
+      //     'email': email,
+      //     'password': password,
+      //     'firstName': firstName,
+      //     'lastName': lastName,
+      //   }),
+      // );
+      // //Check the response status code
+      // if (response.statusCode == 201) {
+      //   // Success
+      //   final res = json.decode(response.body);
+      //   print(res);
+      //   Provider.of<User>(context, listen: false).email = res['email'];
+      //   Provider.of<User>(context, listen: false).id = res['_id'];
+      //   Provider.of<User>(context, listen: false).firstName = res['firstName'];
+      //   Provider.of<User>(context, listen: false).lastName = res['lastName'];
+      //   print('User created successfully');
+      //   // context.go('/dashboard');
+      // } else {
+      //   // Failure
+      //   throw Exception('Failed to create user: ${response.reasonPhrase}');
+      // }
     } catch (err) {
       showDialog(
         context: context,

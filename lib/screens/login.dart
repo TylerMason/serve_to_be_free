@@ -284,7 +284,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> tryLogin() async {
     final url = Uri.parse(
-        'http://44.203.120.103:3000/users/email/${emailController.text}');
+        //'http://44.203.120.103:3000/users/email/${emailController.text}');
+        'http://localhost:3000/users/email/${emailController.text}');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {

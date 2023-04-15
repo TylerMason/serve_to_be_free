@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:serve_to_be_free/widgets/user_invite_display.dart';
+import 'package:serve_to_be_free/widgets/User_invite_display.dart';
 
-import '../classes/User.dart';
+import '../classes/UserClass.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
-  /* This can get a list of users, for example we 
-  just want leaders who might be friends with the user. 
-  Or maybe just users to invite to participate in a task.
+  /* This can get a list of UserClasss, for example we 
+  just want leaders who might be friends with the UserClass. 
+  Or maybe just UserClasss to invite to participate in a task.
 
   Should be late because we dont have access yet right?
   */
-  late List<User> potentialUsers;
+  late List<UserClass> potentialUserClasss;
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -37,12 +37,12 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    // Need to display the User with all the info
-    List<User> matchQuery = [];
-    for (var user in potentialUsers) {
-      var fullName = user.firstName + user.lastName;
+    // Need to display the UserClass with all the info
+    List<UserClass> matchQuery = [];
+    for (var UserClass in potentialUserClasss) {
+      var fullName = UserClass.firstName + UserClass.lastName;
       if ((fullName).toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(user);
+        matchQuery.add(UserClass);
       }
     }
     return ListView.builder(
@@ -56,13 +56,13 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // Need to display the User with all the info
-    List<User> matchQuery = [];
-    for (var user in potentialUsers) {
-      var fullName = user.firstName + user.lastName;
-      //if ((user.name).toLowerCase().contains(query.toLowerCase())) {
+    // Need to display the UserClass with all the info
+    List<UserClass> matchQuery = [];
+    for (var UserClass in potentialUserClasss) {
+      var fullName = UserClass.firstName + UserClass.lastName;
+      //if ((UserClass.name).toLowerCase().contains(query.toLowerCase())) {
       if ((fullName).toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(user);
+        matchQuery.add(UserClass);
       }
     }
     return ListView.builder(

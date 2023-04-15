@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../widgets/classes/User.dart';
+import '../widgets/classes/UserClass.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -18,12 +18,12 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     super.initState();
   }
 
-  Future<User> fetchUser(String userId) async {
+  Future<UserClass> fetchUser(String userId) async {
     final response =
         await http.get(Uri.parse('<YOUR_MONGODB_API_URL>/users/$userId'));
 
     if (response.statusCode == 200) {
-      return User.fromJson(jsonDecode(response.body));
+      return UserClass.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load user data from MongoDB');
     }
