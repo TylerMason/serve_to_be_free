@@ -10,6 +10,7 @@ import 'package:serve_to_be_free/screens/menu.dart';
 import 'package:serve_to_be_free/screens/messages.dart';
 import 'package:serve_to_be_free/screens/profile.dart';
 import 'package:serve_to_be_free/screens/projects.dart';
+import 'package:serve_to_be_free/screens/sub_screens/login_subpages/choose_profile_picture.dart';
 import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/how_it_works.dart';
 import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/my_account_subpages/my_account_contact_info.dart';
 import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/my_account_subpages/my_account_emergency_info.dart';
@@ -47,12 +48,12 @@ final goRouter = GoRouter(
         GoRoute(
           path: 'createaccountscreen',
           builder: (context, state) => const CreateAccountScreen(),
-          routes: [
-            GoRoute(
-              path: 'chooseprofilepicture',
-              builder: (context, state) => const CreateAccountScreen(),
-            ),
-          ],
+          // routes: [
+          //   GoRoute(
+          //     path: 'chooseprofilepicture',
+          //     builder: (context, state) => const ChooseProfilePicture(),
+          //   ),
+          // ],
         ),
       ],
     ),

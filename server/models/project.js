@@ -42,7 +42,7 @@ const projectSchema = new mongoose.Schema({
         }
       }
     ],
-    required: false
+    required: false,
   },
   projectPicture: {
     type: String,

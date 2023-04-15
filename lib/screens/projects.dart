@@ -130,16 +130,15 @@ class _ProjectsPageState extends State<ProjectsPage> {
           child: AppBar(
             flexibleSpace: Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromRGBO(0, 28, 72, 1.0),
-                    Color.fromRGBO(35, 107, 140, 1.0),
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
-              ),
-              padding: EdgeInsets.only(top: 55),
+                  gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(0, 28, 72, 1.0),
+                  Color.fromRGBO(35, 107, 140, 1.0),
+                ],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+              )),
+              padding: EdgeInsets.only(top: 60),
               // padding: EdgeInsets.only(bottom: 10)
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
