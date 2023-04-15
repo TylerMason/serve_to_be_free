@@ -251,7 +251,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
         Provider.of<User>(context, listen: false).firstName = res['firstName'];
         Provider.of<User>(context, listen: false).lastName = res['lastName'];
         print('User created successfully');
-        // context.go('/dashboard');
+        context.go('/dashboard');
       } else {
         // Failure
         throw Exception('Failed to create user: ${response.reasonPhrase}');

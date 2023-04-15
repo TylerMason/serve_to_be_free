@@ -76,6 +76,10 @@ class _ProjectDetailsState extends State<ProjectDetails> {
               projectData['name'] ?? '',
               style: TextStyle(fontSize: 20),
             ),
+            SizedBox(height: 10),
+            if (projectData.containsKey('city'))
+              Text('${projectData['city']}, ${projectData['state']}'),
+            if (projectData.containsKey('date')) Text('${projectData['date']}'),
             Text(
               '${projectData['members']?.length ?? ''} Members',
               style: TextStyle(fontSize: 12),
