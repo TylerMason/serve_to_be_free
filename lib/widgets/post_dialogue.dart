@@ -26,16 +26,7 @@ class _JoinProjectDialogState extends State<JoinProjectDialog> {
       ),
       actions: [
         ElevatedButton(
-          onPressed: () {
-            print(widget.projectId);
-            final String text = _textController.text;
-            if (text != '') {
-              addPost(text);
-            }
-            Navigator.of(context).pop();
-
-            // context.goNamed("projectdetails", params: {'id': widget.projectId});
-          },
+          onPressed: () => postButtonPress(),
           child: Text("Post"),
         ),
         TextButton(
@@ -52,6 +43,14 @@ class _JoinProjectDialogState extends State<JoinProjectDialog> {
   void dispose() {
     _textController.dispose();
     super.dispose();
+  }
+
+  void postButtonPress() async {
+    final String text = _textController.text;
+    if (text != '') {
+      await addPost(text);
+    }
+    Navigator.of(context).pop();
   }
 
   Future<void> addPost(text) async {
