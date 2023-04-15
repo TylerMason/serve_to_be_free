@@ -54,7 +54,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
     final joinButtonText = hasJoined ? 'Post' : 'Join';
     return Scaffold(
       appBar: AppBar(
-          title: Text(projectData['name'] ?? ''),
+          title: Text('Project Dashboard'),
           flexibleSpace: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -73,8 +73,12 @@ class _ProjectDetailsState extends State<ProjectDetails> {
           children: <Widget>[
             SizedBox(height: 20),
             Text(
-              'Number of Members: ${projectData['members']?.length ?? ''}',
+              projectData['name'] ?? '',
               style: TextStyle(fontSize: 20),
+            ),
+            Text(
+              '${projectData['members']?.length ?? ''} Members',
+              style: TextStyle(fontSize: 12),
             ),
             SizedBox(height: 20),
             ElevatedButton(
@@ -118,7 +122,6 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   void updatePosts(List<dynamic> newPosts) {}
 
   void onPostClick(currentUserID) async {
-    // join project functionality
     if (!projectData['members'].contains(currentUserID)) {
       addMember();
     } else {
@@ -129,8 +132,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
             projectId: projectData['_id'],
           );
         },
-      );
-      print('x');
+      ).then((value) => setState(() {}));
       getProjects().then((data) {
         setState(() {
           projectData = data;
