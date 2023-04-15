@@ -13,6 +13,18 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  city: {
+    type: String,
+    required: false
+  },
+  state: {
+    type: String,
+    required: false
+  },
+  date: {
+    type: date,
+
+  },
   posts: {
     type: [
       {
