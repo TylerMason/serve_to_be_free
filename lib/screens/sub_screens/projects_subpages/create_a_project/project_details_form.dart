@@ -43,7 +43,8 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
       if (selectedFile != null) {
         final file = File(selectedFile.path);
         //print(file);
-        uploadImageToS3(file, 'servetobefree-images', '1', 'testProfileImgae');
+        await uploadImageToS3(
+            file, 'servetobefree-images', '1', 'testProfileImgae');
       }
       // Make it so the context only goes if the s3 upload is successful
       // context.go(widget._path);

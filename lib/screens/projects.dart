@@ -138,7 +138,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
               )),
-              padding: EdgeInsets.only(top: 60),
+              padding: EdgeInsets.only(top: 50),
               // padding: EdgeInsets.only(bottom: 10)
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
