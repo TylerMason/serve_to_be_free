@@ -29,7 +29,7 @@ class ProjectCard extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             // Do something when the container is clicked
-            context.goNamed("projectdetails", params: {'id': project['_id']});
+            context.pushNamed("projectdetails", params: {'id': project['_id']});
           },
           child: Card(
             color: Colors.white,

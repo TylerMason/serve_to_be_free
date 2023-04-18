@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
@@ -88,6 +89,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
             ElevatedButton(
               onPressed: () {
                 // navigate to about page
+                context.pushNamed("projectabout",
+                    params: {'id': projectData['_id']});
               },
               child: Text('About'),
             ),
