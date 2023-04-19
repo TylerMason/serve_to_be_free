@@ -82,7 +82,9 @@ router.put('/:id/member', getProject, async (req, res) => {
   const memberId = req.body.memberId;
 
   try {
+
     res.project.members.push(memberId);
+
     const updatedProject = await res.project.save();
     res.json(updatedProject);
   } catch (err) {

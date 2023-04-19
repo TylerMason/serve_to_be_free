@@ -25,6 +25,9 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  members: {
+    type: [String]
+  },
   posts: {
     type: [
       {
