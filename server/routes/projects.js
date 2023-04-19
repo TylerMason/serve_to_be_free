@@ -20,19 +20,24 @@ router.get('/:id', getProject, (req, res) => {
 
 // Create a project
 router.post('/', async (req, res) => {
+  console.log(req.body)
+
   const project = new Project({
     name: req.body.name,
     privacy: req.body.privacy,
     description: req.body.description,
-    members: req.body.members,
+    members: [],
     projectPicture: req.body.projectPhoto,
-    posts: req.body.posts
+    posts: [],
+    date: req.body.date
   });
+  console.log(project)
 
   try {
     const newProject = await project.save();
     res.status(201).json(newProject);
   } catch (err) {
+    console.log(err.message)
     res.status(400).json({ message: err.message });
   }
 });
