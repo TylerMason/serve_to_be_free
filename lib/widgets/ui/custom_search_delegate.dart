@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:serve_to_be_free/models/user_class.dart';
 import 'package:serve_to_be_free/widgets/User_invite_display.dart';
 
-import '../classes/UserClass.dart';
+//import '../classes/UserClass_old.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   /* This can get a list of UserClasss, for example we 

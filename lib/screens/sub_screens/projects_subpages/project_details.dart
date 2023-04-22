@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:serve_to_be_free/utilities/user_model.dart';
+import 'package:serve_to_be_free/models/user_class.dart';
+//import 'package:serve_to_be_free/utilities/user_model.dart';
 import 'package:serve_to_be_free/widgets/dashboard_user_display.dart';
 
 import 'package:serve_to_be_free/widgets/ui/dashboard_post.dart';
@@ -45,7 +46,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final currentUserID = Provider.of<User>(context, listen: false).id;
+    final currentUserID = Provider.of<UserClass>(context, listen: false).id;
     final members = projectData['members'] ?? [];
     print(currentUserID);
     print(members.toString());
@@ -157,7 +158,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
     final url = Uri.parse(
         'http://44.203.120.103:3000/projects/${projectData['_id']}/member');
     final Map<String, dynamic> data = {
-      'memberId': Provider.of<User>(context, listen: false).id
+      'memberId': Provider.of<UserClass>(context, listen: false).id
     };
     final response = await http.put(
       url,

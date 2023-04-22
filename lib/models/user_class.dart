@@ -1,7 +1,9 @@
 import 'package:bson/bson.dart';
 
 class UserClass {
+  String id;
   String email;
+  String password;
   String firstName;
   String lastName;
   List<ObjectId> projects;
@@ -9,18 +11,24 @@ class UserClass {
   String profilePictureUrl;
   String coverPictureUrl;
   bool isLeader;
+  List<ObjectId> friends;
+  List<ObjectId> friendRequests;
   List<ObjectId> posts;
 
   UserClass({
+    this.id = '',
     required this.email,
+    required this.password,
     required this.firstName,
     required this.lastName,
-    this.projects = const [],
+    required this.projects,
     this.bio = '',
     required this.profilePictureUrl,
     this.coverPictureUrl = '',
     this.isLeader = false,
-    this.posts = const [],
+    required this.friends,
+    required this.friendRequests,
+    required this.posts,
   });
 
   factory UserClass.fromJson(Map<String, dynamic> json) {
@@ -35,7 +43,9 @@ class UserClass {
     }
 
     return UserClass(
+      id: json['id'],
       email: json['email'],
+      password: json['password'],
       firstName: json['firstName'],
       lastName: json['lastName'],
       projects: projects,
@@ -43,18 +53,25 @@ class UserClass {
       profilePictureUrl: json['profilePictureUrl'] ?? '',
       coverPictureUrl: json['coverPictureUrl'],
       isLeader: json['isLeader'] ?? false,
+      friends: json['friends'],
+      friendRequests: json['friendRequests'],
       posts: postIds,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'email': email,
+      'password': password,
+      'firstName': firstName,
+      'lastName': lastName,
       'projects': projects.map((id) => id.toHexString()).toList(),
       'bio': bio,
       'profilePictureUrl': profilePictureUrl,
       'coverPictureUrl': coverPictureUrl,
       'isLeader': isLeader,
+      'friends': friends,
       'postIds': posts.map((id) => id.toHexString()).toList(),
     };
   }

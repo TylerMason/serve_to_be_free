@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
@@ -6,9 +7,11 @@ const userSchema = new mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     profilePictureUrl: { type: String, required: true },
-    coverPictureUrl: { type: String, required: true },
+    coverPictureUrl: { type: String, required: false },
     projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    friendRequests: [{type: ObjectId, required}],
+    posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}]
   });
   
   const User = mongoose.model('User', userSchema);

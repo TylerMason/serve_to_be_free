@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/screens/sub_screens/login_subpages/choose_profile_picture.dart';
+import 'package:serve_to_be_free/utilities/auth.dart';
 import 'package:serve_to_be_free/utilities/constants.dart';
 import 'dart:io';
+import 'package:provider/provider.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:provider/provider.dart';
-import '../widgets/classes/UserClass.dart';
-import '../utilities/user_model.dart';
+import '../providers/user_provider.dart';
+import 'package:serve_to_be_free/models/user_class.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
@@ -83,7 +85,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
           backgroundColor: Color(0xff256C8D),
         ),
         child: Text(
-          'Create Account',
+          'Choose Profile Picture',
           style: TextStyle(
             color: Color.fromARGB(255, 255, 255, 255),
             letterSpacing: 1.5,
@@ -99,10 +101,12 @@ class _CreateAccountState extends State<CreateAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff001B48),
       appBar: AppBar(
         title: const Text('Create an Account'),
         flexibleSpace: Container(),
-        backgroundColor: Color.fromRGBO(0, 28, 72, 1.0),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
@@ -229,17 +233,26 @@ class _CreateAccountState extends State<CreateAccountScreen> {
       }
 
       UserClass user = UserClass(
-        email: 'test@example.com',
-        firstName: 'John',
-        lastName: 'Doe',
-        projects: [ObjectId()],
-        bio: 'Some bio text',
-        profilePictureUrl: 'https://example.com/profile.jpg',
-        isLeader: true,
-      );
-      //ChooseProfilePicture(user: User())
+          email: email,
+          password: hashPassword(password),
+          firstName: firstName,
+          lastName: lastName,
+          projects: [],
+          bio: '',
+          profilePictureUrl: '',
+          coverPictureUrl: '',
+          isLeader: false,
+          friends: [],
+          friendRequests: [],
+          posts: []);
 
-      context.go('/login/createaccountscreen/chooseprofilepicture');
+      //print(user.toJson());
+
+      ChooseProfilePicture.setUser(user);
+
+      context.go(
+        '/login/createaccountscreen/chooseprofilepicture',
+      );
       // // If all inputs are valid, make the HTTP request
       // final url = Uri.parse('http://44.203.120.103:3000/users');
       // final headers = <String, String>{

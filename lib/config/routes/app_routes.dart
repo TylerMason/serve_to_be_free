@@ -31,6 +31,7 @@ import 'package:serve_to_be_free/widgets/ui/my_scaffold.dart';
 
 import '../../screens/sub_screens/projects_subpages/find_a_project.dart';
 import '../../screens/sub_screens/projects_subpages/my_projects.dart';
+import '../../widgets/classes/UserClass_old.dart';
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -48,12 +49,12 @@ final goRouter = GoRouter(
         GoRoute(
           path: 'createaccountscreen',
           builder: (context, state) => const CreateAccountScreen(),
-          // routes: [
-          //   GoRoute(
-          //     path: 'chooseprofilepicture',
-          //     builder: (context, state) => const ChooseProfilePicture(),
-          //   ),
-          // ],
+          routes: [
+            GoRoute(
+              path: 'chooseprofilepicture',
+              builder: (context, state) => ChooseProfilePicture(),
+            ),
+          ],
         ),
       ],
     ),
