@@ -71,6 +71,14 @@ class _AboutProjectState extends State<AboutProject> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            if (projectData.containsKey('projectPicture') &&
+                projectData['projectPicture'].isNotEmpty)
+              Image.network(
+                projectData['projectPicture'],
+                fit: BoxFit.cover, // adjust the image to fit the widget
+                width: 300, // set the width of the widget
+                height: 300, // set the height of the widget
+              ),
             SizedBox(height: 20),
             Text(
               projectData['name'] ?? '',

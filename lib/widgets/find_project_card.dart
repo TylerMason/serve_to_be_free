@@ -25,7 +25,7 @@ class ProjectCard extends StatelessWidget {
     return Center(
       child: Container(
         width: double.infinity,
-        height: 110.0,
+        height: 140.0,
         child: GestureDetector(
           onTap: () {
             // Do something when the container is clicked
@@ -37,24 +37,40 @@ class ProjectCard extends StatelessWidget {
             elevation: 4.0,
             child: Padding(
               padding: EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        if (project.containsKey('city'))
+                          Text('${project['city']}, ${project['state']}'),
+                        if (project.containsKey('date'))
+                          Text('${project['date']}'),
+                        SizedBox(height: 8.0),
+                        Text('$numMembers Members'),
+                      ],
                     ),
-                  ),
-                  if (project.containsKey('city'))
-                    Text('${project['city']}, ${project['state']}'),
-                  if (project.containsKey('date')) Text('${project['date']}'),
-                  SizedBox(height: 8.0),
-                  Text('$numMembers Members'),
-                ],
-              ),
+                    if (project.containsKey('projectPicture') &&
+                        project['projectPicture'].isNotEmpty)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Image.network(
+                          project['projectPicture'],
+                          fit: BoxFit
+                              .cover, // adjust the image to fit the widget
+                          height: 130, // set the height of the widget
+                        ),
+                      ),
+                  ]),
             ),
           ),
         ),

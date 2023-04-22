@@ -27,6 +27,7 @@ class _FindAProjectState extends State<FindAProject> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 16, 34, 65),
         title: const Text('Find A Project'),
       ),
       body: FutureBuilder<List<dynamic>>(
