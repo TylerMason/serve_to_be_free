@@ -1,6 +1,12 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/widgets/projects_appbar_display.dart';
+import '../utilities/user_model.dart';
 import '../widgets/buttons/wide_border_button.dart';
 import '../widgets/sponsor_card.dart';
 import '../widgets/my_project_card.dart';
@@ -25,6 +31,48 @@ class ProjectsPage extends StatefulWidget {
 }
 
 class _ProjectsPageState extends State<ProjectsPage> {
+  List<dynamic> projectData = [];
+
+  Future<List<dynamic>> getProjects() async {
+    var url = Uri.parse('http://44.203.120.103:3000/projects');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var myProjs = [];
+      var counter = 0;
+      while (counter < 2) {
+        for (var proj in jsonResponse) {
+          for (var member in proj['members']) {
+            if (Provider.of<User>(context, listen: false).id == member) {
+              myProjs.add(proj);
+              counter++;
+            }
+          }
+        }
+        counter = 2;
+      }
+      return myProjs;
+    } else {
+      throw Exception('Failed to load projects');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getProjects().then((data) {
+      setState(() {
+        if (data.isEmpty) {
+          // If no projects are found, update the state with an empty list
+          projectData = [];
+        } else {
+          // Otherwise, update the state with the returned project data
+          projectData = data;
+        }
+      });
+    });
+  }
+
   void findAPojectButton(
       /*int index or redirect to other page that grabs projects in area*/) async {
     showDialog<void>(
@@ -178,12 +226,39 @@ class _ProjectsPageState extends State<ProjectsPage> {
                   ),
                 ]),
               ),
-              Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [MyProjectCard(), MyProjectCard()],
-                  )),
+              if (projectData.isNotEmpty)
+                if (projectData.length == 1)
+                  Container(
+                    margin: EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MyProjectCard(
+                            projectName: projectData[0]['name'] ?? '',
+                            id: projectData[0]['_id']),
+                      ],
+                    ),
+                  )
+                else
+                  Container(
+                    margin: EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MyProjectCard(
+                            projectName: projectData[0]['name'] ?? '',
+                            id: projectData[0]['_id']),
+                        MyProjectCard(
+                            projectName: projectData[1]['name'] ?? '',
+                            id: projectData[1]['_id'])
+                      ],
+                    ),
+                  )
+              else
+                Center(
+                  child: Text('Choose find a project to join!'),
+                )
+
               // ClipRRect(
               //   borderRadius: BorderRadius.circular(10),
               //   child: Container(

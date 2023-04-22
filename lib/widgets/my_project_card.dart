@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:go_router/go_router.dart';
 
 class MyProjectCard extends StatelessWidget {
-  const MyProjectCard({super.key});
+  final String projectName;
+  final String id;
+  const MyProjectCard(
+      {Key? key,
+      required this.projectName,
+      required this.id // Add this line to initialize the new variable
+      })
+      : super(key: key);
 
   /*
   This shouldnt change at all. Just displays... but it should be clickable? If
@@ -24,49 +32,57 @@ class MyProjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(10.0),
-            bottomRight: Radius.circular(10.0)),
-        child: Container(
-          height: 100,
+      borderRadius: BorderRadius.only(
+          topRight: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
+      child: Container(
+        height: 100,
+        child: GestureDetector(
+          onTap: () {
+            // Do something when the container is clicked
+            context.goNamed("projectdetails", params: {'id': id});
+          },
           child: Card(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10.0),
-                    bottomLeft: Radius.circular(10.0)),
-                child: Container(
-                  width: 70,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/project_example_1.jpeg'),
-                      fit: BoxFit.cover,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0)),
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image:
+                            AssetImage('assets/images/project_example_1.jpeg'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              // Container(
-              //     //margin: EdgeInsets.all(20),
-              //     height: 100,
-              //     width: 70,
-              //     child: Container(
-              //       decoration: BoxDecoration(
-              //         image: DecorationImage(
-              //           image:
-              //               AssetImage('assets/images/project_example_1.jpeg'),
-              //           fit: BoxFit.cover,
-              //         ),
-              //       ),
-              //     )),
-              Container(
-                margin: EdgeInsets.all(20),
-                child: Text("data"),
-              )
-            ],
-          )),
-        ));
+                // Container(
+                //     //margin: EdgeInsets.all(20),
+                //     height: 100,
+                //     width: 70,
+                //     child: Container(
+                //       decoration: BoxDecoration(
+                //         image: DecorationImage(
+                //           image:
+                //               AssetImage('assets/images/project_example_1.jpeg'),
+                //           fit: BoxFit.cover,
+                //         ),
+                //       ),
+                //     )),
+                Container(
+                  margin: EdgeInsets.all(20),
+                  child: Text(projectName),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

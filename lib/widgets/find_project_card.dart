@@ -25,7 +25,7 @@ class ProjectCard extends StatelessWidget {
     return Center(
       child: Container(
         width: double.infinity,
-        height: 100.0,
+        height: 110.0,
         child: GestureDetector(
           onTap: () {
             // Do something when the container is clicked
@@ -48,6 +48,9 @@ class ProjectCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  if (project.containsKey('city'))
+                    Text('${project['city']}, ${project['state']}'),
+                  if (project.containsKey('date')) Text('${project['date']}'),
                   SizedBox(height: 8.0),
                   Text('$numMembers Members'),
                 ],
