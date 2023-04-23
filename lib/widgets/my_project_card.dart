@@ -6,10 +6,12 @@ import 'package:go_router/go_router.dart';
 class MyProjectCard extends StatelessWidget {
   final String projectName;
   final String id;
+  final String projectPhoto;
   const MyProjectCard(
       {Key? key,
       required this.projectName,
-      required this.id // Add this line to initialize the new variable
+      required this.id,
+      required this.projectPhoto // Add this line to initialize the new variable
       })
       : super(key: key);
 
@@ -43,43 +45,43 @@ class MyProjectCard extends StatelessWidget {
           },
           child: Card(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0)),
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage('assets/images/project_example_1.jpeg'),
-                        fit: BoxFit.cover,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (projectPhoto.isNotEmpty)
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10.0),
+                          bottomLeft: Radius.circular(10.0)),
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        child: Image.network(
+                          projectPhoto,
+                          fit: BoxFit
+                              .cover, // adjust the image to fit the widget
+                          height: 100, // set the height of the widget
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                // Container(
-                //     //margin: EdgeInsets.all(20),
-                //     height: 100,
-                //     width: 70,
-                //     child: Container(
-                //       decoration: BoxDecoration(
-                //         image: DecorationImage(
-                //           image:
-                //               AssetImage('assets/images/project_example_1.jpeg'),
-                //           fit: BoxFit.cover,
-                //         ),
-                //       ),
-                //     )),
-                Container(
-                  margin: EdgeInsets.all(20),
-                  child: Text(projectName),
-                )
-              ],
-            ),
+
+                  // Container(
+                  //     //margin: EdgeInsets.all(20),
+                  //     height: 100,
+                  //     width: 70,
+                  //     child: Container(
+                  //       decoration: BoxDecoration(
+                  //         image: DecorationImage(
+                  //           image:
+                  //               AssetImage('assets/images/project_example_1.jpeg'),
+                  //           fit: BoxFit.cover,
+                  //         ),
+                  //       ),
+                  //     )),
+                  Container(
+                    margin: EdgeInsets.all(20),
+                    child: Text(projectName),
+                  )
+                ]),
           ),
         ),
       ),

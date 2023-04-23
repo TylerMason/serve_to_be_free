@@ -32,12 +32,14 @@ class ProjectsPage extends StatefulWidget {
 
 class _ProjectsPageState extends State<ProjectsPage> {
   List<dynamic> projectData = [];
+  int numProjs = 0;
 
   Future<List<dynamic>> getProjects() async {
     var url = Uri.parse('http://44.203.120.103:3000/projects');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
+      numProjs = jsonResponse.length;
       var myProjs = [];
       var counter = 0;
       while (counter < 2) {
@@ -102,24 +104,6 @@ class _ProjectsPageState extends State<ProjectsPage> {
     );
   }
 
-  // decoration: BoxDecoration(
-  //               image: DecorationImage(
-  //                 image:
-  //                     AssetImage('assets/images/STBF_logo_horizontal_navy.jpg'),
-  //                 fit: BoxFit.cover,
-  //               ),
-  //             ),
-
-  // decoration: BoxDecoration(
-  //               gradient: LinearGradient(
-  //                   begin: Alignment.topCenter,
-  //                   end: Alignment.bottomCenter,
-  //                   colors: <Color>[
-  //                     Color.fromARGB(255, 54, 87, 197),
-  //                     Color.fromARGB(255, 1, 64, 112)
-  //                   ]),
-  //             ),
-
   @override
   Widget build(BuildContext context) {
     precacheImage(AssetImage("assets/images/19219.jpg"), context);
@@ -138,7 +122,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
               )),
-              padding: EdgeInsets.only(top: 60),
+              padding: EdgeInsets.only(top: 50),
               // padding: EdgeInsets.only(bottom: 10)
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -160,8 +144,8 @@ class _ProjectsPageState extends State<ProjectsPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ProjectAppbarDisplay(subject: "Members", value: "9,812"),
-                      ProjectAppbarDisplay(subject: "Projects", value: "287"),
-                      ProjectAppbarDisplay(subject: "Hours", value: "10,400"),
+                      ProjectAppbarDisplay(
+                          subject: "Projects", value: numProjs.toString()),
                     ],
                   ),
                 ],
@@ -234,8 +218,10 @@ class _ProjectsPageState extends State<ProjectsPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         MyProjectCard(
-                            projectName: projectData[0]['name'] ?? '',
-                            id: projectData[0]['_id']),
+                          projectName: projectData[0]['name'] ?? '',
+                          id: projectData[0]['_id'],
+                          projectPhoto: projectData[0]['projectPicture'],
+                        ),
                       ],
                     ),
                   )
@@ -247,10 +233,14 @@ class _ProjectsPageState extends State<ProjectsPage> {
                       children: [
                         MyProjectCard(
                             projectName: projectData[0]['name'] ?? '',
-                            id: projectData[0]['_id']),
+                            id: projectData[0]['_id'],
+                            projectPhoto:
+                                projectData[0]['projectPicture'] ?? ''),
                         MyProjectCard(
                             projectName: projectData[1]['name'] ?? '',
-                            id: projectData[1]['_id'])
+                            id: projectData[1]['_id'],
+                            projectPhoto:
+                                projectData[1]['projectPicture'] ?? '')
                       ],
                     ),
                   )

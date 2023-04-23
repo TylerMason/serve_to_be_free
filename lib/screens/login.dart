@@ -285,9 +285,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> tryLogin() async {
     final url = Uri.parse(
-        //'http://44.203.120.103:3000/users/email/${emailController.text}');
-        'http://localhost:3000/users/email/${emailController.text}');
-    final response = await http.get(url);
+        'http://44.203.120.103:3000/users/email/${emailController.text}');
+    final headers = {"Access-Control-Allow-Origin": "*"};
+    final response = await http.get(url, headers: headers);
 
     if (response.statusCode == 200) {
       // API call successful\

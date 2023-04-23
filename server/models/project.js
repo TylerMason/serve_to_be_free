@@ -22,8 +22,11 @@ const projectSchema = new mongoose.Schema({
     required: false
   },
   date: {
-    type: date,
-
+    type: String,
+    required: false
+  },
+  members: {
+    type: [String]
   },
   posts: {
     type: [

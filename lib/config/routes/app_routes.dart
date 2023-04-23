@@ -25,13 +25,15 @@ import '../../screens/sub_screens/projects_subpages/create_a_project/project_det
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/create_a_project/create_a_project.dart';
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/lead_a_project.dart';
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/project_details.dart';
+import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/about_project.dart';
+import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/my_projects.dart';
 
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/sponsor_a_project.dart';
 import 'package:serve_to_be_free/widgets/ui/my_scaffold.dart';
 
 import '../../screens/sub_screens/projects_subpages/find_a_project.dart';
 import '../../screens/sub_screens/projects_subpages/my_projects.dart';
-import '../../widgets/classes/UserClass_old.dart';
+
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -126,13 +128,18 @@ final goRouter = GoRouter(
             ),
             GoRoute(
               path: 'myprojects',
-              builder: (context, state) => const MyProjects(/*label: 'B'*/),
+              builder: (context, state) => const MyProjects(),
             ),
             GoRoute(
               path: 'projectdetails/:id',
               name: 'projectdetails',
               builder: (context, state) =>
                   ProjectDetails(id: state.params['id']),
+            ),
+            GoRoute(
+              path: 'projectabout/:id',
+              name: 'projectabout',
+              builder: (context, state) => AboutProject(id: state.params['id']),
             ),
           ],
         ),
