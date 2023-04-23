@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:serve_to_be_free/users/providers/user_provider.dart';
 //import 'package:serve_to_be_free/utilities/user_model.dart';
 
 import 'package:http/http.dart' as http;
@@ -60,9 +61,9 @@ class _JoinProjectDialogState extends State<JoinProjectDialog> {
         'http://44.203.120.103:3000/projects/${widget.projectId}/post');
 
     final Map<String, dynamic> data = {
-      'member': Provider.of<UserClass>(context, listen: false).id,
+      'member': Provider.of<UserProvider>(context, listen: false).id,
       'name':
-          "${Provider.of<UserClass>(context, listen: false).firstName} ${Provider.of<UserClass>(context, listen: false).lastName}",
+          "${Provider.of<UserProvider>(context, listen: false).firstName} ${Provider.of<UserProvider>(context, listen: false).lastName}",
       'text': text
     };
     final response = await http.put(

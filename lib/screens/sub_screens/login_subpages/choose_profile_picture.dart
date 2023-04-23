@@ -61,6 +61,8 @@ class _ChooseProfilePictureState extends State<ChooseProfilePicture> {
 
     //authenticateUser(user.email, user.password);
     final url = Uri.parse('http://44.203.120.103:3000/users');
+    // final url = Uri.parse('http://10.0.2.2:3000/users');
+
     final headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };
@@ -102,11 +104,11 @@ class _ChooseProfilePictureState extends State<ChooseProfilePicture> {
       userProvider.firstName = res['firstName'];
       userProvider.lastName = res['lastName'];
       userProvider.profilePictureUrl = res['profilePictureUrl'];
-      userProvider.bio = res['bio'];
+      // userProvider.bio = res['bio'];
       userProvider.coverPictureUrl = res['coverPictureUrl'];
-      userProvider.isLeader = res['isLeader'];
-      userProvider.friends = res['friends'];
-      userProvider.friendRequests = res['friendRequests'];
+      // userProvider.isLeader = res['isLeader'];
+      // userProvider.friends = res['friends'];
+      // userProvider.friendRequests = res['friendRequests'];
 
       print('User created successfully');
 
@@ -118,6 +120,18 @@ class _ChooseProfilePictureState extends State<ChooseProfilePicture> {
         print("Authenticated");
         await userProvider.uploadImageToS3(
             _image!, 'servetobefree-images', userProvider.id, 'profilePicture');
+        final url = Uri.parse(
+            'http://44.203.120:3000/users/${userProvider.id}/updateProfilePic');
+        final response = await http.put(
+          url,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'profilePictureUrl':
+                'https://servetobefree-images.s3.amazonaws.com/ServeToBeFree/ProfilePictures/${userProvider.id}/profilePicture',
+          }),
+        );
         context.go('/dashboard');
       }
     } else {
