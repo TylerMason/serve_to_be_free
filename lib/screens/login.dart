@@ -292,8 +292,6 @@ class _LoginScreenState extends State<LoginScreen> {
       // API call successful\
 
       final res = json.decode(response.body);
-      print(response.body);
-      print(passwordController.text);
 
       if (passwordController.text == res['password']) {
         Provider.of<User>(context, listen: false).email = res['email'];
@@ -302,7 +300,6 @@ class _LoginScreenState extends State<LoginScreen> {
         Provider.of<User>(context, listen: false).lastName = res['lastName'];
 
         context.go('/dashboard');
-        // print('iloveyou');
         // Navigator.push(
         //   context,
         //   MaterialPageRoute(builder: (context) => const AppPage()),

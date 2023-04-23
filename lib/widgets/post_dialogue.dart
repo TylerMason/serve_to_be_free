@@ -63,7 +63,6 @@ class _JoinProjectDialogState extends State<JoinProjectDialog> {
           "${Provider.of<User>(context, listen: false).firstName} ${Provider.of<User>(context, listen: false).lastName}",
       'text': text
     };
-    print(data);
     final response = await http.put(
       url,
       headers: <String, String>{
@@ -71,7 +70,6 @@ class _JoinProjectDialogState extends State<JoinProjectDialog> {
       },
       body: jsonEncode(data),
     );
-    print(response.toString());
 
     if (response.statusCode == 200) {
       // API call successful\
