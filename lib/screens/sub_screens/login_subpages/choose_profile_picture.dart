@@ -121,7 +121,7 @@ class _ChooseProfilePictureState extends State<ChooseProfilePicture> {
         await userProvider.uploadImageToS3(
             _image!, 'servetobefree-images', userProvider.id, 'profilePicture');
         final url = Uri.parse(
-            'http://44.203.120:3000/users/${userProvider.id}/updateProfilePic');
+            'http://44.203.120.103:3000/users/${userProvider.id}/updateProfilePic');
         final response = await http.put(
           url,
           headers: <String, String>{
