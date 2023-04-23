@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/config/routes/app_routes.dart';
 import 'package:provider/provider.dart';
+import 'package:serve_to_be_free/users/models/user_class.dart';
+import 'package:serve_to_be_free/users/providers/user_provider.dart';
 
 import 'package:serve_to_be_free/utilities/constants.dart';
 
@@ -10,7 +12,7 @@ import 'package:serve_to_be_free/screens/createAccount.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../utilities/user_model.dart';
+//import '../utilities/user_model.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -294,10 +296,12 @@ class _LoginScreenState extends State<LoginScreen> {
       final res = json.decode(response.body);
 
       if (passwordController.text == res['password']) {
-        Provider.of<User>(context, listen: false).email = res['email'];
-        Provider.of<User>(context, listen: false).id = res['_id'];
-        Provider.of<User>(context, listen: false).firstName = res['firstName'];
-        Provider.of<User>(context, listen: false).lastName = res['lastName'];
+        Provider.of<UserProvider>(context, listen: false).email = res['email'];
+        Provider.of<UserProvider>(context, listen: false).id = res['_id'];
+        Provider.of<UserProvider>(context, listen: false).firstName =
+            res['firstName'];
+        Provider.of<UserProvider>(context, listen: false).lastName =
+            res['lastName'];
 
         context.go('/dashboard');
         // Navigator.push(
