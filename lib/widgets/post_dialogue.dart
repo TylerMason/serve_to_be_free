@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 //import 'package:serve_to_be_free/utilities/user_model.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:serve_to_be_free/models/user_class.dart';
+import 'package:serve_to_be_free/users/models/user_class.dart';
 
 class JoinProjectDialog extends StatefulWidget {
   final String projectId;

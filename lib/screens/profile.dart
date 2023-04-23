@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:serve_to_be_free/models/User_class.dart';
+import 'package:serve_to_be_free/users/models/user_class.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;

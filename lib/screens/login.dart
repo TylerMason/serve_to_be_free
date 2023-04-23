@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/config/routes/app_routes.dart';
 import 'package:provider/provider.dart';
-import 'package:serve_to_be_free/models/user_class.dart';
+import 'package:serve_to_be_free/users/models/user_class.dart';
 
 import 'package:serve_to_be_free/utilities/constants.dart';
 

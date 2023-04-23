@@ -1,14 +1,16 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:serve_to_be_free/models/user_class.dart';
+import 'package:serve_to_be_free/users/models/user_class.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 import 'dart:convert';
 
-import 'package:serve_to_be_free/providers/user_provider.dart';
+import 'package:serve_to_be_free/users/providers/user_provider.dart';
+import 'package:serve_to_be_free/utilities/auth.dart';
 
 class ChooseProfilePicture extends StatefulWidget {
   const ChooseProfilePicture({Key? key}) : super(key: key);
@@ -54,64 +56,73 @@ class _ChooseProfilePictureState extends State<ChooseProfilePicture> {
       return;
     }
 
+    // Access the existing UserProvider instance using Provider.of<UserProvider>(context)
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    //authenticateUser(user.email, user.password);
     final url = Uri.parse('http://44.203.120.103:3000/users');
     final headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };
     var response = null; // initialize to null
-    // try {
-    //   response = await http.post(
-    //     url,
-    //     headers: headers,
-    //     body: jsonEncode(<String, dynamic>{
-    //       'email': user.email,
-    //       'password': user.password,
-    //       'firstName': user.firstName,
-    //       'lastName': user.lastName,
-    //       'projects': user.projects,
-    //       'bio': user.bio,
-    //       'profilePictureUrl': user.profilePictureUrl,
-    //       'coverPictureUrl': user.coverPictureUrl,
-    //       'isLeader': user.isLeader,
-    //       'friends':  user.friends,
-    //       'friendRequests': user.friendRequests,
-    //     }),
-    //   );
-    // } catch (e) {
-    //   // handle error
-    //   // Failure
-    //   throw Exception('Failed to create user: $response');
-    // }
+    try {
+      response = await http.post(
+        url,
+        headers: headers,
+        body: jsonEncode(<String, dynamic>{
+          'email': user.email,
+          'password': user.password,
+          'firstName': user.firstName,
+          'lastName': user.lastName,
+          'projects': user.projects,
+          'bio': user.bio,
+          'profilePictureUrl': user.profilePictureUrl,
+          'coverPictureUrl': user.coverPictureUrl,
+          'isLeader': user.isLeader,
+          'friends': user.friends,
+          'friendRequests': user.friendRequests,
+        }),
+      );
+    } catch (e) {
+      // handle error
+      // Failure
+      throw Exception('Failed to create user: $response');
+    }
 
     //   // Check if response is not null before using it
-    //   if (response != null && response.statusCode == 201) {
-    //     final res = json.decode(response.body);
-    //     // Success
+    if (response != null && response.statusCode == 201) {
+      final res = json.decode(response.body);
+      // Success
 
-    //     print(res);
-    //     Provider.of<UserClass>(context, listen: false).email = res['email'];
-    //     Provider.of<UserClass>(context, listen: false).id = res['_id'];
-    //     Provider.of<UserClass>(context, listen: false).firstName =
-    //         res['firstName'];
-    //     Provider.of<UserClass>(context, listen: false).lastName = res['lastName'];
-    //     Provider.of<UserClass>(context, listen: false).profilePictureUrl =
-    //         res['profilePictureUrl'];
-    //     Provider.of<UserClass>(context, listen: false).bio = res['bio'];
-    //     Provider.of<UserClass>(context, listen: false).coverPictureUrl =
-    //         res['coverPictureUrl'];
-    //     Provider.of<UserClass>(context, listen: false).isLeader = res['isLeader'];
-    //     Provider.of<UserClass>(context, listen: false).password = res['password'];
+      print(res);
+      // Update the UserProvider instance with the new user details
+      userProvider.email = res['email'];
+      userProvider.password = res['password'];
+      userProvider.id = res['_id'];
+      userProvider.firstName = res['firstName'];
+      userProvider.lastName = res['lastName'];
+      userProvider.profilePictureUrl = res['profilePictureUrl'];
+      userProvider.bio = res['bio'];
+      userProvider.coverPictureUrl = res['coverPictureUrl'];
+      userProvider.isLeader = res['isLeader'];
+      userProvider.friends = res['friends'];
+      userProvider.friendRequests = res['friendRequests'];
 
-    //     final userProvider = context.read<UserProvider>();
+      print('User created successfully');
 
-    //     await userProvider.uploadImageToS3(_image!, 'servetobefree-images',
-    //         Provider.of<UserClass>(context).id, 'profilePicture');
+      // Authenticate the user using the existing UserProvider instance
+      final authenticated =
+          authenticateUser(userProvider.email, userProvider.password);
 
-    //     print('User created successfully');
-    //     // context.go('/dashboard');
-    //   } else {
-    //     // ...
-    //   }
+      if (authenticated != null) {
+        print("Authenticated");
+        await userProvider.uploadImageToS3(
+            _image!, 'servetobefree-images', userProvider.id, 'profilePicture');
+        context.go('/dashboard');
+      }
+    } else {
+      throw Exception('Something went wrong');
+    }
   }
 
   Widget _buildCreateAccBtn() {

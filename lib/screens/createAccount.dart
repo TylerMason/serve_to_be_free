@@ -11,8 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../providers/user_provider.dart';
-import 'package:serve_to_be_free/models/user_class.dart';
+import '../users/providers/user_provider.dart';
+import 'package:serve_to_be_free/users/models/user_class.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);

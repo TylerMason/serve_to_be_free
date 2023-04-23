@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:serve_to_be_free/models/user_class.dart';
+import 'package:serve_to_be_free/users/models/user_class.dart';
 import 'package:serve_to_be_free/widgets/User_invite_display.dart';
 
 //import '../classes/UserClass_old.dart';

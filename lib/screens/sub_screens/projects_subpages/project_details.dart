@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:serve_to_be_free/models/user_class.dart';
+import 'package:serve_to_be_free/users/models/user_class.dart';
 //import 'package:serve_to_be_free/utilities/user_model.dart';
 import 'package:serve_to_be_free/widgets/dashboard_user_display.dart';
 

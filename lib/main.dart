@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:serve_to_be_free/providers/user_provider.dart';
+import 'package:serve_to_be_free/users/providers/user_provider.dart';
 import 'package:serve_to_be_free/screens/login.dart';
 import './config/routes/app_routes.dart';
 import 'package:device_preview/device_preview.dart';
