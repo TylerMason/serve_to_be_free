@@ -12,7 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/widgets/buttons/solid_rounded_button.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../utilities/user_model.dart';
+import 'package:serve_to_be_free/data/users/models/user_class.dart';
 
 class ProjectDetailsForm extends StatefulWidget {
   final String _path; // private variable
@@ -61,7 +61,8 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
       final headers = <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       };
-      var members = jsonEncode([Provider.of<User>(context, listen: false).id]);
+      var members =
+          jsonEncode([Provider.of<UserClass>(context, listen: false).id]);
       final postResponse = await http.post(
         posturl,
         headers: headers,
@@ -109,7 +110,7 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
     final url =
         Uri.parse('http://44.203.120.103:3000/projects/${projId}/member');
     final Map<String, dynamic> data = {
-      'memberId': Provider.of<User>(context, listen: false).id
+      'memberId': Provider.of<UserClass>(context, listen: false).id
     };
     final response = await http.put(
       url,
@@ -369,28 +370,6 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
                   ],
                 ),
               ),
-              // Container(
-              //   width: 150,
-              //   padding: EdgeInsets.only(bottom: 50),
-              //   child: OutlinedButton(
-              //     style: OutlinedButton.styleFrom(
-              //       backgroundColor: Colors.lightBlue[900],
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(30.0),
-              //       ),
-
-              //       //side: BorderSide(width: 2.5, color: Colors.black),
-              //     ),
-              //     onPressed: _submitForm,
-              //     child: Text(
-              //       "Next",
-              //       style: TextStyle(
-              //           color: Colors.white,
-              //           fontWeight: FontWeight.bold,
-              //           fontSize: 18),
-              //     ),
-              //   ),
-              // )
               Container(
                   margin: EdgeInsets.only(bottom: 20),
                   child:

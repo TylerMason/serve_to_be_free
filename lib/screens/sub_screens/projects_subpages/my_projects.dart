@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../../../utilities/user_model.dart';
+import 'package:serve_to_be_free/data/users/models/user_class.dart';
 import '../../../widgets/find_project_card.dart';
 
 class MyProjects extends StatefulWidget {
@@ -68,7 +68,7 @@ class _MyProjectsState extends State<MyProjects> {
       var myprojs = [];
       for (var proj in jsonResponse) {
         for (var member in proj['members']) {
-          if (member == Provider.of<User>(context, listen: false).id) {
+          if (member == Provider.of<UserClass>(context, listen: false).id) {
             myprojs.add(proj);
           }
         }
