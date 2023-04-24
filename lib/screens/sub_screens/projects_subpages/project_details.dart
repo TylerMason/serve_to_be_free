@@ -39,6 +39,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
     super.initState();
     getProjects().then((data) {
       setState(() {
+        print("this is the new data $data");
+
         projectData = data;
       });
     });
@@ -48,8 +50,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   Widget build(BuildContext context) {
     final currentUserID = Provider.of<User>(context, listen: false).id;
     final members = projectData['members'] ?? [];
-    print(currentUserID);
-    print(members.toString());
+
     final hasJoined = members.contains(currentUserID);
 
     final joinButtonText = hasJoined ? 'Post' : 'Join';
@@ -175,7 +176,6 @@ class _ProjectDetailsState extends State<ProjectDetails> {
       },
       body: jsonEncode(data),
     );
-    print(response.toString());
 
     if (response.statusCode == 200) {
       // API call successful\

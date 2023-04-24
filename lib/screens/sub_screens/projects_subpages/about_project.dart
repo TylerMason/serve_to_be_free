@@ -47,8 +47,7 @@ class _AboutProjectState extends State<AboutProject> {
   Widget build(BuildContext context) {
     final currentUserID = Provider.of<User>(context, listen: false).id;
     final members = projectData['members'] ?? [];
-    print(currentUserID);
-    print(members.toString());
+
     final hasJoined = members.contains(currentUserID);
 
     final joinButtonText = hasJoined ? 'Post' : 'Join';
