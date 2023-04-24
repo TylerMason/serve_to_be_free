@@ -14,20 +14,38 @@ router.get('/', async (req, res) => {
 })
 
 
+// Works?
+router.put('/:id/updateProfilePic', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        user.profilePictureUrl = req.body.profilePictureUrl;
+        const updatedUser = await user.save();
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({ message: err.message });
+    }
+});
 
 //creating one
 router.post('/', async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         password: req.body.password,
         email: req.body.email,
+        profilePictureUrl: req.body.profilePictureUrl,
+        coverPictureUrl: req.body.coverPictureUrl,
+        projects: req.body.projects,
+        friends: req.body.friends,
     })
     try {
+        console.log(user)
         const newUser = await user.save()
         res.status(201).json(newUser)
     } catch (err) {
+        console.log(err, 'o')
         res.status(400).json({ message: err.message })
         // res.json({ "test": "fail" })
     }
@@ -37,6 +55,11 @@ router.post('/', async (req, res) => {
 router.get('/:id', getUser, (req, res) => {
     res.json(res.user)
 })
+
+router.get('/:id/myPosts', getUser, (req, res) => {
+    res.json(res.user)
+})
+
 
 //get one by username
 router.get('/username/:username', async (req, res) => {

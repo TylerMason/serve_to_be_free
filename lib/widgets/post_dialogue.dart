@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:serve_to_be_free/users/providers/user_provider.dart';
 //import 'package:serve_to_be_free/utilities/user_model.dart';
 
 import 'package:http/http.dart' as http;
@@ -58,14 +59,14 @@ class _JoinProjectDialogState extends State<JoinProjectDialog> {
   Future<void> addPost(text) async {
     final url = Uri.parse(
         'http://44.203.120.103:3000/projects/${widget.projectId}/post');
+    // 'http://10.0.2.2:3000/projects/${widget.projectId}/post');
 
     final Map<String, dynamic> data = {
-      'member': Provider.of<UserClass>(context, listen: false).id,
+      'member': Provider.of<UserProvider>(context, listen: false).id,
       'name':
-          "${Provider.of<UserClass>(context, listen: false).firstName} ${Provider.of<UserClass>(context, listen: false).lastName}",
+          "${Provider.of<UserProvider>(context, listen: false).firstName} ${Provider.of<UserProvider>(context, listen: false).lastName}",
       'text': text
     };
-    print(data);
     final response = await http.put(
       url,
       headers: <String, String>{
@@ -73,7 +74,6 @@ class _JoinProjectDialogState extends State<JoinProjectDialog> {
       },
       body: jsonEncode(data),
     );
-    print(response.toString());
 
     if (response.statusCode == 200) {
       // API call successful\
@@ -84,7 +84,7 @@ class _JoinProjectDialogState extends State<JoinProjectDialog> {
       // });
     } else {
       // API call unsuccessful
-      print('Failed to fetch data');
+      print('Failed to fetch data: ${response.body}');
     }
   }
 }

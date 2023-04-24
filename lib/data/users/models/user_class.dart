@@ -43,7 +43,7 @@ class UserClass {
     }
 
     return UserClass(
-      id: json['id'],
+      id: json['_id'],
       email: json['email'],
       password: json['password'],
       firstName: json['firstName'],
@@ -51,10 +51,10 @@ class UserClass {
       projects: projects,
       bio: json['bio'] ?? '',
       profilePictureUrl: json['profilePictureUrl'] ?? '',
-      coverPictureUrl: json['coverPictureUrl'],
+      coverPictureUrl: '',
       isLeader: json['isLeader'] ?? false,
-      friends: json['friends'],
-      friendRequests: json['friendRequests'],
+      friends: [],
+      friendRequests: [],
       posts: postIds,
     );
   }

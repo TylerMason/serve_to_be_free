@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:serve_to_be_free/users/providers/user_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -45,7 +46,8 @@ class _ProjectsPageState extends State<ProjectsPage> {
       while (counter < 2) {
         for (var proj in jsonResponse) {
           for (var member in proj['members']) {
-            if (Provider.of<UserClass>(context, listen: false).id == member) {
+            if (Provider.of<UserProvider>(context, listen: false).id ==
+                member) {
               myProjs.add(proj);
               counter++;
             }

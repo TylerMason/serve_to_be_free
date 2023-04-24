@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:provider/provider.dart';
+import 'package:serve_to_be_free/data/users/providers/user_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -45,10 +46,10 @@ class _AboutProjectState extends State<AboutProject> {
 
   @override
   Widget build(BuildContext context) {
-    final currentUserID = Provider.of<UserClass>(context, listen: false).id;
+    // UserProvider or UserClass?
+    final currentUserID = Provider.of<UserProvider>(context, listen: false).id;
     final members = projectData['members'] ?? [];
-    print(currentUserID);
-    print(members.toString());
+
     final hasJoined = members.contains(currentUserID);
 
     final joinButtonText = hasJoined ? 'Post' : 'Join';
