@@ -31,10 +31,10 @@ router.post('/', async (req, res) => {
     posts: [],
     date: req.body.date
   });
-  console.log(project)
 
   try {
     const newProject = await project.save();
+
     res.status(201).json(newProject);
   } catch (err) {
     console.log(err.message)
@@ -94,9 +94,14 @@ router.put('/:id/member', getProject, async (req, res) => {
 
 router.put('/:id/post', getProject, async (req, res) => {
   const post = req.body;
+  post.date = Date("<YYYY-mm-ddTHH:MM:ss>")
 
   try {
+    console.log(post)
+
     res.project.posts.push(post);
+    console.log(res.project.posts)
+
     const updatedProject = await res.project.save();
     res.json(updatedProject);
   } catch (err) {

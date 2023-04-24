@@ -40,6 +40,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
     super.initState();
     getProjects().then((data) {
       setState(() {
+        print("this is the new data $data");
+
         projectData = data;
       });
     });

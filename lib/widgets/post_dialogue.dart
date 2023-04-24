@@ -59,6 +59,7 @@ class _JoinProjectDialogState extends State<JoinProjectDialog> {
   Future<void> addPost(text) async {
     final url = Uri.parse(
         'http://44.203.120.103:3000/projects/${widget.projectId}/post');
+    // 'http://10.0.2.2:3000/projects/${widget.projectId}/post');
 
     final Map<String, dynamic> data = {
       'member': Provider.of<UserProvider>(context, listen: false).id,
@@ -83,7 +84,7 @@ class _JoinProjectDialogState extends State<JoinProjectDialog> {
       // });
     } else {
       // API call unsuccessful
-      print('Failed to fetch data');
+      print('Failed to fetch data: ${response.body}');
     }
   }
 }

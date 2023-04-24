@@ -54,6 +54,11 @@ router.get('/:id', getUser, (req, res) => {
     res.json(res.user)
 })
 
+router.get('/:id/myPosts', getUser, (req, res) => {
+    res.json(res.user)
+})
+
+
 //get one by username
 router.get('/username/:username', async (req, res) => {
     try {
