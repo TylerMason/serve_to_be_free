@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/config/routes/app_routes.dart';
 import 'package:provider/provider.dart';
-import 'package:serve_to_be_free/users/models/user_class.dart';
-import 'package:serve_to_be_free/users/providers/user_provider.dart';
+import 'package:serve_to_be_free/data/users/models/user_class.dart';
+import 'package:serve_to_be_free/data/users/providers/user_provider.dart';
 
 import 'package:serve_to_be_free/utilities/constants.dart';
 
@@ -294,16 +294,19 @@ class _LoginScreenState extends State<LoginScreen> {
       // API call successful\
 
       final res = json.decode(response.body);
+      print(response.body);
+      print(passwordController.text);
 
       if (passwordController.text == res['password']) {
-        Provider.of<UserProvider>(context, listen: false).email = res['email'];
-        Provider.of<UserProvider>(context, listen: false).id = res['_id'];
-        Provider.of<UserProvider>(context, listen: false).firstName =
+        Provider.of<UserClass>(context, listen: false).email = res['email'];
+        Provider.of<UserClass>(context, listen: false).id = res['_id'];
+        Provider.of<UserClass>(context, listen: false).firstName =
             res['firstName'];
-        Provider.of<UserProvider>(context, listen: false).lastName =
+        Provider.of<UserClass>(context, listen: false).lastName =
             res['lastName'];
 
         context.go('/dashboard');
+        // print('iloveyou');
         // Navigator.push(
         //   context,
         //   MaterialPageRoute(builder: (context) => const AppPage()),
