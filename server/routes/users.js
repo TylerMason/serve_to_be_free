@@ -13,6 +13,8 @@ router.get('/', async (req, res) => {
     }
 })
 
+
+// Works?
 router.put('/:id/updateProfilePic', async (req, res) => {
     try {
         const user = await User.findById(req.params.id);

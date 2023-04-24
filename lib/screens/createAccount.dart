@@ -11,8 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../users/providers/user_provider.dart';
-import 'package:serve_to_be_free/users/models/user_class.dart';
+import '../data/users/providers/user_provider.dart';
+import 'package:serve_to_be_free/data/users/models/user_class.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
@@ -253,36 +253,6 @@ class _CreateAccountState extends State<CreateAccountScreen> {
       context.go(
         '/login/createaccountscreen/chooseprofilepicture',
       );
-      // // If all inputs are valid, make the HTTP request
-      // final url = Uri.parse('http://44.203.120.103:3000/users');
-      // final headers = <String, String>{
-      //   'Content-Type': 'application/json; charset=UTF-8',
-      // };
-      // final response = await http.post(
-      //   url,
-      //   headers: headers,
-      //   body: jsonEncode(<String, String>{
-      //     'email': email,
-      //     'password': password,
-      //     'firstName': firstName,
-      //     'lastName': lastName,
-      //   }),
-      // );
-      // //Check the response status code
-      // if (response.statusCode == 201) {
-      //   // Success
-      //   final res = json.decode(response.body);
-      //   print(res);
-      //   Provider.of<User>(context, listen: false).email = res['email'];
-      //   Provider.of<User>(context, listen: false).id = res['_id'];
-      //   Provider.of<User>(context, listen: false).firstName = res['firstName'];
-      //   Provider.of<User>(context, listen: false).lastName = res['lastName'];
-      //   print('User created successfully');
-      //   // context.go('/dashboard');
-      // } else {
-      //   // Failure
-      //   throw Exception('Failed to create user: ${response.reasonPhrase}');
-      // }
     } catch (err) {
       showDialog(
         context: context,

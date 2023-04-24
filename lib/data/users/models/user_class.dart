@@ -38,9 +38,9 @@ class UserClass {
     }
 
     List<ObjectId> postIds = [];
-    // for (var postId in json['postIds']) {
-    //   postIds.add(ObjectId.parse(postId));
-    // }
+    for (var postId in json['posts']) {
+      postIds.add(ObjectId.parse(postId));
+    }
 
     return UserClass(
       id: json['_id'],
@@ -72,7 +72,7 @@ class UserClass {
       'coverPictureUrl': coverPictureUrl,
       'isLeader': isLeader,
       'friends': friends,
-      'postIds': posts.map((id) => id.toHexString()).toList(),
+      'posts': posts.map((id) => id.toHexString()).toList(),
     };
   }
 }

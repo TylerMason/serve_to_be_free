@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:serve_to_be_free/users/models/user_class.dart';
+
+import 'package:serve_to_be_free/data/users/models/user_class.dart';
 import '../../../widgets/find_project_card.dart';
 
 class MyProjects extends StatefulWidget {

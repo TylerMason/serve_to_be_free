@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:provider/provider.dart';
-import 'package:serve_to_be_free/users/providers/user_provider.dart';
+import 'package:serve_to_be_free/data/users/providers/user_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:serve_to_be_free/users/models/user_class.dart';
+import 'package:serve_to_be_free/data/users/models/user_class.dart';
 import 'package:serve_to_be_free/widgets/dashboard_user_display.dart';
 
 import 'package:serve_to_be_free/widgets/ui/dashboard_post.dart';
@@ -46,6 +46,7 @@ class _AboutProjectState extends State<AboutProject> {
 
   @override
   Widget build(BuildContext context) {
+    // UserProvider or UserClass?
     final currentUserID = Provider.of<UserProvider>(context, listen: false).id;
     final members = projectData['members'] ?? [];
 

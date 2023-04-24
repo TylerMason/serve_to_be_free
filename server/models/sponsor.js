@@ -2,9 +2,13 @@ const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose')
 
 const sponsorSchema = new mongoose.Schema({
-    Name: { type: String, required: true },
-    Amount: { type: String, required: true },
-    
+    amount: { type: String, required: true },
+    user: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+      },
+
   });
   
   const Sponsor = mongoose.model('Sponsor', sponsorSchema);
