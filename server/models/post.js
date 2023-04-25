@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
@@ -14,6 +15,9 @@ const postSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now
+  },
+  comments: {
+    type: ObjectId, ref: 'Comment'
   },
   project: {
     type: mongoose.Schema.Types.ObjectId,
