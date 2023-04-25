@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:serve_to_be_free/data/users/models/user_class.dart';
+import 'package:serve_to_be_free/utilities/s3_image_utility.dart';
 
 class UserHandlers {
   //static const String _baseUrl = 'http://localhost:3000/users';
@@ -42,6 +43,30 @@ class UserHandlers {
       //authenticate
     } catch (e) {
       throw Exception('Failed to create user: $e');
+    }
+  }
+
+  static Future<UserClass?> updateUser(
+      String id, Map<String, dynamic> updatedFields) async {
+    final headers = <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+    final body = jsonEncode(updatedFields);
+
+    try {
+      final response = await http.put(
+        Uri.parse('$_baseUrl/$id/updateUser'),
+        headers: headers,
+        body: body,
+      );
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+        return UserClass.fromJson(jsonResponse);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      throw Exception('Failed to update user: $e');
     }
   }
 

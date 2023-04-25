@@ -11,6 +11,7 @@ import 'dart:convert';
 
 import 'package:serve_to_be_free/data/users/providers/user_provider.dart';
 import 'package:serve_to_be_free/utilities/auth.dart';
+import 'package:serve_to_be_free/utilities/s3_image_utility.dart';
 
 import '../../../data/users/handlers/user_handlers.dart';
 
@@ -56,6 +57,19 @@ class _ChooseProfilePictureState extends State<ChooseProfilePicture> {
     if (createdUser != null) {
       // Do something with the created user
       print('User created: ${createdUser.toJson()}');
+
+      final s3url = uploadProfileImageToS3(_image!, createdUser.id);
+
+      final updatedUser = await UserHandlers.updateUser(createdUser.id, {
+        'profilePictureUrl': s3url,
+      });
+      if (updatedUser != null) {
+        // User was successfully updated
+        print('User created: ${updatedUser.toJson()}');
+      } else {
+        // Failed to update user
+        throw Exception("failed to update profile picture of user.");
+      }
     } else {
       // Handle error
       print('Failed to create user');
