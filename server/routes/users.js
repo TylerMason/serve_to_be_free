@@ -27,6 +27,22 @@ router.put('/:id/updateProfilePic', async (req, res) => {
     }
 });
 
+router.put('/:id/updateUser', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id,
+            { ...user.toObject(), ...req.body },
+            { new: true }
+        );
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({ message: err.message });
+    }
+});
+
+
 //creating one
 router.post('/', async (req, res) => {
     // console.log(req.body)
