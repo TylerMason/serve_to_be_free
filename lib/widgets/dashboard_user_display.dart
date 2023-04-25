@@ -19,7 +19,7 @@ class DashboardUserDisplay extends StatelessWidget {
       ProfilePicture(
         Colors.blueAccent,
         dimension,
-        File(''),
+        '',
         borderRadius: 7,
       ),
       Container(

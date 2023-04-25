@@ -302,6 +302,10 @@ class _LoginScreenState extends State<LoginScreen> {
             res['firstName'];
         Provider.of<UserProvider>(context, listen: false).lastName =
             res['lastName'];
+        if (res['profilePictureUrl'] != null) {
+          Provider.of<UserProvider>(context, listen: false).profilePictureUrl =
+              res['profilePictureUrl'];
+        }
 
         context.go('/dashboard');
         // Navigator.push(

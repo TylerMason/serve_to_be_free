@@ -1,12 +1,19 @@
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/widgets/dashboard_user_display.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
 import 'package:serve_to_be_free/widgets/ui/dashboard_post.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
+import 'package:serve_to_be_free/users/providers/user_provider.dart';
+
+import '../users/providers/user_provider.dart';
 import '../widgets/ui/my_scaffold.dart';
+import '../widgets/ui/project_post.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -25,6 +32,32 @@ final List<Widget> myWidgets = [
 ];
 
 class _DashboardPageState extends State<DashboardPage> {
+  List<dynamic> posts = [];
+
+  Future<List<dynamic>> getPosts() async {
+    var url = Uri.parse(
+        'http://10.0.2.2:3000/users/${Provider.of<UserProvider>(context, listen: false).id}/myPosts');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      return jsonResponse;
+    } else {
+      throw Exception('Failed to load projects');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPosts().then((data) {
+      setState(() {
+        print("this is the new data $data");
+
+        posts = data;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,15 +197,23 @@ class _DashboardPageState extends State<DashboardPage> {
                 ]),
           ),
           Container(
-              child: Expanded(
-            child: ListView.builder(
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return myWidgets[index];
-              },
+            child: Expanded(
+              child: ListView.builder(
+                itemCount: posts.length,
+                itemBuilder: (context, index) {
+                  // compute the index of the reversed list
+                  return ProjectPost(
+                    name: posts[index]['name'],
+                    postText: posts[index]['text'],
+                    profURL: posts[index]['imageUrl'] ?? '',
+                  );
+                  // return DashboardUserDisplay(
+                  //     dimension: 60.0,
+                  //     name: projectData['posts']?[index]['text']);
+                },
+              ),
             ),
-            // )
-          )),
+          ),
           // Column(
           //   children: [
           //     DashboardPost(),

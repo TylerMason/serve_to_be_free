@@ -25,7 +25,7 @@ class UserInviteDisplay extends StatelessWidget {
         user.profileImage
         */
 
-          Row(children: [ProfilePicture(Colors.pinkAccent, 10, File(''))]),
+          Row(children: [ProfilePicture(Colors.pinkAccent, 10, '')]),
     );
   }
 }
