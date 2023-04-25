@@ -1,12 +1,12 @@
 const express = require('express')
+const Sponsor = require('../models/sponsor.js')
 const router = express.Router()
-const User = require('../models/user.js')
 
 //Getting all
 router.get('/', async (req, res) => {
     try {
-        console.log('in users')
-        const users = await User.find()
+        console.log('in sponsors')
+        const users = await Sponsor.find()
         res.json(users)
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -14,28 +14,15 @@ router.get('/', async (req, res) => {
 })
 
 
-// Works?
-router.put('/:id/updateProfilePic', async (req, res) => {
+router.put('/:id/updateSponsor', async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        user.profilePictureUrl = req.body.profilePictureUrl;
-        const updatedUser = await user.save();
-        res.status(200).json(updatedUser);
-    } catch (err) {
-        console.log(err);
-        res.status(400).json({ message: err.message });
-    }
-});
-
-router.put('/:id/updateUser', async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        const updatedUser = await User.findByIdAndUpdate(
+        const sponsor = await Sponsor.findById(req.params.id);
+        const updatedSponsor = await Sponsor.findByIdAndUpdate(
             req.params.id,
-            { ...user.toObject(), ...req.body },
+            { ...sponsor.toObject(), ...req.body },
             { new: true }
         );
-        res.status(200).json(updatedUser);
+        res.status(200).json(updatedSponsor);
     } catch (err) {
         console.log(err);
         res.status(400).json({ message: err.message });
@@ -46,16 +33,8 @@ router.put('/:id/updateUser', async (req, res) => {
 //creating one
 router.post('/', async (req, res) => {
     // console.log(req.body)
-    const user = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        password: req.body.password,
-        email: req.body.email,
-        profilePictureUrl: req.body.profilePictureUrl,
-        coverPictureUrl: req.body.coverPictureUrl,
-        projects: req.body.projects,
-        friends: req.body.friends,
-        posts: req.body.posts
+    const sponsor = new Sponsor({
+        
     })
     try {
         console.log(user)
