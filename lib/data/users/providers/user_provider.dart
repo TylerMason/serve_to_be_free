@@ -47,21 +47,21 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<UserClass?> getUserByEmail(String email) async {
-    final response = await http.get(Uri.parse('$_baseUrl?email=$email'));
+  // Future<UserClass?> getUserByEmail(String email) async {
+  //   final response = await http.get(Uri.parse('$_baseUrl?email=$email'));
 
-    if (response.statusCode == 200) {
-      final List<dynamic> usersJson = jsonDecode(response.body);
-      for (final userJson in usersJson) {
-        if (userJson['email'] == email) {
-          return UserClass.fromJson(userJson);
-        }
-      }
-    } else {
-      throw Exception('Failed to get User');
-    }
-    return null; // no matching user found
-  }
+  //   if (response.statusCode == 200) {
+  //     final List<dynamic> usersJson = jsonDecode(response.body);
+  //     for (final userJson in usersJson) {
+  //       if (userJson['email'] == email) {
+  //         return UserClass.fromJson(userJson);
+  //       }
+  //     }
+  //   } else {
+  //     throw Exception('Failed to get User');
+  //   }
+  //   return null; // no matching user found
+  // }
 
   // add additional methods as needed
   // Future<void> updateUser(UserClass User) async {

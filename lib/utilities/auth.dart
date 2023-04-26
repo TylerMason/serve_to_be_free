@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:serve_to_be_free/data/users/handlers/user_handlers.dart';
 
 import '../data/users/providers/user_provider.dart';
 import 'package:serve_to_be_free/data/users/models/user_class.dart';
@@ -21,14 +22,15 @@ bool verifyPassword(String password, String hash) {
 /// Authenticates a user with the given email and password.
 ///
 /// Returns the authenticated user object, or null if authentication fails.
-Future<UserClass?> authenticateUser(String email, String password) async {
+Future<bool> authenticateUser(String email, String password) async {
   final userProvider = UserProvider();
-  final user = await userProvider.getUserByEmail(email);
+  final user = await UserHandlers.getUserByEmail(email);
   if (user != null) {
     if (verifyPassword(password, user.password)) {
-      return user;
+      //return user;
+      return true;
     }
   }
 
-  return null;
+  return false;
 }
