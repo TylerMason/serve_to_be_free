@@ -9,9 +9,8 @@ import 'package:serve_to_be_free/widgets/ui/dashboard_post.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-import 'package:serve_to_be_free/users/providers/user_provider.dart';
+import 'package:serve_to_be_free/data/users/providers/user_provider.dart';
 
-import '../users/providers/user_provider.dart';
 import '../widgets/ui/my_scaffold.dart';
 import '../widgets/ui/project_post.dart';
 

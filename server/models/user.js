@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   coverPictureUrl: { type: String, required: false },
   projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
   friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  posts: [{type: ObjectId, ref: 'Post'}]
 });
 
 const User = mongoose.model('User', userSchema);

@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 
-import '../users/providers/user_provider.dart';
-import 'package:serve_to_be_free/users/models/user_class.dart';
+import '../data/users/providers/user_provider.dart';
+import 'package:serve_to_be_free/data/users/models/user_class.dart';
 
 /// Hashes a password using the SHA256 algorithm.
 String hashPassword(String password) {

@@ -1,14 +1,12 @@
 const express = require('express')
+const Sponsor = require('../models/sponsor.js')
 const router = express.Router()
-const User = require('../models/user.js')
-const Project = require('../models/project.js');
-
-
 
 //Getting all
 router.get('/', async (req, res) => {
     try {
-        const users = await User.find()
+        console.log('in sponsors')
+        const users = await Sponsor.find()
         res.json(users)
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -16,28 +14,15 @@ router.get('/', async (req, res) => {
 })
 
 
-// Works?
-router.put('/:id/updateProfilePic', async (req, res) => {
+router.put('/:id/updateSponsor', async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        user.profilePictureUrl = req.body.profilePictureUrl;
-        const updatedUser = await user.save();
-        res.status(200).json(updatedUser);
-    } catch (err) {
-        console.log(err);
-        res.status(400).json({ message: err.message });
-    }
-});
-
-router.put('/:id/updateUser', async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        const updatedUser = await User.findByIdAndUpdate(
+        const sponsor = await Sponsor.findById(req.params.id);
+        const updatedSponsor = await Sponsor.findByIdAndUpdate(
             req.params.id,
-            { ...user.toObject(), ...req.body },
+            { ...sponsor.toObject(), ...req.body },
             { new: true }
         );
-        res.status(200).json(updatedUser);
+        res.status(200).json(updatedSponsor);
     } catch (err) {
         console.log(err);
         res.status(400).json({ message: err.message });
@@ -48,18 +33,11 @@ router.put('/:id/updateUser', async (req, res) => {
 //creating one
 router.post('/', async (req, res) => {
     // console.log(req.body)
-    const user = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        password: req.body.password,
-        email: req.body.email,
-        profilePictureUrl: req.body.profilePictureUrl,
-        coverPictureUrl: req.body.coverPictureUrl,
-        projects: req.body.projects,
-        friends: req.body.friends,
-        posts: req.body.posts
+    const sponsor = new Sponsor({
+        
     })
     try {
+        console.log(user)
         const newUser = await user.save()
         res.status(201).json(newUser)
     } catch (err) {
@@ -74,27 +52,8 @@ router.get('/:id', getUser, (req, res) => {
     res.json(res.user)
 })
 
-router.get('/:id/myPosts', getUser, async (req, res) => {
-    let myPosts = []
-    let projects = await Project.find()
-
-    for (proj of projects) {
-
-        for (member of proj.members) {
-            if (req.params.id == member) {
-                myPosts = [...myPosts, ...proj.posts];
-            }
-        }
-    }
-    myPosts = myPosts.sort((a, b) => {
-        let aDate = new Date(a.date)
-        let bDate = new Date(b.date)
-        if (aDate == "Invalid Date") { return 1 }
-        if (bDate == "Invalid Date") { return -1 }
-
-        return new Date(b.date) - new Date(a.date)
-    });
-    res.json(myPosts)
+router.get('/:id/myPosts', getUser, (req, res) => {
+    res.json(res.user)
 })
 
 
@@ -160,6 +119,7 @@ async function getUser(req, res, next) {
     let user
     try {
         user = await User.findById(req.params.id);
+        console.log(user)
 
         if (user == null) {
             return res.status(404).json({ message: 'cannot find user' })
@@ -168,6 +128,7 @@ async function getUser(req, res, next) {
         return res.status(500).json({ message: err.message })
 
     }
+    console.log(user)
 
     res.user = user
     next()

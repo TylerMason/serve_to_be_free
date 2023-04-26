@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:serve_to_be_free/users/models/user_class.dart';
+import 'package:serve_to_be_free/data/users/models/user_class.dart';
 
 class UserProvider extends ChangeNotifier {
   final String _baseUrl = 'http://44.203.120.103:3000/users';
@@ -61,20 +61,6 @@ class UserProvider extends ChangeNotifier {
       throw Exception('Failed to get User');
     }
     return null; // no matching user found
-  }
-
-  Future<void> uploadImageToS3(
-      File imageFile, String bucketName, String userId, String imageFileName,
-      {String region = 'us-east-1'}) async {
-    final key = 'ServeToBeFree/ProfilePictures/$userId/$imageFileName';
-    final url =
-        'https://$bucketName.s3.amazonaws.com/$key'.replaceAll('+', '%20');
-    final response = await http.put(Uri.parse(url),
-        headers: {'Content-Type': 'image/jpeg'},
-        body: await imageFile.readAsBytes());
-    if (response.statusCode != 200) {
-      throw Exception('Failed to upload image to S3');
-    }
   }
 
   // add additional methods as needed

@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:serve_to_be_free/users/providers/user_provider.dart';
+import 'package:serve_to_be_free/data/users/providers/user_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:serve_to_be_free/users/models/user_class.dart';
+import 'package:serve_to_be_free/data/users/models/user_class.dart';
+//import 'package:serve_to_be_free/utilities/user_model.dart';
 import 'package:serve_to_be_free/widgets/dashboard_user_display.dart';
 
 import 'package:serve_to_be_free/widgets/ui/dashboard_post.dart';
@@ -40,8 +41,6 @@ class _ProjectDetailsState extends State<ProjectDetails> {
     super.initState();
     getProjects().then((data) {
       setState(() {
-        print("this is the new data $data");
-
         projectData = data;
       });
     });
@@ -49,9 +48,10 @@ class _ProjectDetailsState extends State<ProjectDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final currentUserID = Provider.of<UserProvider>(context, listen: false).id;
+    final currentUserID = Provider.of<UserClass>(context, listen: false).id;
     final members = projectData['members'] ?? [];
-
+    print(currentUserID);
+    print(members.toString());
     final hasJoined = members.contains(currentUserID);
 
     final joinButtonText = hasJoined ? 'Post' : 'Join';
@@ -161,7 +161,6 @@ class _ProjectDetailsState extends State<ProjectDetails> {
 
       final res = json.decode(response.body);
       var name = res['firstName'] + '' + res['lastName'];
-
       return name;
     }
     return '';
@@ -171,7 +170,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
     final url = Uri.parse(
         'http://44.203.120.103:3000/projects/${projectData['_id']}/member');
     final Map<String, dynamic> data = {
-      'memberId': Provider.of<UserProvider>(context, listen: false).id
+      'memberId': Provider.of<UserClass>(context, listen: false).id
     };
     final response = await http.put(
       url,
@@ -180,6 +179,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
       },
       body: jsonEncode(data),
     );
+    print(response.toString());
 
     if (response.statusCode == 200) {
       // API call successful\
