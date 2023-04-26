@@ -51,7 +51,15 @@ class UserHandlers {
     final headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };
-    final body = jsonEncode(updatedFields);
+
+    // Wait for any Future values in updatedFields to complete
+    final fields = await Future.wait(updatedFields.entries.map((entry) async {
+      final key = entry.key;
+      final value = entry.value;
+      return MapEntry(key, await value);
+    }));
+
+    final body = jsonEncode(Map.fromEntries(fields));
 
     try {
       final response = await http.put(

@@ -65,7 +65,9 @@ class _ChooseProfilePictureState extends State<ChooseProfilePicture> {
       });
       if (updatedUser != null) {
         // User was successfully updated
-        print('User created: ${updatedUser.toJson()}');
+        print('User created and updated: ${updatedUser.toJson()}');
+
+        authenticateUser(updatedUser.email, updatedUser.password);
       } else {
         // Failed to update user
         throw Exception("failed to update profile picture of user.");

@@ -5,6 +5,7 @@ import 'package:serve_to_be_free/config/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 import 'package:serve_to_be_free/data/users/models/user_class.dart';
 import 'package:serve_to_be_free/data/users/providers/user_provider.dart';
+import 'package:serve_to_be_free/utilities/auth.dart';
 
 import 'package:serve_to_be_free/utilities/constants.dart';
 
@@ -299,7 +300,10 @@ class _LoginScreenState extends State<LoginScreen> {
       print(response.body);
       print(passwordController.text);
 
-      if (passwordController.text == res['password']) {
+
+      bool isAuthenticated =
+          await authenticateUser(res['email'], passwordController.text);
+      if (isAuthenticated || passwordController.text == res['password']) {
         Provider.of<UserProvider>(context, listen: false).email = res['email'];
         Provider.of<UserProvider>(context, listen: false).id = res['_id'];
         Provider.of<UserProvider>(context, listen: false).firstName =
@@ -312,8 +316,30 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         context.go('/dashboard');
       } else {
+        // do something else
         showAlertDialog(context);
       }
+
+      // if (passwordController.text == res['password']) {
+      //   Provider.of<UserClass>(context, listen: false).email = res['email'];
+      //   Provider.of<UserClass>(context, listen: false).id = res['_id'];
+      //   Provider.of<UserClass>(context, listen: false).firstName =
+      //       res['firstName'];
+      //   Provider.of<UserClass>(context, listen: false).lastName =
+      //       res['lastName'];
+
+      //   context.go('/dashboard');
+      //   // print('iloveyou');
+      //   // Navigator.push(
+      //   //   context,
+      //   //   MaterialPageRoute(builder: (context) => const AppPage()),
+      //   // );
+      //   // setState(() {
+      //   //   AppPage();
+      //   // });
+      // } else {
+      //   showAlertDialog(context);
+      // }
     } else {
       // API call unsuccessful
       showAlertDialog(context);
