@@ -1,11 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user.js')
+const Project = require('../models/project.js');
+
+
 
 //Getting all
 router.get('/', async (req, res) => {
     try {
-        console.log('in users')
         const users = await User.find()
         res.json(users)
     } catch (err) {
@@ -58,7 +60,6 @@ router.post('/', async (req, res) => {
         posts: req.body.posts
     })
     try {
-        console.log(user)
         const newUser = await user.save()
         res.status(201).json(newUser)
     } catch (err) {
@@ -73,8 +74,41 @@ router.get('/:id', getUser, (req, res) => {
     res.json(res.user)
 })
 
-router.get('/:id/myPosts', getUser, (req, res) => {
-    res.json(res.user)
+router.get('/:id/myPosts', getUser, async (req, res) => {
+    let myPosts = []
+    let projects = await Project.find()
+
+    for (proj of projects) {
+
+        for (member of proj.members) {
+            if (req.params.id == member) {
+                myPosts = [...myPosts, ...proj.posts];
+            }
+        }
+    }
+    myPosts = myPosts.sort((a, b) => {
+        let aDate = new Date(a.date)
+        let bDate = new Date(b.date)
+        if (aDate == "Invalid Date") { return 1 }
+        if (bDate == "Invalid Date") { return -1 }
+
+        return new Date(b.date) - new Date(a.date)
+    });
+
+    myPosts = myPosts.map((post) => {
+        const postDate = new Date(post.date)
+        if (isNaN(postDate)) {
+            return post
+        }
+        let newObj = post
+        const dateString = postDate.toLocaleDateString()
+        const timeString = postDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        newObj.date = `${dateString} ${timeString}`
+        console.log(newObj)
+        return newObj
+    })
+    console.log(myPosts)
+    res.json(myPosts)
 })
 
 
@@ -140,7 +174,6 @@ async function getUser(req, res, next) {
     let user
     try {
         user = await User.findById(req.params.id);
-        console.log(user)
 
         if (user == null) {
             return res.status(404).json({ message: 'cannot find user' })
@@ -149,7 +182,6 @@ async function getUser(req, res, next) {
         return res.status(500).json({ message: err.message })
 
     }
-    console.log(user)
 
     res.user = user
     next()

@@ -59,15 +59,28 @@ class _JoinProjectDialogState extends State<JoinProjectDialog> {
 
   Future<void> addPost(text) async {
     final url = Uri.parse(
+        // 'http://44.203.120.103:3000/projects/${widget.projectId}/post');
         'http://44.203.120.103:3000/projects/${widget.projectId}/post');
-
-    final Map<String, dynamic> data = {
-      'member': Provider.of<UserClass>(context, listen: false).id,
-      'name':
-          "${Provider.of<UserClass>(context, listen: false).firstName} ${Provider.of<UserClass>(context, listen: false).lastName}",
-      'text': text
-    };
-    print(data);
+    final Map<String, dynamic> data;
+    print(Provider.of<UserProvider>(context, listen: false).profilePictureUrl);
+    if (Provider.of<UserProvider>(context, listen: false).profilePictureUrl !=
+        '') {
+      data = {
+        'member': Provider.of<UserProvider>(context, listen: false).id,
+        'name':
+            "${Provider.of<UserProvider>(context, listen: false).firstName} ${Provider.of<UserProvider>(context, listen: false).lastName}",
+        'text': text,
+        'imageUrl':
+            Provider.of<UserProvider>(context, listen: false).profilePictureUrl
+      };
+    } else {
+      data = {
+        'member': Provider.of<UserProvider>(context, listen: false).id,
+        'name':
+            "${Provider.of<UserProvider>(context, listen: false).firstName} ${Provider.of<UserProvider>(context, listen: false).lastName}",
+        'text': text
+      };
+    }
     final response = await http.put(
       url,
       headers: <String, String>{

@@ -14,7 +14,7 @@ class UserProvider extends ChangeNotifier {
   late String password;
   late String firstName;
   late String lastName;
-  late String profilePictureUrl;
+  late String profilePictureUrl = "";
   late String bio;
   late String coverPictureUrl;
   late bool isLeader;

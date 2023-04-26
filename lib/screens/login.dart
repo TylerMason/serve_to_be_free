@@ -288,8 +288,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> tryLogin() async {
     final url = Uri.parse(
         'http://44.203.120.103:3000/users/email/${emailController.text}');
-    final headers = {"Access-Control-Allow-Origin": "*"};
-    final response = await http.get(url, headers: headers);
+    // 'http://localhost:3000/users/email/${emailController.text}');
+    print(url);
+
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
       // API call successful\
@@ -298,26 +300,21 @@ class _LoginScreenState extends State<LoginScreen> {
       print(response.body);
       print(passwordController.text);
 
+
       bool isAuthenticated =
           await authenticateUser(res['email'], passwordController.text);
       if (isAuthenticated || passwordController.text == res['password']) {
-        // do something
-        Provider.of<UserClass>(context, listen: false).email = res['email'];
-        Provider.of<UserClass>(context, listen: false).id = res['_id'];
-        Provider.of<UserClass>(context, listen: false).firstName =
+        Provider.of<UserProvider>(context, listen: false).email = res['email'];
+        Provider.of<UserProvider>(context, listen: false).id = res['_id'];
+        Provider.of<UserProvider>(context, listen: false).firstName =
             res['firstName'];
-        Provider.of<UserClass>(context, listen: false).lastName =
+        Provider.of<UserProvider>(context, listen: false).lastName =
             res['lastName'];
-
+        if (res['profilePictureUrl'] != null) {
+          Provider.of<UserProvider>(context, listen: false).profilePictureUrl =
+              res['profilePictureUrl'];
+        }
         context.go('/dashboard');
-        // print('iloveyou');
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => const AppPage()),
-        // );
-        // setState(() {
-        //   AppPage();
-        // });
       } else {
         // do something else
         showAlertDialog(context);

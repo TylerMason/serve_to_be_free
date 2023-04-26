@@ -16,7 +16,7 @@ class ProfilePicture extends StatelessWidget {
   final double dimension; // ?
 
   // This needs to be change
-  final File image;
+  final String url;
   final double borderRadius;
 
   // File displayImage(XFile inputImage) {
@@ -28,11 +28,29 @@ class ProfilePicture extends StatelessWidget {
   // }
 
   // constructor
-  const ProfilePicture(this.borderColor, this.dimension, this.image,
+  const ProfilePicture(this.borderColor, this.dimension, this.url,
       {this.borderRadius = 10});
 
   @override
   Widget build(BuildContext context) {
+    if (this.url == '') {
+      return Container(
+        width: dimension,
+        height: dimension,
+        clipBehavior: Clip.hardEdge,
+        // This could be dynamic just in case because we dont want hard margins on this.
+        // margin: EdgeInsets.all(10),
+        // not sure why it was throwing an error but it works now.
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        foregroundDecoration: BoxDecoration(
+          border: Border.all(color: borderColor, width: 3),
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        child: Container(child: FittedBox()),
+      );
+    }
     return Container(
       width: dimension,
       height: dimension,
@@ -50,7 +68,7 @@ class ProfilePicture extends StatelessWidget {
       child: Container(
           child: FittedBox(
         //child: Image.file(image),
-        child: Image.asset('assets/images/curious_lemur.jpeg'),
+        child: Image.network(this.url),
         fit: BoxFit.cover,
       )
 

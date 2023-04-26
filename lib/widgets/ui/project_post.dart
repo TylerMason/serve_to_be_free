@@ -8,12 +8,16 @@ import 'package:serve_to_be_free/widgets/profile_picture.dart';
 class ProjectPost extends StatefulWidget {
   final String name;
   final String postText;
+  final String profURL;
+  final String date;
 
-  const ProjectPost({
-    Key? key,
-    required this.name,
-    required this.postText,
-  }) : super(key: key);
+  const ProjectPost(
+      {Key? key,
+      required this.name,
+      required this.postText,
+      required this.profURL,
+      required this.date})
+      : super(key: key);
 
   @override
   State<ProjectPost> createState() => _ProjectPostState();
@@ -45,10 +49,12 @@ class _ProjectPostState extends State<ProjectPost> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                  margin: EdgeInsets.only(right: 15),
-                  padding: EdgeInsets.only(),
-                  child: ProfilePicture(Colors.deepOrangeAccent, 60, File(''))),
+              if (widget.profURL != "")
+                Container(
+                    margin: EdgeInsets.only(right: 15),
+                    padding: EdgeInsets.only(),
+                    child: ProfilePicture(
+                        Colors.deepOrangeAccent, 60, widget.profURL)),
               Expanded(
                   child: Container(
                 child: Column(
@@ -64,7 +70,7 @@ class _ProjectPostState extends State<ProjectPost> {
                     Container(
                         padding: EdgeInsets.only(bottom: 10),
                         child: Text(
-                          "date/time",
+                          widget.date,
                           style: TextStyle(color: Colors.grey),
                         )),
                     Container(
@@ -75,38 +81,12 @@ class _ProjectPostState extends State<ProjectPost> {
                         style: TextStyle(),
                       ),
                     ),
-                    Container(
-                      child: Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                isLiked = !isLiked;
-                              });
-                            },
-                            child: Icon(
-                              Icons.thumb_up_rounded,
-                              color: isLiked ? Colors.amberAccent : Colors.grey,
-                              size: 20,
-                            ),
-                          ),
-                          Container(
-                            width: 20,
-                          ),
-                          Icon(
-                            Icons.chat_bubble_rounded,
-                            color: Colors.grey,
-                            size: 20,
-                          )
-                        ],
-                      ),
-                    )
                   ],
                 ),
               )),
-              Container(
-                child: Icon(Icons.more_horiz),
-              )
+              // Container(
+              //   child: Icon(Icons.more_horiz),
+              // )
             ],
           ),
         ));

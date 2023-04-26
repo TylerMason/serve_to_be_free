@@ -48,7 +48,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final currentUserID = Provider.of<UserClass>(context, listen: false).id;
+    final currentUserID = Provider.of<UserProvider>(context, listen: false).id;
     final members = projectData['members'] ?? [];
     print(currentUserID);
     print(members.toString());
@@ -113,9 +113,11 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                       index -
                       1; // compute the index of the reversed list
                   return ProjectPost(
-                    name: projectData['posts'][reversedIndex]['name'],
-                    postText: projectData['posts'][reversedIndex]['text'],
-                  );
+                      name: projectData['posts'][reversedIndex]['name'],
+                      postText: projectData['posts'][reversedIndex]['text'],
+                      profURL:
+                          projectData['posts'][reversedIndex]['imageUrl'] ?? '',
+                      date: '');
                   // return DashboardUserDisplay(
                   //     dimension: 60.0,
                   //     name: projectData['posts']?[index]['text']);

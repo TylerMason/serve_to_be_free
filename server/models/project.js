@@ -46,6 +46,10 @@ const projectSchema = new mongoose.Schema({
         date: {
           type: String,
           required: true
+        },
+        imageUrl: {
+          type: String,
+          required: false
         }
       }
     ],
@@ -55,7 +59,7 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  sponsors: [{type: mongoose.Schema.Types.ObjectId, ref: 'Sponsor'}]
+  sponsors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Sponsor' }]
 
 });
 
