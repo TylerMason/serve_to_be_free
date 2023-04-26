@@ -287,6 +287,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> tryLogin() async {
     final url = Uri.parse(
         'http://44.203.120.103:3000/users/email/${emailController.text}');
+    // 'http://localhost:3000/users/email/${emailController.text}');
+
     final headers = {"Access-Control-Allow-Origin": "*"};
     final response = await http.get(url, headers: headers);
 
@@ -304,16 +306,12 @@ class _LoginScreenState extends State<LoginScreen> {
             res['firstName'];
         Provider.of<UserClass>(context, listen: false).lastName =
             res['lastName'];
+        if (res['profilePictureUrl'] != null) {
+          Provider.of<UserProvider>(context, listen: false).profilePictureUrl =
+              res['profilePictureUrl'];
+        }
 
         context.go('/dashboard');
-        // print('iloveyou');
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => const AppPage()),
-        // );
-        // setState(() {
-        //   AppPage();
-        // });
       } else {
         showAlertDialog(context);
       }

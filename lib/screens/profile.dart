@@ -65,7 +65,7 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                     child: ProfilePicture(
                       Colors.pinkAccent,
                       120,
-                      File(''),
+                      '',
                       borderRadius: 10,
                     ),
                   ),

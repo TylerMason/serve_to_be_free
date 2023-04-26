@@ -115,6 +115,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                   return ProjectPost(
                     name: projectData['posts'][reversedIndex]['name'],
                     postText: projectData['posts'][reversedIndex]['text'],
+                    profURL:
+                        projectData['posts'][reversedIndex]['imageUrl'] ?? '',
                   );
                   // return DashboardUserDisplay(
                   //     dimension: 60.0,
