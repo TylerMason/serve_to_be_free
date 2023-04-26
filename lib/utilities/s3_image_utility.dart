@@ -24,7 +24,7 @@ Future<String> uploadProfileImageToS3(
   String userId, {
   String region = 'us-east-1',
 }) async {
-  final key = 'ServeToBeFree/ProfilePictures/$userId/ProfilePicture';
+  final key = 'ServeToBeFree/profilePictures/$userId/ProfilePicture';
   final url = 'https://servetobefree-images.s3.amazonaws.com/$key'
       .replaceAll('+', '%20');
   final response = await http.put(
