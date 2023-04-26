@@ -9,12 +9,14 @@ class ProjectPost extends StatefulWidget {
   final String name;
   final String postText;
   final String profURL;
+  final String date;
 
   const ProjectPost(
       {Key? key,
       required this.name,
       required this.postText,
-      required this.profURL})
+      required this.profURL,
+      required this.date})
       : super(key: key);
 
   @override
@@ -68,7 +70,7 @@ class _ProjectPostState extends State<ProjectPost> {
                     Container(
                         padding: EdgeInsets.only(bottom: 10),
                         child: Text(
-                          "date/time",
+                          widget.date,
                           style: TextStyle(color: Colors.grey),
                         )),
                     Container(
@@ -79,38 +81,12 @@ class _ProjectPostState extends State<ProjectPost> {
                         style: TextStyle(),
                       ),
                     ),
-                    Container(
-                      child: Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                isLiked = !isLiked;
-                              });
-                            },
-                            child: Icon(
-                              Icons.thumb_up_rounded,
-                              color: isLiked ? Colors.amberAccent : Colors.grey,
-                              size: 20,
-                            ),
-                          ),
-                          Container(
-                            width: 20,
-                          ),
-                          Icon(
-                            Icons.chat_bubble_rounded,
-                            color: Colors.grey,
-                            size: 20,
-                          )
-                        ],
-                      ),
-                    )
                   ],
                 ),
               )),
-              Container(
-                child: Icon(Icons.more_horiz),
-              )
+              // Container(
+              //   child: Icon(Icons.more_horiz),
+              // )
             ],
           ),
         ));

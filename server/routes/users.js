@@ -94,6 +94,20 @@ router.get('/:id/myPosts', getUser, async (req, res) => {
 
         return new Date(b.date) - new Date(a.date)
     });
+
+    myPosts = myPosts.map((post) => {
+        const postDate = new Date(post.date)
+        if (isNaN(postDate)) {
+            return post
+        }
+        let newObj = post
+        const dateString = postDate.toLocaleDateString()
+        const timeString = postDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        newObj.date = `${dateString} ${timeString}`
+        console.log(newObj)
+        return newObj
+    })
+    console.log(myPosts)
     res.json(myPosts)
 })
 
