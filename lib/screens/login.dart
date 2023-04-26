@@ -288,9 +288,9 @@ class _LoginScreenState extends State<LoginScreen> {
     final url = Uri.parse(
         'http://44.203.120.103:3000/users/email/${emailController.text}');
     // 'http://localhost:3000/users/email/${emailController.text}');
+    print(url);
 
-    final headers = {"Access-Control-Allow-Origin": "*"};
-    final response = await http.get(url, headers: headers);
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
       // API call successful\
@@ -300,17 +300,16 @@ class _LoginScreenState extends State<LoginScreen> {
       print(passwordController.text);
 
       if (passwordController.text == res['password']) {
-        Provider.of<UserClass>(context, listen: false).email = res['email'];
-        Provider.of<UserClass>(context, listen: false).id = res['_id'];
-        Provider.of<UserClass>(context, listen: false).firstName =
+        Provider.of<UserProvider>(context, listen: false).email = res['email'];
+        Provider.of<UserProvider>(context, listen: false).id = res['_id'];
+        Provider.of<UserProvider>(context, listen: false).firstName =
             res['firstName'];
-        Provider.of<UserClass>(context, listen: false).lastName =
+        Provider.of<UserProvider>(context, listen: false).lastName =
             res['lastName'];
         if (res['profilePictureUrl'] != null) {
           Provider.of<UserProvider>(context, listen: false).profilePictureUrl =
               res['profilePictureUrl'];
         }
-
         context.go('/dashboard');
       } else {
         showAlertDialog(context);

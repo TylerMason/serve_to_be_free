@@ -46,7 +46,8 @@ class _ProjectsPageState extends State<ProjectsPage> {
       while (counter < 2) {
         for (var proj in jsonResponse) {
           for (var member in proj['members']) {
-            if (Provider.of<UserClass>(context, listen: false).id == member) {
+            if (Provider.of<UserProvider>(context, listen: false).id ==
+                member) {
               myProjs.add(proj);
               counter++;
             }

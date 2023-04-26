@@ -48,7 +48,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final currentUserID = Provider.of<UserClass>(context, listen: false).id;
+    final currentUserID = Provider.of<UserProvider>(context, listen: false).id;
     final members = projectData['members'] ?? [];
     print(currentUserID);
     print(members.toString());
