@@ -12,7 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:serve_to_be_free/widgets/buttons/solid_rounded_button.dart';
 import 'package:provider/provider.dart';
 
-import 'package:serve_to_be_free/data/users/models/user_class.dart';
+import 'package:serve_to_be_free/data/users/providers/user_provider.dart';
 
 class ProjectDetailsForm extends StatefulWidget {
   final String _path; // private variable
@@ -62,7 +62,7 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
         'Content-Type': 'application/json; charset=UTF-8',
       };
       var members =
-          jsonEncode([Provider.of<UserClass>(context, listen: false).id]);
+          jsonEncode([Provider.of<UserProvider>(context, listen: false).id]);
       final postResponse = await http.post(
         posturl,
         headers: headers,
@@ -110,7 +110,7 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
     final url =
         Uri.parse('http://44.203.120.103:3000/projects/${projId}/member');
     final Map<String, dynamic> data = {
-      'memberId': Provider.of<UserClass>(context, listen: false).id
+      'memberId': Provider.of<UserProvider>(context, listen: false).id
     };
     final response = await http.put(
       url,
