@@ -1,4 +1,6 @@
 require('dotenv').config()
+const cors = require('cors');
+
 
 
 // Import the mongoose module
@@ -10,6 +12,9 @@ mongoose.set('strictQuery', false);
 
 // Define the database URL to connect to.
 const mongoDB = process.env.DATABASE_URL;
+app.use(cors({
+    origin: '*'
+}));
 
 // Wait for database to connect, logging an error if there is a problem 
 main().catch(err => console.log(err));
@@ -22,6 +27,7 @@ db.on('error', (error) => console.log(error))
 db.on('open', () => console.log('Connected to database'))
 
 app.use(express.json())
+
 
 const usersRouter = require('./routes/users.js')
 const projectsRouter = require('./routes/projects.js')
