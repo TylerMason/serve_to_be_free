@@ -36,7 +36,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Future<List<dynamic>> getPosts() async {
     var url = Uri.parse(
-        'http://10.0.2.2:3000/users/${Provider.of<UserProvider>(context, listen: false).id}/myPosts');
+        'http://44.203.120.103:3000/users/${Provider.of<UserProvider>(context, listen: false).id}/myPosts');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
