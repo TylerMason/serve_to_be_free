@@ -78,6 +78,7 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
           },
         ),
       );
+      print(postResponse);
       // //Check the response status code
       if (postResponse.statusCode == 201) {
         // Success
@@ -88,7 +89,7 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
         print('failed');
       }
       // Make it so the context only goes if the s3 upload is successful
-      // context.go(widget._path);
+      context.go(widget._path);
     }
   }
 
