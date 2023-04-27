@@ -300,7 +300,6 @@ class _LoginScreenState extends State<LoginScreen> {
       print(response.body);
       print(passwordController.text);
 
-
       bool isAuthenticated =
           await authenticateUser(res['email'], passwordController.text);
       if (isAuthenticated || passwordController.text == res['password']) {
