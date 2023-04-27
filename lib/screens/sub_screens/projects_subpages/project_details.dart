@@ -170,7 +170,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
     final url = Uri.parse(
         'http://44.203.120.103:3000/projects/${projectData['_id']}/member');
     final Map<String, dynamic> data = {
-      'memberId': Provider.of<UserClass>(context, listen: false).id
+      'memberId': Provider.of<UserProvider>(context, listen: false).id
     };
     final response = await http.put(
       url,
