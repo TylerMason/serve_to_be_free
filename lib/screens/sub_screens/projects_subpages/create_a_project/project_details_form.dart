@@ -55,8 +55,8 @@ class _ProjectDetailsFormState extends State<ProjectDetailsForm> {
       final imageURL =
           'https://$bucketName.s3.$region.amazonaws.com/ServeToBeFree/ProfilePictures/${formData['projectName']}/$timestamp';
 
-      final posturl = Uri.parse('http://44.203.120.103:3000/projects');
-      // final posturl = Uri.parse('http://10.0.2.2:3000/projects');
+      // final posturl = Uri.parse('http://44.203.120.103:3000/projects');
+      final posturl = Uri.parse('http://10.0.2.2:3000/projects');
 
       final headers = <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',

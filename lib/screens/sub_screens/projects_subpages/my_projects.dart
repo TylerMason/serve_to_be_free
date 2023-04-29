@@ -74,7 +74,19 @@ class _MyProjectsState extends State<MyProjects> {
           }
         }
       }
-      // print(jsonResponse);
+      // Sort the list based on isCompleted
+      myprojs.sort((a, b) {
+        // If a.isCompleted is false or null and b.isCompleted is true, a comes first
+        if (a['isCompleted'] == false || a['isCompleted'] == null) {
+          return -1;
+        }
+        // If a.isCompleted is true and b.isCompleted is false or null, b comes first
+        if (b['isCompleted'] == false || b['isCompleted'] == null) {
+          return 1;
+        }
+        // Otherwise, use default comparison (b comes before a if they have the same isCompleted value)
+        return b['date'].compareTo(a['date']);
+      });
       return myprojs;
     } else {
       throw Exception('Failed to load projects');

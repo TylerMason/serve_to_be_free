@@ -1,24 +1,34 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class ProjectCard extends StatelessWidget {
+import '../data/users/providers/user_provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
+class FinishProjectCard extends StatelessWidget {
   final String title;
   final String numMembers;
   final Map<String, dynamic> project;
+  final void Function() onFinish;
   // final String thumbnailUrl;
 
-  ProjectCard({
+  FinishProjectCard({
     required this.title,
     required this.numMembers,
     required this.project,
+    required this.onFinish,
     // required this.thumbnailUrl,
   });
 
   // Named constructor that accepts a JSON object
-  ProjectCard.fromJson(Map<String, dynamic> json)
+  FinishProjectCard.fromJson(
+      Map<String, dynamic> json, void Function() onFinishFun)
       : title = json['name'],
         numMembers = json['members'].length.toString(),
-        project = json;
+        project = json,
+        onFinish = onFinishFun;
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +68,19 @@ class ProjectCard extends StatelessWidget {
                           Text('${project['date']}'),
                         SizedBox(height: 8.0),
                         Text('$numMembers Members'),
-                        SizedBox(height: 12.0),
-                        Text(
-                            (project['isCompleted'] == true ? 'Completed' : ''),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
+                        ElevatedButton(
+                          onPressed: () async {
+                            // Code to handle the "Finish" button click
+                            onFinish();
+                            context.go('/menu/finishprojects');
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Color.fromARGB(255, 16, 34, 65),
+                            ),
+                          ),
+                          child: Text('Finish'),
+                        ),
                       ],
                     ),
                     if (project.containsKey('projectPicture') &&

@@ -5,16 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../../../widgets/find_project_card.dart';
+import '../../../data/users/providers/user_provider.dart';
+import '../../../widgets/finish_project_card.dart';
+import 'package:serve_to_be_free/widgets/finish_project_card.dart';
+import 'package:provider/provider.dart';
 
-class FindAProject extends StatefulWidget {
-  const FindAProject({super.key});
+class FinishProject extends StatefulWidget {
+  const FinishProject({super.key});
 
   @override
-  State<FindAProject> createState() => _FindAProjectState();
+  State<FinishProject> createState() => _FinishProjectState();
 }
 
-class _FindAProjectState extends State<FindAProject> {
+class _FinishProjectState extends State<FinishProject> {
   late Future<List<dynamic>> _futureProjects;
 
   @override
@@ -23,12 +26,25 @@ class _FindAProjectState extends State<FindAProject> {
     _futureProjects = getProjects();
   }
 
+  Future<bool> _finishProject(String projId, context) async {
+    var url = Uri.parse('http://44.203.120.103:3000/projects/$projId/complete');
+    var response = await http.put(url);
+    if (response.statusCode == 200) {
+      setState(() {
+        _futureProjects = getProjects();
+      });
+      return true;
+    } else {
+      throw Exception('Failed to load projects');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 16, 34, 65),
-        title: const Text('Find A Project'),
+        title: const Text('Finish a Project'),
       ),
       body: FutureBuilder<List<dynamic>>(
         future: _futureProjects,
@@ -38,12 +54,10 @@ class _FindAProjectState extends State<FindAProject> {
             return ListView.builder(
               itemCount: projects!.length,
               itemBuilder: (context, index) {
-                return ProjectCard.fromJson(projects[index]);
-                // print(projects[index]['members'].length.toString());
-                // return ProjectCard(
-                //   title: projects[index]['name'],
-                //   num_members: projects[index]['members'].length.toString(),
-                // );
+                return FinishProjectCard.fromJson(
+                  projects[index],
+                  () => _finishProject(projects[index]['_id'], context),
+                );
               },
             );
           } else if (snapshot.hasError) {
@@ -65,14 +79,16 @@ class _FindAProjectState extends State<FindAProject> {
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      var filterProjs = [];
-      for (var proj in jsonResponse) {
-        if (proj['isCompleted'] == null || !proj['isCompleted']) {
-          filterProjs.add(proj);
+      // print(jsonResponse);
+      var projects = [];
+      for (var project in jsonResponse) {
+        if (Provider.of<UserProvider>(context, listen: false).id ==
+                project['members'][0] &&
+            project['isCompleted'] == false) {
+          projects.add(project);
         }
       }
-      // print(jsonResponse);
-      return filterProjs;
+      return projects;
     } else {
       throw Exception('Failed to load projects');
     }

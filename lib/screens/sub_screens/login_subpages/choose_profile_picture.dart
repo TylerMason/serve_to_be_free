@@ -77,7 +77,6 @@ class _ChooseProfilePictureState extends State<ChooseProfilePicture> {
           Provider.of<UserProvider>(context, listen: false).profilePictureUrl =
               updatedUser.profilePictureUrl;
         }
-
         context.go('/projects');
       } else {
         // Failed to update user
