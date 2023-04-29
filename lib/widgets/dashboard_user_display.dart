@@ -9,7 +9,12 @@ class DashboardUserDisplay extends StatelessWidget {
   // for now
   final name;
   final dimension;
-  const DashboardUserDisplay({super.key, this.dimension, this.name});
+  final url;
+  const DashboardUserDisplay(
+      {super.key,
+      required this.dimension,
+      required this.name,
+      required this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,7 @@ class DashboardUserDisplay extends StatelessWidget {
       ProfilePicture(
         Colors.blueAccent,
         dimension,
-        '',
+        url,
         borderRadius: 7,
       ),
       Container(

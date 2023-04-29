@@ -9,7 +9,7 @@ import 'package:serve_to_be_free/widgets/profile_picture.dart';
 
 class MenuPage extends StatelessWidget {
   final myProfilePath;
-  final myAccountPath;
+  final finishProjectsPath;
   //final String favoritesPath;
   final howItWorksPath;
   final aboutPath;
@@ -17,7 +17,7 @@ class MenuPage extends StatelessWidget {
   // Is having the const here necessary? I feel it improves performance since we are not changing it after instantiation.
   const MenuPage({
     this.myProfilePath,
-    this.myAccountPath,
+    this.finishProjectsPath,
     //required this.favoritesPath,
     this.howItWorksPath,
     this.aboutPath,
@@ -58,8 +58,8 @@ class MenuPage extends StatelessWidget {
                       size: 30,
                       color: Colors.lightBlue[900],
                     ),
-                    "My Account",
-                    myAccountPath),
+                    "Finish Projects",
+                    finishProjectsPath),
                 // MenuButton(
                 //     Icon(
                 //       Icons.favorite_border_rounded,

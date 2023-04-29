@@ -30,7 +30,8 @@ router.post('/', async (req, res) => {
     members: [],
     projectPicture: req.body.projectPhoto,
     posts: [],
-    date: req.body.date
+    date: req.body.date,
+    isCompleted: false
   });
 
   try {
@@ -62,6 +63,17 @@ router.patch('/:id', getProject, async (req, res) => {
   }
 
   try {
+    const updatedProject = await res.project.save();
+    res.json(updatedProject);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// Update project completion status
+router.put('/:id/complete', getProject, async (req, res) => {
+  try {
+    res.project.isCompleted = true;
     const updatedProject = await res.project.save();
     res.json(updatedProject);
   } catch (err) {

@@ -59,7 +59,11 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  sponsors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Sponsor' }]
+  sponsors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Sponsor' }],
+  isCompleted: {
+    type: Boolean,
+    required: true
+  }
 
 });
 

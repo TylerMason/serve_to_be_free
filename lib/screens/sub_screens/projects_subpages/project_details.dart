@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:serve_to_be_free/data/users/models/user_class.dart';
 //import 'package:serve_to_be_free/utilities/user_model.dart';
 import 'package:serve_to_be_free/widgets/dashboard_user_display.dart';
+import 'package:intl/intl.dart';
 
 import 'package:serve_to_be_free/widgets/ui/dashboard_post.dart';
 import 'package:serve_to_be_free/widgets/ui/project_post.dart';
@@ -30,10 +31,26 @@ class _ProjectDetailsState extends State<ProjectDetails> {
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
+      for (var post in jsonResponse['posts']) {
+        post['date'] = convertDate(post['date']);
+      }
       return jsonResponse;
     } else {
       throw Exception('Failed to load projects');
     }
+  }
+
+  String convertDate(String dateString) {
+    // parse the input string into a DateTime object
+    String dateStr = dateString.split(' ').take(5).join(' ');
+    DateFormat inputFormat = DateFormat("EEE MMM dd yyyy HH:mm:ss");
+    DateTime date = inputFormat.parse(dateStr);
+
+    // format the DateTime object into the desired format
+    String formattedDate = DateFormat('MM/dd/yyyy hh:mm a').format(date);
+
+    // return the formatted string
+    return formattedDate;
   }
 
   @override
@@ -117,7 +134,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                       postText: projectData['posts'][reversedIndex]['text'],
                       profURL:
                           projectData['posts'][reversedIndex]['imageUrl'] ?? '',
-                      date: '');
+                      date: projectData['posts'][reversedIndex]['date'] ?? '');
                   // return DashboardUserDisplay(
                   //     dimension: 60.0,
                   //     name: projectData['posts']?[index]['text']);
