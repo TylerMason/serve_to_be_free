@@ -68,7 +68,11 @@ class ProfilePicture extends StatelessWidget {
       child: Container(
           child: FittedBox(
         //child: Image.file(image),
-        child: Image.network(this.url),
+        // child: Image.network(this.url),
+        child: FadeInImage.assetNetwork(
+          placeholder: 'assets/images/gen_avatar.jpg',
+          image: this.url,
+        ),
         fit: BoxFit.cover,
       )
 

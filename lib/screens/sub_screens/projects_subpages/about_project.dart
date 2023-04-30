@@ -68,27 +68,32 @@ class _AboutProjectState extends State<AboutProject> {
               ),
             ),
           )),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            if (projectData.containsKey('projectPicture') &&
-                projectData['projectPicture'].isNotEmpty)
-              Image.network(
-                projectData['projectPicture'],
-                fit: BoxFit.cover, // adjust the image to fit the widget
-                width: 300, // set the width of the widget
-                height: 300, // set the height of the widget
+      body: Container(
+        margin: EdgeInsets.all(25),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              if (projectData.containsKey('projectPicture') &&
+                  projectData['projectPicture'].isNotEmpty)
+                Image.network(
+                  projectData['projectPicture'],
+                  fit: BoxFit.cover, // adjust the image to fit the widget
+                  width: 300, // set the width of the widget
+                  height: 300, // set the height of the widget
+                ),
+              SizedBox(height: 20),
+              Text(
+                projectData['name'] ?? '',
+                style: TextStyle(fontSize: 20),
               ),
-            SizedBox(height: 20),
-            Text(
-              projectData['name'] ?? '',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 10),
-            if (projectData.containsKey('description'))
-              Text('${projectData['description']}'),
-          ],
+              SizedBox(height: 10),
+              if (projectData.containsKey('bio')) Text('${projectData['bio']}'),
+              SizedBox(height: 10),
+              if (projectData.containsKey('description'))
+                Text('${projectData['description']}'),
+            ],
+          ),
         ),
       ),
     );

@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import '../data/users/providers/user_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class FinishProjectCard extends StatelessWidget {
   final String title;
@@ -30,12 +32,28 @@ class FinishProjectCard extends StatelessWidget {
         project = json,
         onFinish = onFinishFun;
 
+  Future<void> putHoursSpent(int hours) async {
+    final url = Uri.parse(
+        'http://44.203.120.103:3000/projects/${project['_id']}/hours-spent');
+    final body = json.encode({'hoursSpent': hours});
+    final headers = {'Content-Type': 'application/json'};
+    final response = await http.put(url, headers: headers, body: body);
+    if (response.statusCode == 200) {
+      // Request was successful, handle response here
+      print('Hours spent updated');
+    } else {
+      // Request failed, handle error here
+      print('Error updating hours spent: ${response.statusCode}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final textController = TextEditingController();
     return Center(
       child: Container(
         width: double.infinity,
-        height: 140.0,
+        height: 160.0,
         child: GestureDetector(
           onTap: () {
             print(project['projectPicture']);
@@ -72,7 +90,49 @@ class FinishProjectCard extends StatelessWidget {
                           onPressed: () async {
                             // Code to handle the "Finish" button click
                             onFinish();
-                            context.go('/menu/finishprojects');
+
+                            final result = await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Approximate Number of Hours'),
+                                  content: TextField(
+                                    controller: textController,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                      hintText: 'Enter the number of hours',
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('Cancel'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    ElevatedButton(
+                                      child: Text('Save'),
+                                      onPressed: () {
+                                        // final hours = int.tryParse(
+                                        //   (Navigator.of(context).pop()
+                                        //           as String?) ??
+                                        //       '',
+                                        // );
+                                        // print(hours);
+
+                                        print(textController.text);
+                                        int hours =
+                                            int.parse(textController.text);
+                                        putHoursSpent(hours);
+
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            // context.go('/menu/finishprojects');
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
@@ -87,12 +147,11 @@ class FinishProjectCard extends StatelessWidget {
                         project['projectPicture'].isNotEmpty)
                       ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        child: Image.network(
-                          project['projectPicture'],
-                          fit: BoxFit
-                              .cover, // adjust the image to fit the widget
-                          height: 130, // set the height of the widget
-                        ),
+                        child: Image.network(project['projectPicture'],
+                            fit: BoxFit
+                                .cover, // adjust the image to fit the widget
+                            height: 130, // set the height of the widget
+                            width: 150),
                       ),
                   ]),
             ),

@@ -70,12 +70,19 @@ class ProjectCard extends StatelessWidget {
                         project['projectPicture'].isNotEmpty)
                       ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        child: Image.network(
-                          project['projectPicture'],
+                        child: FadeInImage.assetNetwork(
+                          placeholder: 'assets/images/curious_lemur.jpeg',
+                          image: project['projectPicture'],
                           fit: BoxFit
                               .cover, // adjust the image to fit the widget
-                          height: 130, // set the height of the widget
+                          height: 130,
                         ),
+                        // Image.network(
+                        //   project['projectPicture'],
+                        //   fit: BoxFit
+                        //       .cover, // adjust the image to fit the widget
+                        //   height: 130, // set the height of the widget
+                        // ),
                       ),
                   ]),
             ),

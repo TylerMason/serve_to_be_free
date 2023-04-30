@@ -15,6 +15,15 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/numMembers', async (req, res) => {
+    try {
+        const users = await User.find()
+        res.json({ numUsers: users.length })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
 
 // Works?
 router.put('/:id/updateProfilePic', async (req, res) => {
