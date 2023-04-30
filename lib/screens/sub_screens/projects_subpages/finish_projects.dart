@@ -43,14 +43,36 @@ class _FinishProjectState extends State<FinishProject> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 16, 34, 65),
-        title: const Text('Finish a Project'),
-      ),
+          title: Text('Finish a Project'),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(0, 28, 72, 1.0),
+                  Color.fromRGBO(35, 107, 140, 1.0),
+                ],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+              ),
+            ),
+          )),
       body: FutureBuilder<List<dynamic>>(
         future: _futureProjects,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<dynamic>? projects = snapshot.data;
+            if (projects == null || projects.length == 0) {
+              return Container(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  "Create a project to get started",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              );
+            }
             return ListView.builder(
               itemCount: projects!.length,
               itemBuilder: (context, index) {

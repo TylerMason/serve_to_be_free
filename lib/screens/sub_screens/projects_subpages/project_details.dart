@@ -99,6 +99,9 @@ class _ProjectDetailsState extends State<ProjectDetails> {
             SizedBox(height: 10),
             if (projectData.containsKey('city'))
               Text('${projectData['city']}, ${projectData['state']}'),
+            SizedBox(height: 10),
+            if (projectData.containsKey('bio')) Text(projectData['bio']),
+            SizedBox(height: 10),
             if (projectData.containsKey('date')) Text('${projectData['date']}'),
             Text(
               '${projectData['members']?.length ?? ''} Members',
@@ -207,7 +210,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
       });
     } else {
       // API call unsuccessful
-      print('Failed to fetch data');
+      print('Failed to fetch data ${response.body}');
     }
   }
 }

@@ -54,7 +54,7 @@ class MenuPage extends StatelessWidget {
 
                 MenuButton(
                     Icon(
-                      Icons.person_outline_rounded,
+                      Icons.checklist_rounded,
                       size: 30,
                       color: Colors.lightBlue[900],
                     ),

@@ -55,12 +55,19 @@ class MyProjectCard extends StatelessWidget {
                       child: Container(
                         width: 100,
                         height: 100,
-                        child: Image.network(
-                          projectPhoto,
+                        child: FadeInImage.assetNetwork(
+                          placeholder: 'assets/images/curious_lemur.jpeg',
+                          image: projectPhoto,
                           fit: BoxFit
                               .cover, // adjust the image to fit the widget
-                          height: 100, // set the height of the widget
+                          height: 100,
                         ),
+                        // Image.network(
+                        //   projectPhoto,
+                        //   fit: BoxFit
+                        //       .cover, // adjust the image to fit the widget
+                        //   height: 100, // set the height of the widget
+                        // ),
                       ),
                     ),
 

@@ -29,8 +29,19 @@ class _MyProjectsState extends State<MyProjects> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Projects'),
-      ),
+          title: Text('My Projects'),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(0, 28, 72, 1.0),
+                  Color.fromRGBO(35, 107, 140, 1.0),
+                ],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+              ),
+            ),
+          )),
       body: FutureBuilder<List<dynamic>>(
         future: _futureProjects,
         builder: (context, snapshot) {

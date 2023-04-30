@@ -259,6 +259,18 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                 ]),
           ),
+          if (posts.isEmpty)
+            Container(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                "Join a project then view posts here",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
           Container(
             child: Expanded(
               child: ListView.builder(
