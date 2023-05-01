@@ -4,6 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:serve_to_be_free/config/routes/app_routes.dart';
+import 'package:serve_to_be_free/data/projects/project_handlers.dart';
+import 'package:serve_to_be_free/data/sponsors/handlers/sponsor_handlers.dart';
+import 'package:provider/provider.dart';
+
+import 'package:serve_to_be_free/data/users/providers/user_provider.dart';
 
 class SponsorProjectForm extends StatefulWidget {
   final String? projectId;
@@ -19,21 +24,16 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
   Map<String, dynamic> projectData = {};
   TextEditingController _amountController = TextEditingController();
 
-  Future<Map<String, dynamic>> getProject() async {
-    var url =
-        Uri.parse('http://44.203.120.103:3000/projects/${widget.projectId}');
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var jsonResponse = jsonDecode(response.body);
-      return jsonResponse;
-    } else {
-      throw Exception('Failed to load projects');
-    }
-  }
+  void _submitSponsorship() async {
+    final amount = _amountController.text;
+    final userId = Provider.of<UserProvider>(context, listen: false).id;
 
-  Future<void> _submitSponsorship() async {
-    // Perform the sponsorship submission here
-    // You can access the entered amount using _amountController.text
+    final sponsorData = {
+      'amount': amount,
+      'user': userId,
+    };
+
+    ProjectHandlers.addSponsor(widget.projectId!, sponsorData);
 
     // Show a success dialog
     showDialog(
@@ -85,7 +85,7 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
   @override
   void initState() {
     super.initState();
-    getProject().then((data) {
+    ProjectHandlers.getProjectById(widget.projectId).then((data) {
       setState(() {
         projectData = data;
       });

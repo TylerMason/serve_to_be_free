@@ -2,12 +2,13 @@ const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose')
 
 const sponsorSchema = new mongoose.Schema({
-    amount: { type: String, required: true },
+    amount: { type: Number, required: true },
     user: {
         type: ObjectId,
         ref: 'User',
-        required: true
+        required: false
       },
+    
 
   });
   
