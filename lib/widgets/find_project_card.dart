@@ -5,19 +5,20 @@ class ProjectCard extends StatelessWidget {
   final String title;
   final String numMembers;
   final Map<String, dynamic> project;
-  // final String thumbnailUrl;
+  final List<dynamic> sponsors;
 
   ProjectCard({
     required this.title,
     required this.numMembers,
     required this.project,
-    // required this.thumbnailUrl,
+    required this.sponsors,
   });
 
   // Named constructor that accepts a JSON object
   ProjectCard.fromJson(Map<String, dynamic> json)
       : title = json['name'],
         numMembers = json['members'].length.toString(),
+        sponsors = json['sponsors'],
         project = json;
 
   @override
@@ -74,8 +75,11 @@ class ProjectCard extends StatelessWidget {
                           placeholder: 'assets/images/curious_lemur.jpeg',
                           image: project['projectPicture'],
                           fit: BoxFit
-                              .cover, // adjust the image to fit the widget
-                          height: 130,
+
+                              .cover, // Adjust the image to fit the widget
+                          width: 120, // Set the width of the widget
+                          height: 120, // Set the height of the widget
+
                         ),
                         // Image.network(
                         //   project['projectPicture'],

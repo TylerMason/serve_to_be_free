@@ -36,9 +36,12 @@ class _DashboardPageState extends State<DashboardPage> {
   List<dynamic> names = ["", "", "", "", ""];
 
   Future<List<dynamic>> getPosts() async {
-    var url = Uri.parse(
+
+    //final userId = Provider.of<UserProvider>(context, listen: false).id;
+    final url = Uri.parse(
         'http://44.203.120.103:3000/users/${Provider.of<UserProvider>(context, listen: false).id}/myPosts');
-    // 'http://10.0.2.2:3000/users/${Provider.of<UserProvider>(context, listen: false).id}/myPosts');
+    //'http://10.0.2.2:3000/users/${userId}/myPosts');
+
 
     var response = await http.get(url);
     if (response.statusCode == 200) {
@@ -277,7 +280,9 @@ class _DashboardPageState extends State<DashboardPage> {
                 itemCount: posts.length,
                 itemBuilder: (context, index) {
                   // compute the index of the reversed list
+                  //print(posts[index]['_id']);
                   return ProjectPost(
+                      id: posts[index]['_id'],
                       name: posts[index]['name'],
                       postText: posts[index]['text'],
                       profURL: posts[index]['imageUrl'] ?? '',
@@ -289,16 +294,6 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
           ),
-          // Column(
-          //   children: [
-          //     DashboardPost(),
-          //     DashboardPost(),
-          //     DashboardPost(),
-          //     DashboardPost(),
-          //     DashboardPost(),
-          //     DashboardPost(),
-          //   ],
-          // ),
         ]),
       ),
     );

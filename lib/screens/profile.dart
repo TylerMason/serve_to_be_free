@@ -66,6 +66,7 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                       Colors.pinkAccent,
                       120,
                       '',
+                      '',
                       borderRadius: 10,
                     ),
                   ),
