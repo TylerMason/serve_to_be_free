@@ -39,16 +39,8 @@ class ProfilePicture extends StatelessWidget {
         ),
         child: Container(
           child: FittedBox(
-
-            child: url.isNotEmpty
-                ? Image.network(url)
-                : Icon(
-                    Icons.image,
-                    size: 50,
-                    color: Colors.grey[500],
-                  ),
+            child: Image.network(url),
             fit: BoxFit.cover,
-
           ),
         ),
       ),
