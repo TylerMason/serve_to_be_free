@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
+import 'package:serve_to_be_free/config/routes/app_routes.dart';
 
 class SponsorProjectForm extends StatefulWidget {
   final String? projectId;
@@ -29,6 +31,57 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
     }
   }
 
+  Future<void> _submitSponsorship() async {
+    // Perform the sponsorship submission here
+    // You can access the entered amount using _amountController.text
+
+    // Show a success dialog
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Sponsorship Submitted'),
+        content: Text('Thank you for sponsoring this project!'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Close the dialog
+              Navigator.pop(context);
+
+              // Navigate back to sponsor projects list
+              context.go('/projects/sponsorprojects');
+            },
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showConfirmationModal() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Confirm Sponsorship'),
+        content: Text('Are you sure you want to submit this sponsorship?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              goRouter.pop(context); // Close the confirmation dialog
+              _submitSponsorship(); // Perform the sponsorship submission
+            },
+            child: Text('Yes'),
+          ),
+          TextButton(
+            onPressed: () {
+              goRouter.pop(context); // Use goRouter.pop to navigate back
+            },
+            child: Text('No'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -49,7 +102,8 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sponsor Project'),
+        backgroundColor: Color.fromARGB(255, 16, 34, 65),
+        title: const Text('Sponsor A Project'),
       ),
       body: Center(
         child: Column(
@@ -97,7 +151,12 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: _submitSponsorship,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromARGB(255, 16, 34, 65),
+                ),
+              ),
               child: Text('Submit Sponsorship'),
             ),
           ],
