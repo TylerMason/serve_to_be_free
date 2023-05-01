@@ -3,6 +3,17 @@ const router = express.Router();
 const Project = require('../models/project.js');
 
 
+// Get only incomplete projects
+router.get('/incomplete', async (req, res) => {
+  try {
+    const projects = await Project.find({ isCompleted: false });
+    console.log(projects);
+    res.json(projects);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Get all projects
 router.get('/', async (req, res) => {
   try {
@@ -110,6 +121,15 @@ router.put('/:id/post', getProject, async (req, res) => {
   }
 });
 
+// Get project sponsors by ID
+router.get('/:id/sponsors', getProject, async (req, res) => {
+  try {
+    res.json(res.project.sponsors);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 async function getProject(req, res, next) {
   let project;
@@ -127,5 +147,9 @@ async function getProject(req, res, next) {
   res.project = project;
   next();
 }
+
+
+
+
 
 module.exports = router;
