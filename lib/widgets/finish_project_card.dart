@@ -53,7 +53,7 @@ class FinishProjectCard extends StatelessWidget {
     return Center(
       child: Container(
         width: double.infinity,
-        height: 160.0,
+        // height: 160.0,
         child: GestureDetector(
           onTap: () {
             print(project['projectPicture']);
@@ -69,79 +69,81 @@ class FinishProjectCard extends StatelessWidget {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        if (project.containsKey('city'))
-                          Text('${project['city']}, ${project['state']}'),
-                        if (project.containsKey('date'))
-                          Text('${project['date']}'),
-                        SizedBox(height: 8.0),
-                        Text('$numMembers Members'),
-                        ElevatedButton(
-                          onPressed: () async {
-                            // Code to handle the "Finish" button click
-                            onFinish();
-
-                            final result = await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('Approximate Number of Hours'),
-                                  content: TextField(
-                                    controller: textController,
-                                    keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
-                                      hintText: 'Enter the number of hours',
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: Text('Cancel'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                    ElevatedButton(
-                                      child: Text('Save'),
-                                      onPressed: () {
-                                        // final hours = int.tryParse(
-                                        //   (Navigator.of(context).pop()
-                                        //           as String?) ??
-                                        //       '',
-                                        // );
-                                        // print(hours);
-
-                                        print(textController.text);
-                                        int hours =
-                                            int.parse(textController.text);
-                                        putHoursSpent(hours);
-
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                            // context.go('/menu/finishprojects');
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                              Color.fromARGB(255, 16, 34, 65),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          child: Text('Finish'),
-                        ),
-                      ],
+                          if (project.containsKey('city'))
+                            Text('${project['city']}, ${project['state']}'),
+                          if (project.containsKey('date'))
+                            Text('${project['date']}'),
+                          SizedBox(height: 8.0),
+                          Text('$numMembers Members'),
+                          ElevatedButton(
+                            onPressed: () async {
+                              // Code to handle the "Finish" button click
+                              onFinish();
+
+                              final result = await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Approximate Number of Hours'),
+                                    content: TextField(
+                                      controller: textController,
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        hintText: 'Enter the number of hours',
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text('Cancel'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      ElevatedButton(
+                                        child: Text('Save'),
+                                        onPressed: () {
+                                          // final hours = int.tryParse(
+                                          //   (Navigator.of(context).pop()
+                                          //           as String?) ??
+                                          //       '',
+                                          // );
+                                          // print(hours);
+
+                                          print(textController.text);
+                                          int hours =
+                                              int.parse(textController.text);
+                                          putHoursSpent(hours);
+
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              // context.go('/menu/finishprojects');
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                Color.fromARGB(255, 16, 34, 65),
+                              ),
+                            ),
+                            child: Text('Finish'),
+                          ),
+                        ],
+                      ),
                     ),
                     if (project.containsKey('projectPicture') &&
                         project['projectPicture'].isNotEmpty)
