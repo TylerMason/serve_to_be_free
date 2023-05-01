@@ -16,10 +16,8 @@ class ProfilePicture extends StatelessWidget {
   });
 
   void _handleTap() {
-    // Define your function logic here
     print('Profile picture tapped');
-    // Add your desired functionality
-    //ProfilePage()
+    // Add your desired functionality here
   }
 
   @override
@@ -37,11 +35,24 @@ class ProfilePicture extends StatelessWidget {
           border: Border.all(color: borderColor, width: 3),
           borderRadius: BorderRadius.circular(borderRadius),
         ),
-        child: Container(
-          child: FittedBox(
-            child: Image.network(url),
-            fit: BoxFit.cover,
-          ),
+        child: Image.network(
+          url,
+          fit: BoxFit.cover,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+          errorBuilder: (context, error, stackTrace) {
+            return Container(
+              color: Colors.grey,
+              child: Icon(
+                Icons.error,
+                color: Colors.white,
+              ),
+            );
+          },
         ),
       ),
     );

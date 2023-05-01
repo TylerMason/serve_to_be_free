@@ -1,7 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
+import 'package:serve_to_be_free/config/routes/app_routes.dart';
+import 'package:serve_to_be_free/data/projects/project_handlers.dart';
+import 'package:serve_to_be_free/data/sponsors/handlers/sponsor_handlers.dart';
+import 'package:provider/provider.dart';
+
+import 'package:serve_to_be_free/data/users/providers/user_provider.dart';
 
 class SponsorProjectForm extends StatefulWidget {
   final String? projectId;
@@ -17,22 +24,68 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
   Map<String, dynamic> projectData = {};
   TextEditingController _amountController = TextEditingController();
 
-  Future<Map<String, dynamic>> getProject() async {
-    var url =
-        Uri.parse('http://44.203.120.103:3000/projects/${widget.projectId}');
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var jsonResponse = jsonDecode(response.body);
-      return jsonResponse;
-    } else {
-      throw Exception('Failed to load projects');
-    }
+  void _submitSponsorship() async {
+    final amount = _amountController.text;
+    final userId = Provider.of<UserProvider>(context, listen: false).id;
+
+    final sponsorData = {
+      'amount': amount,
+      'user': userId,
+    };
+
+    ProjectHandlers.addSponsor(widget.projectId!, sponsorData);
+
+    // Show a success dialog
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Sponsorship Submitted'),
+        content: Text('Thank you for sponsoring this project!'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Close the dialog
+              Navigator.pop(context);
+
+              // Navigate back to sponsor projects list
+              context.go('/projects/sponsorprojects');
+            },
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showConfirmationModal() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Confirm Sponsorship'),
+        content: Text('Are you sure you want to submit this sponsorship?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              goRouter.pop(context); // Close the confirmation dialog
+              _submitSponsorship(); // Perform the sponsorship submission
+            },
+            child: Text('Yes'),
+          ),
+          TextButton(
+            onPressed: () {
+              goRouter.pop(context); // Use goRouter.pop to navigate back
+            },
+            child: Text('No'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   void initState() {
     super.initState();
-    getProject().then((data) {
+    ProjectHandlers.getProjectById(widget.projectId).then((data) {
       setState(() {
         projectData = data;
       });
@@ -49,7 +102,8 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sponsor Project'),
+        backgroundColor: Color.fromARGB(255, 16, 34, 65),
+        title: const Text('Sponsor A Project'),
       ),
       body: Center(
         child: Column(
@@ -97,7 +151,12 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: _submitSponsorship,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromARGB(255, 16, 34, 65),
+                ),
+              ),
               child: Text('Submit Sponsorship'),
             ),
           ],

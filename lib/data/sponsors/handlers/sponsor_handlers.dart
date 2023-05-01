@@ -23,29 +23,33 @@ class SponsorHandlers {
     }
   }
 
-  static Future<Sponsor?> createSponsorForProject(
-      String projectId, Sponsor sponsor) async {
-    final url = Uri.parse('$_baseUrl/projects/$projectId/sponsors');
-    final headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    };
-    final body = jsonEncode(sponsor.toJson());
+  // static Future<Sponsor?> createSponsorForProject(
+  //     String projectId, Sponsor sponsor, double amount) async {
+  //   final url = Uri.parse('$_baseUrl/projects/$projectId/sponsors');
+  //   final headers = <String, String>{
+  //     'Content-Type': 'application/json; charset=UTF-8',
+  //   };
 
-    try {
-      final response = await http.post(
-        url,
-        headers: headers,
-        body: body,
-      );
+  //   // Include the amount in the sponsor object
+  //   sponsor.amount = amount;
 
-      if (response.statusCode == 201) {
-        final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
-        return Sponsor.fromJson(jsonResponse);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      throw Exception('Failed to create sponsor: $e');
-    }
-  }
+  //   final body = jsonEncode(sponsor.toJson());
+
+  //   try {
+  //     final response = await http.post(
+  //       url,
+  //       headers: headers,
+  //       body: body,
+  //     );
+
+  //     if (response.statusCode == 201) {
+  //       final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+  //       return Sponsor.fromJson(jsonResponse);
+  //     } else {
+  //       return null;
+  //     }
+  //   } catch (e) {
+  //     throw Exception('Failed to create sponsor: $e');
+  //   }
+  // }
 }
