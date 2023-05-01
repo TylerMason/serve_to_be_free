@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Project = require('../models/project.js');
+const Sponsor = require('../models/sponsor.js');
 const us = require('us');
 
 
@@ -131,6 +132,33 @@ router.put('/:id/member', getProject, async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+
+// Already does this in the sponsor routes 
+// Create a sponsor for a project
+router.put('/:id/sponsors', getProject, async (req, res) => {
+  try {
+    const { amount } = req.body;
+    // const User = req.user.id
+    
+    // Create a new sponsor instance
+    const sponsor = new Sponsor({
+      amount,
+      user: req.user // Assuming req.user contains the user information
+    });
+    
+    // Save the sponsor to the database
+    const newSponsor = await sponsor.save();
+    
+    // Associate the sponsor with the project
+    res.project.sponsors.push(newSponsor._id);
+    await res.project.save();
+    
+    res.status(201).json(newSponsor);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 
 router.put('/:id/post', getProject, async (req, res) => {
   const post = req.body;

@@ -162,7 +162,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(
-                            'assets/images/STBF_logo_horizontal_navy.jpg'),
+                            'assets/images/STBF_logo_horizontal_navy.png'),
                         //fit: BoxFit.cover,
                       ),
                     ),

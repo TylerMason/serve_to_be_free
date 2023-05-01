@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
   projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
   friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   posts: [{type: ObjectId, ref: 'Post'}]
+  //sponsorships: [] 
 });
 
 const User = mongoose.model('User', userSchema);

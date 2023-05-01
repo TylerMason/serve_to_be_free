@@ -17,6 +17,7 @@ class FindAProject extends StatefulWidget {
 
 class _FindAProjectState extends State<FindAProject> {
   late Future<List<dynamic>> _futureProjects;
+  String _searchQuery = ''; // <-- new
 
   @override
   void initState() {
@@ -28,19 +29,63 @@ class _FindAProjectState extends State<FindAProject> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Find a Project'),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(0, 28, 72, 1.0),
-                  Color.fromRGBO(35, 107, 140, 1.0),
-                ],
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-              ),
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: true,
+        title: Text('Find a Project'),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(0, 28, 72, 1.0),
+                Color.fromRGBO(35, 107, 140, 1.0),
+              ],
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
             ),
-          )),
+          ),
+        ),
+        elevation: 0,
+        centerTitle: false,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(60.0),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+            child: Column(
+              children: [
+                SizedBox(height: 5.0),
+                TextField(
+                  onChanged: (query) {
+                    setState(() {
+                      _searchQuery = query;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Search for Cities',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          BorderSide(color: Colors.grey[700]!, width: 1.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          BorderSide(color: Colors.grey[700]!, width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                  ),
+                ),
+                SizedBox(height: 8.0),
+              ],
+            ),
+          ),
+        ),
+      ),
       body: FutureBuilder<List<dynamic>>(
         future: _futureProjects,
         builder: (context, snapshot) {
@@ -49,13 +94,23 @@ class _FindAProjectState extends State<FindAProject> {
             return ListView.builder(
               itemCount: projects!.length,
               itemBuilder: (context, index) {
-                return ProjectCard.fromJson(projects[index]);
-                //print(ProjectCard.fromJson(projects[index]));
-                // print(projects[index]['members'].length.toString());
-                // return ProjectCard(
-                //   title: projects[index]['name'],
-                //   numMembers: projects[index]['members'].length.toString(),
-                // );
+                // print(_searchQuery.toLowerCase());
+                print(projects[index]['city'].toLowerCase());
+                if (_searchQuery.length < 2) {
+                  return ProjectCard.fromJson(projects[index]);
+                } else {
+                  String projectCity = projects[index]['city'].toLowerCase();
+                  String projectState = projects[index]['state'].toLowerCase();
+                  String combined =
+                      '${projects[index]['city'].toLowerCase()}, ${projects[index]['state'].toLowerCase()}';
+                  String query = _searchQuery.toLowerCase();
+                  if (projectCity.contains(query) ||
+                      projectState.contains(query) ||
+                      combined.contains(query)) {
+                    return ProjectCard.fromJson(projects[index]);
+                  }
+                  return SizedBox.shrink(); // or return null; to hide the card
+                }
               },
             );
           } else if (snapshot.hasError) {
