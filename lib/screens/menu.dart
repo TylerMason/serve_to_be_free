@@ -48,7 +48,8 @@ class MenuPage extends StatelessWidget {
             child: Column(
               children: [
                 MenuButton(
-                    ProfilePicture(Colors.amberAccent, 45, '', borderRadius: 7),
+                    ProfilePicture(Colors.amberAccent, 45, '', '',
+                        borderRadius: 7),
                     "My Profile",
                     myProfilePath),
 
