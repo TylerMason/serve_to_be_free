@@ -41,7 +41,7 @@ class _DashboardPostState extends State<DashboardPost> {
               Container(
                   margin: EdgeInsets.only(right: 15),
                   padding: EdgeInsets.only(),
-                  child: ProfilePicture(Colors.deepOrangeAccent, 60, '')),
+                  child: ProfilePicture(Colors.deepOrangeAccent, 60, '', '')),
               Expanded(
                   child: Container(
                 child: Column(

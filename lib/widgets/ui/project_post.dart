@@ -6,18 +6,20 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
 
 class ProjectPost extends StatefulWidget {
+  final String id;
   final String name;
   final String postText;
   final String profURL;
   final String date;
 
-  const ProjectPost(
-      {Key? key,
-      required this.name,
-      required this.postText,
-      required this.profURL,
-      required this.date})
-      : super(key: key);
+  const ProjectPost({
+    Key? key,
+    required this.id,
+    required this.name,
+    required this.postText,
+    required this.profURL,
+    required this.date,
+  }) : super(key: key);
 
   @override
   State<ProjectPost> createState() => _ProjectPostState();
@@ -53,8 +55,8 @@ class _ProjectPostState extends State<ProjectPost> {
                 Container(
                     margin: EdgeInsets.only(right: 15),
                     padding: EdgeInsets.only(),
-                    child: ProfilePicture(
-                        Colors.deepOrangeAccent, 60, widget.profURL)),
+                    child: ProfilePicture(Colors.deepOrangeAccent, 60,
+                        widget.profURL, widget.id)),
               Expanded(
                   child: Container(
                 child: Column(

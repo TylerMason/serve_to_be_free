@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:serve_to_be_free/data/projects/project_handlers.dart';
 
 import '../../../widgets/find_project_card.dart';
 
@@ -20,7 +21,7 @@ class _FindAProjectState extends State<FindAProject> {
   @override
   void initState() {
     super.initState();
-    _futureProjects = getProjects();
+    _futureProjects = ProjectHandlers.getProjects();
   }
 
   @override
@@ -39,10 +40,11 @@ class _FindAProjectState extends State<FindAProject> {
               itemCount: projects!.length,
               itemBuilder: (context, index) {
                 return ProjectCard.fromJson(projects[index]);
+                //print(ProjectCard.fromJson(projects[index]));
                 // print(projects[index]['members'].length.toString());
                 // return ProjectCard(
                 //   title: projects[index]['name'],
-                //   num_members: projects[index]['members'].length.toString(),
+                //   numMembers: projects[index]['members'].length.toString(),
                 // );
               },
             );
@@ -60,15 +62,15 @@ class _FindAProjectState extends State<FindAProject> {
     );
   }
 
-  Future<List<dynamic>> getProjects() async {
-    var url = Uri.parse('http://44.203.120.103:3000/projects');
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var jsonResponse = jsonDecode(response.body);
-      // print(jsonResponse);
-      return jsonResponse;
-    } else {
-      throw Exception('Failed to load projects');
-    }
-  }
+  // Future<List<dynamic>> getProjects() async {
+  //   var url = Uri.parse('http://44.203.120.103:3000/projects');
+  //   var response = await http.get(url);
+  //   if (response.statusCode == 200) {
+  //     var jsonResponse = jsonDecode(response.body);
+  //     // print(jsonResponse);
+  //     return jsonResponse;
+  //   } else {
+  //     throw Exception('Failed to load projects');
+  //   }
+  // }
 }

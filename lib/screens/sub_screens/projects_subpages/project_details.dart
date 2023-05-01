@@ -113,11 +113,13 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                       index -
                       1; // compute the index of the reversed list
                   return ProjectPost(
-                      name: projectData['posts'][reversedIndex]['name'],
-                      postText: projectData['posts'][reversedIndex]['text'],
-                      profURL:
-                          projectData['posts'][reversedIndex]['imageUrl'] ?? '',
-                      date: '');
+                    id: '',
+                    name: projectData['posts'][reversedIndex]['name'],
+                    postText: projectData['posts'][reversedIndex]['text'],
+                    profURL:
+                        projectData['posts'][reversedIndex]['imageUrl'] ?? '',
+                    date: '',
+                  );
                   // return DashboardUserDisplay(
                   //     dimension: 60.0,
                   //     name: projectData['posts']?[index]['text']);
@@ -170,7 +172,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
     final url = Uri.parse(
         'http://44.203.120.103:3000/projects/${projectData['_id']}/member');
     final Map<String, dynamic> data = {
-      'memberId': Provider.of<UserClass>(context, listen: false).id
+      'memberId': Provider.of<UserProvider>(context, listen: false).id
     };
     final response = await http.put(
       url,

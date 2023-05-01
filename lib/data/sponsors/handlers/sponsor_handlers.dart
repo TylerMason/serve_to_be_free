@@ -1,58 +1,51 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:serve_to_be_free/data/users/models/user_class.dart';
+import '../models/sponsor_model.dart';
 
 class SponsorHandlers {
-  //static const String _baseUrl = 'http://localhost:3000/users';
-  static const String _baseUrl = 'http://44.203.120.103:3000/sponsors';
+  static const String _baseUrl = 'http://44.203.120.103:3000';
 
-  static Future<UserClass?> createSponsors(UserClass user) async {
-    final _baseUrl = Uri.parse('http://44.203.120.103:3000/users');
-    final headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    };
-    final body = jsonEncode(user.toJson());
+  static Future<List<Sponsor>> getSponsorsByProjectId(String projectId) async {
+    final url = Uri.parse('$_baseUrl/projects/$projectId/sponsors');
 
     try {
-      // Check if an account with the provided email already exists
-      final existingUser = await getUserByEmail(user.email);
-      if (existingUser != null) {
-        return null;
-      }
-
-      // If not, create a new account
-      final response = await http.post(
-        _baseUrl,
-        headers: headers,
-        body: body,
-      );
-      if (response.statusCode == 201) {
-        print(response.body);
-
-        final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
-        final createdUser = UserClass.fromJson(jsonResponse);
-        print(createdUser.id);
-
-        return UserClass.fromJson(jsonResponse);
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonResponse = jsonDecode(response.body);
+        final sponsors =
+            jsonResponse.map((data) => Sponsor.fromJson(data)).toList();
+        return sponsors;
       } else {
-        return null;
+        throw Exception('Failed to get sponsors');
       }
-
-      //authenticate
     } catch (e) {
-      throw Exception('Failed to create user: $e');
+      throw Exception('Failed to get sponsors: $e');
     }
   }
 
-  static Future<UserClass?> getUserByEmail(String email) async {
-    final response = await http.get(Uri.parse('$_baseUrl/email/$email'));
+  static Future<Sponsor?> createSponsorForProject(
+      String projectId, Sponsor sponsor) async {
+    final url = Uri.parse('$_baseUrl/projects/$projectId/sponsors');
+    final headers = <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+    final body = jsonEncode(sponsor.toJson());
 
-    if (response.statusCode == 200) {
-      final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
-      return UserClass.fromJson(jsonResponse);
-    } else {
-      return null;
+    try {
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: body,
+      );
+
+      if (response.statusCode == 201) {
+        final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+        return Sponsor.fromJson(jsonResponse);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      throw Exception('Failed to create sponsor: $e');
     }
   }
 }

@@ -20,6 +20,7 @@ class DashboardUserDisplay extends StatelessWidget {
         Colors.blueAccent,
         dimension,
         '',
+        '',
         borderRadius: 7,
       ),
       Container(
