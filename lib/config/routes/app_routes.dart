@@ -33,6 +33,7 @@ import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/sponsor_a
 import 'package:serve_to_be_free/widgets/ui/my_scaffold.dart';
 
 import '../../screens/sub_screens/projects_subpages/find_a_project.dart';
+import '../../screens/sub_screens/projects_subpages/finish_projects.dart';
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -191,7 +192,7 @@ final goRouter = GoRouter(
           pageBuilder: (context, state) => NoTransitionPage(
             child: const MenuPage(
               myProfilePath: '/menu/myprofile',
-              myAccountPath: '/menu/myaccount',
+              finishProjectsPath: '/menu/finishprojects',
               //favoritesPath: '/menu/createprojects',
               howItWorksPath: '/menu/howitworks',
               aboutPath: '/menu/aboutservetobefree',
@@ -201,6 +202,10 @@ final goRouter = GoRouter(
             GoRoute(
               path: 'myprofile',
               builder: (context, state) => Profile(/*label: 'B'*/),
+            ),
+            GoRoute(
+              path: 'finishprojects',
+              builder: (context, state) => FinishProject(),
             ),
             GoRoute(
                 path: 'myaccount',

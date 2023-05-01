@@ -21,31 +21,33 @@ class UserProvider extends ChangeNotifier {
   late List<String> friends;
   late List<String> friendRequests;
 
-  void updateUser({
-    required String email,
-    required String password,
-    required String firstName,
-    required String lastName,
-    required String profilePictureUrl,
-    required String bio,
-    required String coverPictureUrl,
-    required bool isLeader,
-    required List<String> friends,
-    required List<String> friendRequests,
-  }) {
-    this.email = email;
-    this.password = password;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.profilePictureUrl = profilePictureUrl;
-    this.bio = bio;
-    this.coverPictureUrl = coverPictureUrl;
-    this.isLeader = isLeader;
-    this.friends = friends;
-    this.friendRequests = friendRequests;
+  // void updateUser({
+  //   required String id,
+  //   required String email,
+  //   required String password,
+  //   required String firstName,
+  //   required String lastName,
+  //   required String profilePictureUrl,
+  //   required String bio,
+  //   required String coverPictureUrl,
+  //   required bool isLeader,
+  //   required List<String> friends,
+  //   required List<String> friendRequests,
+  // }) {
+  //   this.id = id;
+  //   this.email = email;
+  //   this.password = password;
+  //   this.firstName = firstName;
+  //   this.lastName = lastName;
+  //   this.profilePictureUrl = profilePictureUrl;
+  //   this.bio = bio;
+  //   this.coverPictureUrl = coverPictureUrl;
+  //   this.isLeader = isLeader;
+  //   this.friends = friends;
+  //   this.friendRequests = friendRequests;
 
-    notifyListeners();
-  }
+  notifyListeners();
+}
 
   // Future<UserClass?> getUserByEmail(String email) async {
   //   final response = await http.get(Uri.parse('$_baseUrl?email=$email'));
@@ -72,4 +74,4 @@ class UserProvider extends ChangeNotifier {
   // }
   //   notifyListeners();
   // }
-}
+

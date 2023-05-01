@@ -59,19 +59,34 @@ class ProjectCard extends StatelessWidget {
                           Text('${project['date']}'),
                         SizedBox(height: 8.0),
                         Text('$numMembers Members'),
+                        SizedBox(height: 12.0),
+                        Text(
+                            (project['isCompleted'] == true ? 'Completed' : ''),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
                       ],
                     ),
                     if (project.containsKey('projectPicture') &&
                         project['projectPicture'].isNotEmpty)
                       ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        child: Image.network(
-                          project['projectPicture'],
+                        child: FadeInImage.assetNetwork(
+                          placeholder: 'assets/images/curious_lemur.jpeg',
+                          image: project['projectPicture'],
                           fit: BoxFit
+
                               .cover, // Adjust the image to fit the widget
                           width: 120, // Set the width of the widget
                           height: 120, // Set the height of the widget
+
                         ),
+                        // Image.network(
+                        //   project['projectPicture'],
+                        //   fit: BoxFit
+                        //       .cover, // adjust the image to fit the widget
+                        //   height: 130, // set the height of the widget
+                        // ),
                       ),
                   ]),
             ),

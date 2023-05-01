@@ -66,8 +66,18 @@ class _ChooseProfilePictureState extends State<ChooseProfilePicture> {
       if (updatedUser != null) {
         // User was successfully updated
         print('User created and updated: ${updatedUser.toJson()}');
-
-        authenticateUser(updatedUser.email, updatedUser.password);
+        Provider.of<UserProvider>(context, listen: false).email =
+            updatedUser.email;
+        Provider.of<UserProvider>(context, listen: false).id = updatedUser.id;
+        Provider.of<UserProvider>(context, listen: false).firstName =
+            updatedUser.firstName;
+        Provider.of<UserProvider>(context, listen: false).lastName =
+            updatedUser.lastName;
+        if (updatedUser.profilePictureUrl != null) {
+          Provider.of<UserProvider>(context, listen: false).profilePictureUrl =
+              updatedUser.profilePictureUrl;
+        }
+        context.go('/projects');
       } else {
         // Failed to update user
         throw Exception("failed to update profile picture of user.");

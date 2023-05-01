@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -28,6 +29,28 @@ class ProjectPost extends StatefulWidget {
 class _ProjectPostState extends State<ProjectPost> {
   // How are we going to tie this to different users?
   bool isLiked = false;
+  MaterialAccentColor getRandomAccentColor() {
+    final colors = [
+      Colors.redAccent,
+      Colors.pinkAccent,
+      Colors.purpleAccent,
+      Colors.deepPurpleAccent,
+      Colors.indigoAccent,
+      Colors.blueAccent,
+      Colors.lightBlueAccent,
+      Colors.cyanAccent,
+      Colors.tealAccent,
+      Colors.greenAccent,
+      Colors.lightGreenAccent,
+      Colors.limeAccent,
+      Colors.yellowAccent,
+      Colors.amberAccent,
+      Colors.orangeAccent,
+      Colors.deepOrangeAccent,
+    ];
+    final random = Random();
+    return colors[random.nextInt(colors.length)];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +78,10 @@ class _ProjectPostState extends State<ProjectPost> {
                 Container(
                     margin: EdgeInsets.only(right: 15),
                     padding: EdgeInsets.only(),
+
                     child: ProfilePicture(Colors.deepOrangeAccent, 60,
                         widget.profURL, widget.id)),
+
               Expanded(
                   child: Container(
                 child: Column(

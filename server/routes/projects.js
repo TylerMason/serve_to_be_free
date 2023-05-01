@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Project = require('../models/project.js');
+const us = require('us');
 
 
 // Get only incomplete projects
@@ -41,7 +42,11 @@ router.post('/', async (req, res) => {
     members: [],
     projectPicture: req.body.projectPhoto,
     posts: [],
-    date: req.body.date
+    date: req.body.date,
+    isCompleted: false,
+    bio: req.body.bio,
+    city: req.body.city,
+    state: us.lookup(req.body.state).abbr
   });
 
   try {
@@ -73,6 +78,29 @@ router.patch('/:id', getProject, async (req, res) => {
   }
 
   try {
+    const updatedProject = await res.project.save();
+    res.json(updatedProject);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// Update project completion status
+router.put('/:id/complete', getProject, async (req, res) => {
+  try {
+    res.project.isCompleted = true;
+    const updatedProject = await res.project.save();
+    res.json(updatedProject);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+router.put('/:id/hours-spent', getProject, async (req, res) => {
+  try {
+    const hoursSpent = req.body.hoursSpent;
+    res.project.hoursSpent = hoursSpent;
+
     const updatedProject = await res.project.save();
     res.json(updatedProject);
   } catch (err) {

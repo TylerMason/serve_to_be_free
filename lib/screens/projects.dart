@@ -34,6 +34,8 @@ class ProjectsPage extends StatefulWidget {
 class _ProjectsPageState extends State<ProjectsPage> {
   List<dynamic> projectData = [];
   int numProjs = 0;
+  int hoursSpent = 0;
+  int numMembers = 0;
 
   Future<List<dynamic>> getProjects() async {
     var url = Uri.parse('http://44.203.120.103:3000/projects');
@@ -43,11 +45,14 @@ class _ProjectsPageState extends State<ProjectsPage> {
       numProjs = jsonResponse.length;
       var myProjs = [];
       var counter = 0;
-      while (counter < 2) {
-        for (var proj in jsonResponse) {
-          for (var member in proj['members']) {
-            if (Provider.of<UserProvider>(context, listen: false).id ==
-                member) {
+      for (var proj in jsonResponse) {
+        if (proj.containsKey('hoursSpent')) {
+          int projHours = proj['hoursSpent'].toInt();
+          hoursSpent += projHours;
+        }
+        for (var member in proj['members']) {
+          if (Provider.of<UserProvider>(context, listen: false).id == member) {
+            if (counter <= 2) {
               myProjs.add(proj);
               counter++;
             }
@@ -56,6 +61,18 @@ class _ProjectsPageState extends State<ProjectsPage> {
         counter = 2;
       }
       return myProjs;
+    } else {
+      throw Exception('Failed to load projects');
+    }
+  }
+
+  Future<int> getNumUsers() async {
+    var url = Uri.parse('http://10.0.2.2:3000/users/numMembers');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+
+      return jsonResponse['numUsers'];
     } else {
       throw Exception('Failed to load projects');
     }
@@ -75,6 +92,15 @@ class _ProjectsPageState extends State<ProjectsPage> {
         }
       });
     });
+    getNumUsers().then(
+      (data) => {
+        setState(
+          () {
+            numMembers = data;
+          },
+        ),
+      },
+    );
   }
 
   void findAPojectButton(
@@ -145,9 +171,12 @@ class _ProjectsPageState extends State<ProjectsPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ProjectAppbarDisplay(subject: "Members", value: "9,812"),
+                      ProjectAppbarDisplay(
+                          subject: "Members", value: numMembers.toString()),
                       ProjectAppbarDisplay(
                           subject: "Projects", value: numProjs.toString()),
+                      ProjectAppbarDisplay(
+                          subject: "Hours", value: hoursSpent.toString()),
                     ],
                   ),
                 ],

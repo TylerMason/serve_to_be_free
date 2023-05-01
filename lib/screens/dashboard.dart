@@ -32,12 +32,16 @@ final List<Widget> myWidgets = [
 
 class _DashboardPageState extends State<DashboardPage> {
   List<dynamic> posts = [];
+  List<dynamic> profPics = ["", "", "", "", ""];
+  List<dynamic> names = ["", "", "", "", ""];
 
   Future<List<dynamic>> getPosts() async {
+
     //final userId = Provider.of<UserProvider>(context, listen: false).id;
     final url = Uri.parse(
         'http://44.203.120.103:3000/users/${Provider.of<UserProvider>(context, listen: false).id}/myPosts');
     //'http://10.0.2.2:3000/users/${userId}/myPosts');
+
 
     var response = await http.get(url);
     if (response.statusCode == 200) {
@@ -46,6 +50,54 @@ class _DashboardPageState extends State<DashboardPage> {
     } else {
       throw Exception('Failed to load projects');
     }
+  }
+
+  Future<List<dynamic>> getUsers() async {
+    var url = Uri.parse('http://44.203.120.103:3000/users');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      jsonResponse.shuffle();
+
+      return jsonResponse;
+    } else {
+      throw Exception('Failed to load projects');
+    }
+  }
+
+  List<dynamic> getProfPics(users) {
+    var profPicsUrls = [];
+
+    for (var user in users) {
+      var url = user['profilePictureUrl'];
+      if (url != null && url != "") {
+        profPicsUrls.add(url);
+      }
+      if (profPicsUrls.length == 5) {
+        return profPicsUrls;
+      }
+    }
+    for (var i = profPicsUrls.length; i < 5; i++) {
+      profPicsUrls.add("");
+    }
+    return profPicsUrls;
+  }
+
+  List<dynamic> setNames(users) {
+    var namesStr = [];
+    for (var user in users) {
+      var url = user['profilePictureUrl'];
+      if (url != null && url != "") {
+        namesStr.add(user['firstName']);
+      }
+      if (namesStr.length == 5) {
+        return namesStr;
+      }
+    }
+    for (var i = namesStr.length; i < 5; i++) {
+      namesStr.add("");
+    }
+    return namesStr;
   }
 
   @override
@@ -58,6 +110,12 @@ class _DashboardPageState extends State<DashboardPage> {
         posts = data;
       });
     });
+    getUsers().then((data) => {
+          setState(() {
+            profPics = getProfPics(data);
+            names = setNames(data);
+          })
+        });
   }
 
   @override
@@ -97,9 +155,9 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                     ),
                     child: DashboardUserDisplay(
-                      dimension: 80.0,
-                      name: "Shannon",
-                    ),
+                        dimension: 80.0,
+                        name: names[0] ?? "",
+                        url: profPics[0] ?? ""),
                   ),
                   // Container(
                   //   padding: EdgeInsets.all(20),
@@ -115,15 +173,21 @@ class _DashboardPageState extends State<DashboardPage> {
                       children: [
                         // LIST OF USERS
                         DashboardUserDisplay(
-                          dimension: 60.0,
-                          name: "Stephanie",
-                        ),
+                            dimension: 60.0,
+                            name: names[1] ?? "",
+                            url: profPics[1] ?? ""),
                         DashboardUserDisplay(
-                            dimension: 60.0, name: "Stephanie"),
+                            dimension: 60.0,
+                            name: names[2] ?? "",
+                            url: profPics[2] ?? ""),
                         DashboardUserDisplay(
-                            dimension: 60.0, name: "Stephanie"),
+                            dimension: 60.0,
+                            name: names[3] ?? "",
+                            url: profPics[3] ?? ""),
                         DashboardUserDisplay(
-                            dimension: 60.0, name: "Stephanie"),
+                            dimension: 60.0,
+                            name: names[4] ?? "",
+                            url: profPics[4] ?? ""),
                       ],
                     ),
                   ))),
@@ -198,6 +262,18 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                 ]),
           ),
+          if (posts.isEmpty)
+            Container(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                "Join a project then view posts here",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
           Container(
             child: Expanded(
               child: ListView.builder(

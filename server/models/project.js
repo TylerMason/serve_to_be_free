@@ -9,6 +9,10 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  bio: {
+    type: String,
+    required: false
+  },
   description: {
     type: String,
     required: true
@@ -19,6 +23,10 @@ const projectSchema = new mongoose.Schema({
   },
   state: {
     type: String,
+    required: false
+  },
+  hoursSpent: {
+    type: Number,
     required: false
   },
   date: {
@@ -59,7 +67,11 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  sponsors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Sponsor' }]
+  sponsors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Sponsor' }],
+  isCompleted: {
+    type: Boolean,
+    required: true
+  }
 
 });
 
