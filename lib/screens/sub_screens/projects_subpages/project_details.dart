@@ -25,13 +25,23 @@ class ProjectDetails extends StatefulWidget {
 
 class _ProjectDetailsState extends State<ProjectDetails> {
   Map<String, dynamic> projectData = {};
+  var sponsor = 0.0;
 
   Future<Map<String, dynamic>> getProjects() async {
     var url = Uri.parse('http://44.203.120.103:3000/projects/${widget.id}');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
+      // print(jsonResponse['sponsors']);
+      if (jsonResponse.containsKey('sponsors')) {
+        if (jsonResponse['sponsors'].length > 0) {
+          for (var sponsorId in jsonResponse['sponsors']) {
+            var sponsorObj = await getSponsor(sponsorId);
+
+            sponsor += sponsorObj['amount'];
+          }
+        }
+      }
 
       for (var post in jsonResponse['posts']) {
         post['date'] = convertDate(post['date']);
@@ -39,6 +49,17 @@ class _ProjectDetailsState extends State<ProjectDetails> {
       return jsonResponse;
     } else {
       throw Exception('Failed to load projects');
+    }
+  }
+
+  Future<Map<String, dynamic>> getSponsor(id) async {
+    final response =
+        await http.get(Uri.parse('http://44.203.120.103:3000/sponsors/$id'));
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      return jsonResponse as Map<String, dynamic>;
+    } else {
+      throw Exception('Failed to load sponsor');
     }
   }
 
@@ -69,8 +90,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   Widget build(BuildContext context) {
     final currentUserID = Provider.of<UserProvider>(context, listen: false).id;
     final members = projectData['members'] ?? [];
-    print(currentUserID);
-    print(members.toString());
+
     final hasJoined = members.contains(currentUserID);
 
     final joinButtonText = hasJoined ? 'Post' : 'Join';
@@ -98,6 +118,10 @@ class _ProjectDetailsState extends State<ProjectDetails> {
               projectData['name'] ?? '',
               style: TextStyle(fontSize: 20),
             ),
+            SizedBox(height: 10),
+            if (sponsor > 0)
+              Text(
+                  'Money pledged to this project: \$${sponsor.toStringAsFixed(2)}'),
             SizedBox(height: 10),
             if (projectData.containsKey('city'))
               Text('${projectData['city']}, ${projectData['state']}'),
@@ -135,7 +159,6 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                       index -
                       1; // compute the index of the reversed list
                   return ProjectPost(
-
                     id: '',
                     name: projectData['posts'][reversedIndex]['name'],
                     postText: projectData['posts'][reversedIndex]['text'],
@@ -204,7 +227,6 @@ class _ProjectDetailsState extends State<ProjectDetails> {
       },
       body: jsonEncode(data),
     );
-    print(response.toString());
 
     if (response.statusCode == 200) {
       // API call successful\
