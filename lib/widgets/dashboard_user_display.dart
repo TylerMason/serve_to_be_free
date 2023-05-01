@@ -26,9 +26,9 @@ class DashboardUserDisplay extends StatelessWidget {
         dimension,
 
         // '',
-        '',
 
         url,
+        '',
 
         borderRadius: 7,
       ),

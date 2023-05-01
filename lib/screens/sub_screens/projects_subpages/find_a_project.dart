@@ -21,7 +21,7 @@ class _FindAProjectState extends State<FindAProject> {
   @override
   void initState() {
     super.initState();
-    _futureProjects = ProjectHandlers.getProjects();
+    _futureProjects = ProjectHandlers.getProjectsIncomplete();
   }
 
   @override
@@ -83,5 +83,4 @@ class _FindAProjectState extends State<FindAProject> {
   //     throw Exception('Failed to load projects');
   //   }
   // }
-
 }
