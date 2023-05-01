@@ -17,6 +17,7 @@ import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/my_account_su
 import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/my_account_subpages/my_account_general_info.dart';
 import 'package:serve_to_be_free/screens/sub_screens/menu_subpages/my_account_subpages/my_account_login_info.dart';
 import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/create_a_project/invite_a_leader.dart';
+import 'package:serve_to_be_free/screens/sub_screens/projects_subpages/sponsor_a_project/sponsor_project_form.dart';
 import 'package:serve_to_be_free/screens/tasks.dart';
 import '../../screens/sub_screens/create_a_post.dart';
 import '../../screens/sub_screens/menu_subpages/about_page.dart';
@@ -120,10 +121,17 @@ final goRouter = GoRouter(
               builder: (context, state) => const LeadAProject(/*label: 'B'*/),
             ),
             GoRoute(
-              path: 'sponsorprojects',
-              builder: (context, state) =>
-                  const SponsorAProject(/*label: 'B'*/),
-            ),
+                path: 'sponsorprojects',
+                builder: (context, state) =>
+                    const SponsorAProject(/*label: 'B'*/),
+                routes: [
+                  GoRoute(
+                    path: 'sponsorprojectform:id',
+                    name: 'sponsorprojectform',
+                    builder: (context, state) =>
+                        SponsorProjectForm(projectId: state.params['id']),
+                  ),
+                ]),
             GoRoute(
               path: 'myprojects',
               builder: (context, state) => const MyProjects(),
