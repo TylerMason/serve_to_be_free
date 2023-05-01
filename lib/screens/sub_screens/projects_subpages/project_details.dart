@@ -31,6 +31,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
+      print(jsonResponse);
+
       for (var post in jsonResponse['posts']) {
         post['date'] = convertDate(post['date']);
       }

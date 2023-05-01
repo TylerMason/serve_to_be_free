@@ -67,7 +67,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
   }
 
   Future<int> getNumUsers() async {
-    var url = Uri.parse('http://10.0.2.2:3000/users/numMembers');
+    var url = Uri.parse('http://44.203.120.103:3000/users/numMembers');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);

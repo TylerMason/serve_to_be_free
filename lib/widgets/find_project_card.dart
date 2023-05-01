@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,7 +27,7 @@ class ProjectCard extends StatelessWidget {
     return Center(
       child: Container(
         width: double.infinity,
-        height: 140.0,
+        // height: 140.0,
         child: GestureDetector(
           onTap: () {
             print(project['projectPicture']);
@@ -39,17 +41,22 @@ class ProjectCard extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(8.0),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
+                        Container(
+                          width: 200, // set the desired width for the text
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow: TextOverflow.visible,
                           ),
                         ),
                         if (project.containsKey('city'))
@@ -63,28 +70,31 @@ class ProjectCard extends StatelessWidget {
                             (project['isCompleted'] == true ? 'Completed' : ''),
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              color: Colors.redAccent,
                             )),
                       ],
                     ),
-                    if (project.containsKey('projectPicture') &&
-                        project['projectPicture'].isNotEmpty)
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: FadeInImage.assetNetwork(
-                          placeholder: 'assets/images/curious_lemur.jpeg',
-                          image: project['projectPicture'],
-                          fit: BoxFit
-                              .cover, // adjust the image to fit the widget
-                          height: 130,
-                        ),
-                        // Image.network(
-                        //   project['projectPicture'],
-                        //   fit: BoxFit
-                        //       .cover, // adjust the image to fit the widget
-                        //   height: 130, // set the height of the widget
-                        // ),
+                  ),
+                  if (project.containsKey('projectPicture') &&
+                      project['projectPicture'].isNotEmpty)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: FadeInImage.assetNetwork(
+                        placeholder: 'assets/images/curious_lemur.jpeg',
+                        image: project['projectPicture'],
+                        fit: BoxFit.cover, // adjust the image to fit the widget
+                        height: 130,
+                        width: 160,
                       ),
-                  ]),
+                      // Image.network(
+                      //   project['projectPicture'],
+                      //   fit: BoxFit
+                      //       .cover, // adjust the image to fit the widget
+                      //   height: 130, // set the height of the widget
+                      // ),
+                    ),
+                ],
+              ),
             ),
           ),
         ),

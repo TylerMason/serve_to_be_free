@@ -74,7 +74,7 @@ class _FinishProjectState extends State<FinishProject> {
               );
             }
             return ListView.builder(
-              itemCount: projects!.length,
+              itemCount: projects.length,
               itemBuilder: (context, index) {
                 return FinishProjectCard.fromJson(
                   projects[index],

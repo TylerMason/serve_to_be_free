@@ -212,11 +212,11 @@ class _DashboardPageState extends State<DashboardPage> {
                     padding: EdgeInsets.all(10),
                     child: Row(
                       children: [
-                        Icon(Icons.menu_open_rounded, color: Colors.white),
+                        // Icon(Icons.menu_open_rounded, color: Colors.white),
                         Container(
                           padding: EdgeInsets.all(5),
                           child: Text(
-                            "Friends",
+                            "All Posts",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
