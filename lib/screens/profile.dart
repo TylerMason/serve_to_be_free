@@ -18,7 +18,7 @@ class Profile extends StatefulWidget {
 class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    _tabController = new TabController(length: 2, vsync: this);
+    _tabController = new TabController(length: 1, vsync: this);
     _futureProjects = getMyProjects();
 
     super.initState();
@@ -114,7 +114,7 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       Container(
         padding: EdgeInsets.only(top: 10),
         child: Text(
-          "Placeholder",
+          "${Provider.of<UserProvider>(context, listen: false).firstName} ${Provider.of<UserProvider>(context, listen: false).lastName}",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 24,
@@ -153,9 +153,9 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             Tab(
               text: "Projects",
             ),
-            Tab(
-              text: "About Me",
-            )
+            // Tab(
+            //   text: "About Me",
+            // )
           ],
           controller: _tabController,
           indicatorSize: TabBarIndicatorSize.tab,
@@ -191,9 +191,9 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                 }
               },
             ),
-            Container(
-              color: Colors.greenAccent,
-            ),
+            // Container(
+            //   color: Colors.greenAccent,
+            // ),
           ],
           controller: _tabController,
         ),
