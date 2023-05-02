@@ -25,7 +25,7 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
   TextEditingController _amountController = TextEditingController();
 
   void _submitSponsorship() async {
-    final amount = _amountController.text;
+    final amount = double.parse(_amountController.text);
     final userId = Provider.of<UserProvider>(context, listen: false).id;
 
     final sponsorData = {
@@ -105,61 +105,61 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
         backgroundColor: Color.fromARGB(255, 16, 34, 65),
         title: const Text('Sponsor A Project'),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 50),
-              if (projectData.containsKey('projectPicture') &&
-                  projectData['projectPicture'].isNotEmpty)
-                Image.network(
-                  projectData['projectPicture'],
-                  fit: BoxFit.cover,
-                  width: 300,
-                  height: 300,
-                ),
-              SizedBox(height: 20),
-              Text(
-                projectData['name'] ?? '',
-                style: TextStyle(fontSize: 20),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            if (projectData.containsKey('projectPicture') &&
+                projectData['projectPicture'].isNotEmpty)
+              Image.network(
+                projectData['projectPicture'],
+                fit: BoxFit.cover,
+                width: 300,
+                height: 300,
               ),
-              SizedBox(height: 10),
-              if (projectData.containsKey('description'))
-                Center(
-                  child: Text(
-                    '${projectData['description']}',
-                    textAlign: TextAlign.center,
-                  ),
+            SizedBox(height: 20),
+            Text(
+              projectData['name'] ?? '',
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(height: 10),
+            if (projectData.containsKey('description'))
+              Center(
+                child: Text(
+                  '${projectData['description']}',
+                  textAlign: TextAlign.center,
                 ),
-
-                keyboardType: TextInputType.numberWithOptions(
-                    decimal: true), // Accepts a number input
+              ),
+            SizedBox(height: 20),
+            Container(
+              width: 200,
+              child: TextFormField(
+                controller: _amountController,
+                decoration: InputDecoration(
+                  prefixText: '\$',
+                  labelText: 'Sponsorship Amount',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(
-                      r'^\d+\.?\d{0,2}')), // Restricts input to decimal numbers with up to 2 decimal places
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
                 ],
                 style: TextStyle(
                   fontSize: 20,
                 ),
-                onChanged: (value) {
-                  // Convert the input value to a number and store it in a variable
-                  final amount = double.tryParse(value);
-                  // Use the amount variable for further processing
-                },
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _submitSponsorship,
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 16, 34, 65),
-                  ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _submitSponsorship,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromARGB(255, 16, 34, 65),
                 ),
-                child: Text('Submit Sponsorship'),
               ),
-            ],
-          ),
+              child: Text('Submit Sponsorship'),
+            ),
+          ],
         ),
       ),
     );
