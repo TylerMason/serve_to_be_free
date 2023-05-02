@@ -6,6 +6,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:serve_to_be_free/widgets/buttons/menu_button.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
+import 'package:serve_to_be_free/data/users/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class MenuPage extends StatelessWidget {
   final myProfilePath;
@@ -48,7 +50,11 @@ class MenuPage extends StatelessWidget {
             child: Column(
               children: [
                 MenuButton(
-                    ProfilePicture(Colors.amberAccent, 45, '', '',
+                    ProfilePicture(
+                        Colors.amberAccent,
+                        45,
+                        Provider.of<UserProvider>(context).profilePictureUrl,
+                        '',
                         borderRadius: 7),
                     "My Profile",
                     myProfilePath),

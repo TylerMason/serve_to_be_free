@@ -140,6 +140,11 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                 context.pushNamed("projectabout",
                     params: {'id': projectData['_id']});
               },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromARGB(255, 16, 34, 65),
+                ),
+              ),
               child: Text('About'),
             ),
             ElevatedButton(
@@ -150,6 +155,11 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                   {onPostClick(currentUserID)}
               },
               child: Text(joinButtonText),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromARGB(255, 16, 34, 65),
+                ),
+              ),
             ),
             Expanded(
               child: ListView.builder(
@@ -164,7 +174,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                     postText: projectData['posts'][reversedIndex]['text'],
                     profURL:
                         projectData['posts'][reversedIndex]['imageUrl'] ?? '',
-                    date: '',
+                    date: projectData['posts'][reversedIndex]['date'] ?? '',
                   );
                   // return DashboardUserDisplay(
                   //     dimension: 60.0,

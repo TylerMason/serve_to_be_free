@@ -60,7 +60,7 @@ class _FindAProjectState extends State<FindAProject> {
                     });
                   },
                   decoration: InputDecoration(
-                    hintText: 'Search for Cities',
+                    hintText: 'Search by location',
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(

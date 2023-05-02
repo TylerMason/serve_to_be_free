@@ -2,9 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:serve_to_be_free/data/users/models/user_class.dart';
+import 'package:serve_to_be_free/data/users/providers/user_provider.dart';
 import 'package:serve_to_be_free/widgets/profile_picture.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
+import '../widgets/find_project_card.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -15,6 +19,8 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _tabController = new TabController(length: 2, vsync: this);
+    _futureProjects = getMyProjects();
+
     super.initState();
   }
 
@@ -30,6 +36,39 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   }
 
   late TabController _tabController;
+  late Future<List<dynamic>> _futureProjects = Future.value([]);
+
+  Future<List<dynamic>> getMyProjects() async {
+    var url = Uri.parse('http://44.203.120.103:3000/projects');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var myprojs = [];
+      for (var proj in jsonResponse) {
+        for (var member in proj['members']) {
+          if (member == Provider.of<UserProvider>(context, listen: false).id) {
+            myprojs.add(proj);
+          }
+        }
+      }
+      // Sort the list based on isCompleted
+      myprojs.sort((a, b) {
+        // If a.isCompleted is false or null and b.isCompleted is true, a comes first
+        if (a['isCompleted'] == false || a['isCompleted'] == null) {
+          return -1;
+        }
+        // If a.isCompleted is true and b.isCompleted is false or null, b comes first
+        if (b['isCompleted'] == false || b['isCompleted'] == null) {
+          return 1;
+        }
+        // Otherwise, use default comparison (b comes before a if they have the same isCompleted value)
+        return b['date'].compareTo(a['date']);
+      });
+      return myprojs;
+    } else {
+      throw Exception('Failed to load projects');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +104,7 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                     child: ProfilePicture(
                       Colors.pinkAccent,
                       120,
-                      '',
+                      Provider.of<UserProvider>(context).profilePictureUrl,
                       '',
                       borderRadius: 10,
                     ),
@@ -83,19 +122,19 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           ),
         ),
       ),
-      Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.location_on_outlined, size: 16, color: Colors.grey),
-            // Not sure if this is the best way to do it but we will see.
-            SizedBox(
-              width: 10,
-            ),
-            Text("Salt Lake City, UT", style: TextStyle(color: Colors.grey))
-          ],
-        ),
-      ),
+      // Container(
+      //   child: Row(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       Icon(Icons.location_on_outlined, size: 16, color: Colors.grey),
+      //       // Not sure if this is the best way to do it but we will see.
+      //       SizedBox(
+      //         width: 10,
+      //       ),
+      //       Text("Salt Lake City, UT", style: TextStyle(color: Colors.grey))
+      //     ],
+      //   ),
+      // ),
       Container(
         // decoration: BoxDecoration(
         //   boxShadow: [
@@ -125,8 +164,32 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       Expanded(
         child: TabBarView(
           children: [
-            Container(
-              color: Colors.redAccent,
+            FutureBuilder<List<dynamic>>(
+              future: _futureProjects,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<dynamic>? projects = snapshot.data;
+                  return ListView.builder(
+                    itemCount: projects!.length,
+                    itemBuilder: (context, index) {
+                      return ProjectCard.fromJson(projects[index]);
+                      // print(projects[index]['members'].length.toString());
+                      // return ProjectCard(
+                      //   title: projects[index]['name'],
+                      //   num_members: projects[index]['members'].length.toString(),
+                      // );
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text("Failed to load projects."),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
             ),
             Container(
               color: Colors.greenAccent,

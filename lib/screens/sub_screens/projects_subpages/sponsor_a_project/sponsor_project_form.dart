@@ -105,41 +105,34 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
         backgroundColor: Color.fromARGB(255, 16, 34, 65),
         title: const Text('Sponsor A Project'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            if (projectData.containsKey('projectPicture') &&
-                projectData['projectPicture'].isNotEmpty)
-              Image.network(
-                projectData['projectPicture'],
-                fit: BoxFit.cover,
-                width: 300,
-                height: 300,
-              ),
-            SizedBox(height: 20),
-            Text(
-              projectData['name'] ?? '',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 10),
-            if (projectData.containsKey('description'))
-              Center(
-                child: Text(
-                  '${projectData['description']}',
-                  textAlign: TextAlign.center,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 50),
+              if (projectData.containsKey('projectPicture') &&
+                  projectData['projectPicture'].isNotEmpty)
+                Image.network(
+                  projectData['projectPicture'],
+                  fit: BoxFit.cover,
+                  width: 300,
+                  height: 300,
                 ),
+              SizedBox(height: 20),
+              Text(
+                projectData['name'] ?? '',
+                style: TextStyle(fontSize: 20),
               ),
-            SizedBox(height: 20),
-            Container(
-              width: 200,
-              child: TextFormField(
-                controller: _amountController,
-                decoration: InputDecoration(
-                  prefixText: '\$',
-                  labelText: 'Sponsorship Amount',
-                  border: OutlineInputBorder(),
+              SizedBox(height: 10),
+              if (projectData.containsKey('description'))
+                Center(
+                  child: Text(
+                    '${projectData['description']}',
+                    textAlign: TextAlign.center,
+                  ),
                 ),
+
                 keyboardType: TextInputType.numberWithOptions(
                     decimal: true), // Accepts a number input
                 inputFormatters: [
@@ -155,18 +148,18 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
                   // Use the amount variable for further processing
                 },
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _submitSponsorship,
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromARGB(255, 16, 34, 65),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _submitSponsorship,
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 16, 34, 65),
+                  ),
                 ),
+                child: Text('Submit Sponsorship'),
               ),
-              child: Text('Submit Sponsorship'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
