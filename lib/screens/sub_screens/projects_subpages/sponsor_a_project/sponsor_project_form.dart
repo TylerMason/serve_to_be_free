@@ -132,24 +132,21 @@ class _SponsorProjectFormState extends State<SponsorProjectForm> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-              SizedBox(height: 20),
-              Container(
-                width: 200,
-                child: TextFormField(
-                  controller: _amountController,
-                  decoration: InputDecoration(
-                    prefixText: '\$',
-                    labelText: 'Sponsorship Amount',
-                    border: OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                  ],
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
+
+                keyboardType: TextInputType.numberWithOptions(
+                    decimal: true), // Accepts a number input
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(
+                      r'^\d+\.?\d{0,2}')), // Restricts input to decimal numbers with up to 2 decimal places
+                ],
+                style: TextStyle(
+                  fontSize: 20,
                 ),
+                onChanged: (value) {
+                  // Convert the input value to a number and store it in a variable
+                  final amount = double.tryParse(value);
+                  // Use the amount variable for further processing
+                },
               ),
               SizedBox(height: 20),
               ElevatedButton(
