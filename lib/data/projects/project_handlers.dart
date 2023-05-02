@@ -71,7 +71,7 @@ class ProjectHandlers {
     final url =
         Uri.parse('http://44.203.120.103:3000/projects/$projId/sponsors');
     //final Map<String, dynamic> data = {'amount': '', 'user': userId};
-    final response = await http.post(
+    final response = await http.put(
       url,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
