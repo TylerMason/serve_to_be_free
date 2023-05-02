@@ -80,14 +80,39 @@ class ProjectCard extends StatelessWidget {
                       project['projectPicture'].isNotEmpty)
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5),
-                      child: FadeInImage.assetNetwork(
-                        placeholder: 'assets/images/curious_lemur.jpeg',
-                        image: project['projectPicture'],
-                        fit: BoxFit.cover, // adjust the image to fit the widget
+                      child: Image.network(
+                        project['projectPicture'],
+                        fit: BoxFit.cover,
                         height: 130,
                         width: 160,
-
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Container(
+                              height: 130,
+                              width: 160,
+                              child: Padding(
+                                padding: EdgeInsets.all(30),
+                                child: CircularProgressIndicator(),
+                              ));
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: Colors.grey,
+                            child: Icon(
+                              Icons.error,
+                              color: Colors.white,
+                            ),
+                          );
+                        },
                       ),
+                      // FadeInImage.assetNetwork(
+                      //                 placeholder: 'assets/images/curious_lemur.jpeg',
+                      //                 image: project['projectPicture'],
+                      //                 fit: BoxFit.cover, // adjust the image to fit the widget
+                      // height: 130,
+                      // width: 160,
+
+                      //               ),
                       // Image.network(
                       //   project['projectPicture'],
                       //   fit: BoxFit

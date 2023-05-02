@@ -205,14 +205,14 @@ class _ProjectsPageState extends State<ProjectsPage> {
                     size: 28.0,
                   ),
                   widget.createProjectsPath),
-              wideBorderButton(
-                  "Lead a Project",
-                  Icon(
-                    Icons.star_border_rounded,
-                    color: Colors.amberAccent[400],
-                    size: 28.0,
-                  ),
-                  widget.leadProjectsPath),
+              // wideBorderButton(
+              //     "Lead a Project",
+              //     Icon(
+              //       Icons.star_border_rounded,
+              //       color: Colors.amberAccent[400],
+              //       size: 28.0,
+              //     ),
+              //     widget.leadProjectsPath),
               wideBorderButton(
                   "Sponsor a Project",
                   Icon(
