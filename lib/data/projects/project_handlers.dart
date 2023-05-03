@@ -68,6 +68,7 @@ class ProjectHandlers {
   // }
 
   static Future<void> addSponsor(projId, sponsorData) async {
+    print(sponsorData);
     final url =
         Uri.parse('http://44.203.120.103:3000/projects/$projId/sponsors');
     //final Map<String, dynamic> data = {'amount': '', 'user': userId};
@@ -81,7 +82,7 @@ class ProjectHandlers {
 
     if (response.statusCode == 201) {
       // Sponsor created successfully
-      final sponsorId = jsonDecode(response.body)['id'];
+      final sponsorId = jsonDecode(response.body)['_id'];
       print('Sponsor created successfully with ID: $sponsorId');
     } else {
       // Failed to create sponsor

@@ -144,7 +144,7 @@ router.put('/:id/sponsors', getProject, async (req, res) => {
     const sponsor = new Sponsor({
       amount,
       user: req.user // Assuming req.user contains the user information
-    });
+  });
     
     // Save the sponsor to the database
     const newSponsor = await sponsor.save();
